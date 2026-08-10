@@ -1,3 +1,56 @@
+# ScrapeBadger Rust SDK
+
+[![version](https://img.shields.io/crates/v/scrapebadger-sdk)](https://crates.io/crates/scrapebadger-sdk) [![CI](https://img.shields.io/github/actions/workflow/status/scrape-badger/scrapebadger-rust/ci.yml?label=CI)](https://github.com/scrape-badger/scrapebadger-rust/actions) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+Official **Rust** SDK for [ScrapeBadger](https://scrapebadger.com) — one API key for
+30+ scraping APIs: Twitter/X, Reddit, Facebook, Instagram, TikTok, YouTube, Amazon, eBay,
+Walmart, Vinted, Google (18 products), Bing, Yahoo, ChatGPT, Perplexity, real estate, and
+any URL via the general Web Scraping API. Generated from the ScrapeBadger OpenAPI spec —
+always in sync with the API. ⚠️ This repository is regenerated automatically; don't send
+PRs here, request changes via the [roadmap](https://github.com/scrape-badger/roadmap).
+
+📚 [API docs](https://docs.scrapebadger.com) · 🧰 [All SDKs](https://scrapebadger.com/sdks) · 🔑 [Get an API key](https://scrapebadger.com/auth/signup) — 1,000 free credits
+
+## 🚀 Install
+
+```
+cargo add scrapebadger-sdk
+```
+
+## ⚡ Quick start
+
+```rust
+use scrapebadger_sdk::apis::{configuration::Configuration, twitter_api};
+
+#[tokio::main]
+async fn main() {
+    let mut config = Configuration::new();
+    config.api_key = Some(scrapebadger_sdk::apis::configuration::ApiKey {
+        prefix: None,
+        key: "YOUR_API_KEY".into(),
+    });
+
+    let user = twitter_api::twitter_get_user_by_username(&config, "elonmusk")
+        .await
+        .expect("request failed");
+    println!("{user:?}");
+}
+```
+
+Every scraper is available as its own API class (`TwitterApi`, `AmazonApi`, `GoogleApi`, …)
+with one method per endpoint — the full list is in the reference below.
+
+## 🛠 Development
+
+```sh
+cargo check            # compile
+cargo fmt -- --check   # format
+cargo clippy           # lint
+cargo test             # tests
+```
+
+---
+
 # Rust API client for scrapebadger-sdk
 
 Unified credit-based scraping API. https://docs.scrapebadger.com
