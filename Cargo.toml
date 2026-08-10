@@ -1,5 +1,5 @@
 [package]
-name = "scrapebadger-sdk"
+name = "scrapebadger"
 version = "0.1.0"
 authors = ["OpenAPI Generator team and contributors"]
 description = "Unified credit-based scraping API. https://docs.scrapebadger.com"

@@ -24,6 +24,7 @@ docs/FilterRuleResponse.md
 docs/FilterRuleUpdate.md
 docs/FilterRuleValidateRequest.md
 docs/FilterRuleValidateResponse.md
+docs/GeminiApi.md
 docs/GoogleApi.md
 docs/HttpValidationError.md
 docs/IdealistaApi.md
@@ -32,6 +33,7 @@ docs/InstagramApi.md
 docs/LeboncoinApi.md
 docs/LinkedInApi.md
 docs/LoopNetApi.md
+docs/PerplexityApi.md
 docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md
 docs/RealtorApi.md
 docs/RedditApi.md
@@ -72,6 +74,7 @@ src/apis/depop_api.rs
 src/apis/duck_duck_go_api.rs
 src/apis/e_bay_api.rs
 src/apis/facebook_api.rs
+src/apis/gemini_api.rs
 src/apis/google_api.rs
 src/apis/idealista_api.rs
 src/apis/immobiliare_api.rs
@@ -80,6 +83,7 @@ src/apis/leboncoin_api.rs
 src/apis/linked_in_api.rs
 src/apis/loop_net_api.rs
 src/apis/mod.rs
+src/apis/perplexity_api.rs
 src/apis/realtor_api.rs
 src/apis/reddit_api.rs
 src/apis/redfin_api.rs
