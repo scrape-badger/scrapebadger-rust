@@ -1,6 +1,14 @@
-# ScrapeBadger Rust SDK
+<p align="center">
+  <img src="https://scrapebadger.com/logo-dark.png" alt="ScrapeBadger" width="400">
+</p>
 
-[![version](https://img.shields.io/crates/v/scrapebadger-sdk)](https://crates.io/crates/scrapebadger-sdk) [![CI](https://img.shields.io/github/actions/workflow/status/scrape-badger/scrapebadger-rust/ci.yml?label=CI)](https://github.com/scrape-badger/scrapebadger-rust/actions) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+<h1 align="center">ScrapeBadger Rust SDK</h1>
+
+<p align="center">
+  <a href="https://crates.io/crates/scrapebadger-sdk"><img src="https://img.shields.io/crates/v/scrapebadger-sdk" alt="version"></a>
+  <a href="https://github.com/scrape-badger/scrapebadger-rust/actions"><img src="https://img.shields.io/github/actions/workflow/status/scrape-badger/scrapebadger-rust/ci.yml?label=CI" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="license"></a>
+</p>
 
 Official **Rust** SDK for [ScrapeBadger](https://scrapebadger.com) — one API key for
 30+ scraping APIs: Twitter/X, Reddit, Facebook, Instagram, TikTok, YouTube, Amazon, eBay,
