@@ -93,6 +93,7 @@ pub fn parse_deep_object(prefix: &str, value: &serde_json::Value) -> Vec<(String
 pub mod account_api;
 pub mod amazon_api;
 pub mod apartments_api;
+pub mod app_store_api;
 pub mod baidu_api;
 pub mod bing_api;
 pub mod chat_gpt_api;
@@ -102,6 +103,7 @@ pub mod e_bay_api;
 pub mod facebook_api;
 pub mod gemini_api;
 pub mod google_api;
+pub mod google_play_api;
 pub mod idealista_api;
 pub mod immobiliare_api;
 pub mod instagram_api;

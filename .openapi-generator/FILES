@@ -7,6 +7,7 @@ docs/AccountApi.md
 docs/AccountInfo.md
 docs/AmazonApi.md
 docs/ApartmentsApi.md
+docs/AppStoreApi.md
 docs/BaiduApi.md
 docs/BillingLogListResponse.md
 docs/BillingLogResponse.md
@@ -26,6 +27,7 @@ docs/FilterRuleValidateRequest.md
 docs/FilterRuleValidateResponse.md
 docs/GeminiApi.md
 docs/GoogleApi.md
+docs/GooglePlayApi.md
 docs/HttpValidationError.md
 docs/IdealistaApi.md
 docs/ImmobiliareApi.md
@@ -66,6 +68,7 @@ git_push.sh
 src/apis/account_api.rs
 src/apis/amazon_api.rs
 src/apis/apartments_api.rs
+src/apis/app_store_api.rs
 src/apis/baidu_api.rs
 src/apis/bing_api.rs
 src/apis/chat_gpt_api.rs
@@ -76,6 +79,7 @@ src/apis/e_bay_api.rs
 src/apis/facebook_api.rs
 src/apis/gemini_api.rs
 src/apis/google_api.rs
+src/apis/google_play_api.rs
 src/apis/idealista_api.rs
 src/apis/immobiliare_api.rs
 src/apis/instagram_api.rs
