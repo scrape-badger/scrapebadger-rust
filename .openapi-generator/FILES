@@ -5,6 +5,7 @@ Cargo.toml
 README.md
 docs/AccountApi.md
 docs/AccountInfo.md
+docs/AirbnbApi.md
 docs/AmazonApi.md
 docs/ApartmentsApi.md
 docs/AppStoreApi.md
@@ -66,6 +67,7 @@ docs/YouTubeApi.md
 docs/ZillowApi.md
 git_push.sh
 src/apis/account_api.rs
+src/apis/airbnb_api.rs
 src/apis/amazon_api.rs
 src/apis/apartments_api.rs
 src/apis/app_store_api.rs
