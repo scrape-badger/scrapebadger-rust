@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**tiktok_get_oembed_metadata**](TikTokApi.md#tiktok_get_oembed_metadata) | **GET** /v1/tiktok/oembed | Get oEmbed metadata
 [**tiktok_get_related_videos**](TikTokApi.md#tiktok_get_related_videos) | **GET** /v1/tiktok/videos/{video_id}/related | Get related videos
 [**tiktok_get_reposts**](TikTokApi.md#tiktok_get_reposts) | **GET** /v1/tiktok/users/{username}/reposts | Get reposts
+[**tiktok_get_tiktok_ad_detail**](TikTokApi.md#tiktok_get_tiktok_ad_detail) | **GET** /v1/tiktok/ads/{ad_id} | Get TikTok ad detail
 [**tiktok_get_transcript**](TikTokApi.md#tiktok_get_transcript) | **GET** /v1/tiktok/videos/{video_id}/transcript | Get transcript
 [**tiktok_get_user_profile**](TikTokApi.md#tiktok_get_user_profile) | **GET** /v1/tiktok/users/{username} | Get user profile
 [**tiktok_get_user_videos**](TikTokApi.md#tiktok_get_user_videos) | **GET** /v1/tiktok/users/{username}/videos | Get user videos
@@ -26,6 +27,7 @@ Method | HTTP request | Description
 [**tiktok_list_regions**](TikTokApi.md#tiktok_list_regions) | **GET** /v1/tiktok/regions | List regions
 [**tiktok_search_hashtags**](TikTokApi.md#tiktok_search_hashtags) | **GET** /v1/tiktok/search/hashtags | Search hashtags
 [**tiktok_search_the_tiktok_ad_library**](TikTokApi.md#tiktok_search_the_tiktok_ad_library) | **GET** /v1/tiktok/ads/search | Search the TikTok Ad Library
+[**tiktok_search_tiktok_advertisers**](TikTokApi.md#tiktok_search_tiktok_advertisers) | **GET** /v1/tiktok/ads/advertisers | Search TikTok advertisers
 [**tiktok_search_users**](TikTokApi.md#tiktok_search_users) | **GET** /v1/tiktok/search/users | Search users
 [**tiktok_search_videos**](TikTokApi.md#tiktok_search_videos) | **GET** /v1/tiktok/search/videos | Search videos
 [**tiktok_trending_hashtags**](TikTokApi.md#tiktok_trending_hashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags
@@ -453,6 +455,37 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## tiktok_get_tiktok_ad_detail
+
+> serde_json::Value tiktok_get_tiktok_ad_detail(ad_id, region)
+Get TikTok ad detail
+
+Get a single ad's advertiser, creatives, and targeting/impression breakdown.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**ad_id** | **String** |  | [required] |
+**region** | Option<**String**> | EU region code (the Ad Library is EU-only) |  |[default to DE]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## tiktok_get_transcript
 
 > serde_json::Value tiktok_get_transcript(video_id, region)
@@ -714,6 +747,38 @@ Name | Type | Description  | Required | Notes
 **offset** | Option<**i32**> |  |  |[default to 0]
 **search_id** | Option<**String**> |  |  |[default to ]
 **count** | Option<**i32**> |  |  |[default to 20]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_search_tiktok_advertisers
+
+> serde_json::Value tiktok_search_tiktok_advertisers(query, region, count)
+Search TikTok advertisers
+
+Look up TikTok advertiser business ids by name (feeds ads/search?advertiser_id=).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**query** | **String** | Advertiser name (or partial) to look up | [required] |
+**region** | Option<**String**> | EU region code (the Ad Library is EU-only) |  |[default to DE]
+**count** | Option<**i32**> |  |  |[default to 10]
 
 ### Return type
 
