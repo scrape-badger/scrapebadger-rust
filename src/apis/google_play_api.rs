@@ -95,7 +95,7 @@ pub enum GooglePlayTopChartsError {
 
 
 /// The top apps within a Play category.
-pub async fn google_play_browse_a_category(configuration: &configuration::Configuration, category_id: &str, country: Option<&str>, lang: Option<&str>) -> Result<serde_json::Value, Error<GooglePlayBrowseACategoryError>> {
+pub async fn google_play_browse_a_category(configuration: &configuration::Configuration, category_id: &str, country: Option<&str>, lang: Option<&str>, num: Option<i32>) -> Result<serde_json::Value, Error<GooglePlayBrowseACategoryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -108,6 +108,9 @@ pub async fn google_play_browse_a_category(configuration: &configuration::Config
     }
     if let Some(ref local_var_str) = lang {
         local_var_req_builder = local_var_req_builder.query(&[("lang", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = num {
+        local_var_req_builder = local_var_req_builder.query(&[("num", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -269,7 +272,7 @@ pub async fn google_play_get_app_reviews(configuration: &configuration::Configur
 }
 
 /// A developer's published apps.
-pub async fn google_play_get_developer_apps(configuration: &configuration::Configuration, developer: &str, country: Option<&str>, lang: Option<&str>) -> Result<serde_json::Value, Error<GooglePlayGetDeveloperAppsError>> {
+pub async fn google_play_get_developer_apps(configuration: &configuration::Configuration, developer: &str, country: Option<&str>, lang: Option<&str>, num: Option<i32>) -> Result<serde_json::Value, Error<GooglePlayGetDeveloperAppsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -282,6 +285,9 @@ pub async fn google_play_get_developer_apps(configuration: &configuration::Confi
     }
     if let Some(ref local_var_str) = lang {
         local_var_req_builder = local_var_req_builder.query(&[("lang", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = num {
+        local_var_req_builder = local_var_req_builder.query(&[("num", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

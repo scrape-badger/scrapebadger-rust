@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## google_play_browse_a_category
 
-> serde_json::Value google_play_browse_a_category(category_id, country, lang)
+> serde_json::Value google_play_browse_a_category(category_id, country, lang, num)
 Browse a category
 
 The top apps within a Play category.
@@ -32,6 +32,7 @@ Name | Type | Description  | Required | Notes
 **category_id** | **String** | Play category id, e.g. 'GAME_PUZZLE' or 'SOCIAL' | [required] |
 **country** | Option<**String**> | Play storefront country (gl), ISO 3166-1 alpha-2, e.g. 'US' |  |[default to US]
 **lang** | Option<**String**> | Play content language (hl), e.g. 'en' or 'pt-BR' |  |[default to en]
+**num** | Option<**i32**> | Max apps; follows each rail's 'see more' continuation above the ~40-120 the page renders directly |  |[default to 100]
 
 ### Return type
 
@@ -149,7 +150,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_play_get_developer_apps
 
-> serde_json::Value google_play_get_developer_apps(developer, country, lang)
+> serde_json::Value google_play_get_developer_apps(developer, country, lang, num)
 Get developer apps
 
 A developer's published apps.
@@ -162,6 +163,7 @@ Name | Type | Description  | Required | Notes
 **developer** | **String** | Developer name or numeric id | [required] |
 **country** | Option<**String**> | Play storefront country (gl), ISO 3166-1 alpha-2, e.g. 'US' |  |[default to US]
 **lang** | Option<**String**> | Play content language (hl), e.g. 'en' or 'pt-BR' |  |[default to en]
+**num** | Option<**i32**> | Max apps; follows rail continuations above the page's directly-rendered slice |  |[default to 100]
 
 ### Return type
 
