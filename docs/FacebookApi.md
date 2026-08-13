@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**facebook_browse_a_marketplace_category**](FacebookApi.md#facebook_browse_a_marketplace_category) | **GET** /v1/facebook/marketplace/category/{category} | Browse a Marketplace category
 [**facebook_get_a_marketplace_item**](FacebookApi.md#facebook_get_a_marketplace_item) | **GET** /v1/facebook/marketplace/item/{item_id} | Get a Marketplace item
+[**facebook_get_advertiser_page_info**](FacebookApi.md#facebook_get_advertiser_page_info) | **GET** /v1/facebook/ads/pages/{page_id} | Get advertiser page info
 [**facebook_get_an_ad**](FacebookApi.md#facebook_get_an_ad) | **GET** /v1/facebook/ads/{ad_archive_id} | Get an ad
 [**facebook_get_group_detail**](FacebookApi.md#facebook_get_group_detail) | **GET** /v1/facebook/groups/{group_id} | Get group detail
 [**facebook_get_group_posts**](FacebookApi.md#facebook_get_group_posts) | **GET** /v1/facebook/groups/{group_id}/posts | Get group posts
@@ -17,6 +18,7 @@ Method | HTTP request | Description
 [**facebook_get_profile_posts**](FacebookApi.md#facebook_get_profile_posts) | **GET** /v1/facebook/profiles/{identifier}/posts | Get profile posts
 [**facebook_list_categories**](FacebookApi.md#facebook_list_categories) | **GET** /v1/facebook/marketplace/categories | List categories
 [**facebook_list_locations**](FacebookApi.md#facebook_list_locations) | **GET** /v1/facebook/marketplace/locations | List locations
+[**facebook_search_advertiser_pages**](FacebookApi.md#facebook_search_advertiser_pages) | **GET** /v1/facebook/ads/pages/search | Search advertiser pages
 [**facebook_search_events**](FacebookApi.md#facebook_search_events) | **GET** /v1/facebook/search/events | Search events
 [**facebook_search_everything**](FacebookApi.md#facebook_search_everything) | **GET** /v1/facebook/search | Search everything
 [**facebook_search_groups**](FacebookApi.md#facebook_search_groups) | **GET** /v1/facebook/search/groups | Search groups
@@ -94,12 +96,43 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## facebook_get_advertiser_page_info
+
+> serde_json::Value facebook_get_advertiser_page_info(page_id, country)
+Get advertiser page info
+
+Get advertiser page info: category, followers, page transparency (creation date, name history, managing organization, admin-account locations), related pages, and ad spend (for political/issue advertisers).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**page_id** | **String** |  | [required] |
+**country** | Option<**String**> |  |  |[default to US]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## facebook_get_an_ad
 
-> serde_json::Value facebook_get_an_ad(ad_archive_id)
+> serde_json::Value facebook_get_an_ad(ad_archive_id, country)
 Get an ad
 
-Get a single Ad Library ad by its archive id.
+Get a single Ad Library ad by its archive id. For EU/UK-targeted ads the response also includes transparency insights (payer/beneficiary, total EU reach, and age/gender/country reach breakdowns).
 
 ### Parameters
 
@@ -107,6 +140,7 @@ Get a single Ad Library ad by its archive id.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **ad_archive_id** | **String** |  | [required] |
+**country** | Option<**String**> | ISO country code (an EU code returns EU transparency) |  |[default to US]
 
 ### Return type
 
@@ -406,6 +440,37 @@ List common Marketplace location slugs (free).
 ### Parameters
 
 This endpoint does not need any parameter.
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## facebook_search_advertiser_pages
+
+> serde_json::Value facebook_search_advertiser_pages(query, country)
+Search advertiser pages
+
+Search advertiser Pages in the Ad Library — returns page ids, categories, likes/followers, verification and Instagram handles.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**query** | **String** | Advertiser name or keyword | [required] |
+**country** | Option<**String**> |  |  |[default to US]
 
 ### Return type
 
