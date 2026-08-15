@@ -209,9 +209,9 @@ Get place reviews
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **data_id** | **String** | Maps data ID | [required] |
-**sort_by** | Option<**String**> |  |  |[default to qualityScore]
+**sort_by** | Option<**String**> | qualityScore | newestFirst | ratingHigh | ratingLow |  |[default to qualityScore]
 **hl** | Option<**String**> |  |  |[default to en]
-**next_page_token** | Option<**String**> |  |  |
+**next_page_token** | Option<**String**> | Cursor from the previous response's pagination.next; omit for page 1. |  |
 **results** | Option<**i32**> |  |  |[default to 10]
 
 ### Return type
