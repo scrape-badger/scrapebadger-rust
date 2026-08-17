@@ -97,6 +97,7 @@ pub mod apartments_api;
 pub mod app_store_api;
 pub mod baidu_api;
 pub mod bing_api;
+pub mod booking_api;
 pub mod chat_gpt_api;
 pub mod depop_api;
 pub mod duck_duck_go_api;

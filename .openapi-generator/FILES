@@ -13,6 +13,7 @@ docs/BaiduApi.md
 docs/BillingLogListResponse.md
 docs/BillingLogResponse.md
 docs/BingApi.md
+docs/BookingApi.md
 docs/ChatGptApi.md
 docs/DepopApi.md
 docs/DuckDuckGoApi.md
@@ -73,6 +74,7 @@ src/apis/apartments_api.rs
 src/apis/app_store_api.rs
 src/apis/baidu_api.rs
 src/apis/bing_api.rs
+src/apis/booking_api.rs
 src/apis/chat_gpt_api.rs
 src/apis/configuration.rs
 src/apis/depop_api.rs
