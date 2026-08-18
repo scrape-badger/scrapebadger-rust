@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**booking_booking_scraper_health_check_head**](BookingApi.md#booking_booking_scraper_health_check_head) | **HEAD** /v1/booking/health | Booking scraper health check
 [**booking_get_property_detail**](BookingApi.md#booking_get_property_detail) | **GET** /v1/booking/properties/{country_code}/{slug} | Get property detail
 [**booking_get_property_reviews**](BookingApi.md#booking_get_property_reviews) | **GET** /v1/booking/properties/{country_code}/{slug}/reviews | Get property reviews
+[**booking_get_room_types_and_live_rates**](BookingApi.md#booking_get_room_types_and_live_rates) | **GET** /v1/booking/properties/{country_code}/{slug}/rooms | Get room types and live rates
 [**booking_search_destinations**](BookingApi.md#booking_search_destinations) | **GET** /v1/booking/destinations | Search destinations
 [**booking_search_properties**](BookingApi.md#booking_search_properties) | **GET** /v1/booking/search | Search properties
 
@@ -121,6 +122,44 @@ Name | Type | Description  | Required | Notes
 **review_language** | Option<**String**> | Only reviews written in this language, e.g. 'fr' |  |
 **guest_type** | Option<**String**> | FAMILIES | COUPLES | GROUP_OF_FRIENDS | SOLO_TRAVELLERS | BUSINESS_TRAVELLERS |  |
 **language** | Option<**String**> | Locale for labels, e.g. en-us |  |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## booking_get_room_types_and_live_rates
+
+> serde_json::Value booking_get_room_types_and_live_rates(country_code, slug, checkin, checkout, adults, children, rooms, currency, language)
+Get room types and live rates
+
+Every room type at one property with every rate bookable on it for the given dates — price, price before discount, price per night, discounts and badges — plus per-room facilities, bed layouts, occupancy and photos. /search returns only the cheapest rate per property; this returns the whole table.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**country_code** | **String** | Two-letter country code, e.g. 'it' | [required] |
+**slug** | **String** | Booking page name, e.g. 'hotel-artemide' | [required] |
+**checkin** | **String** | Check-in date YYYY-MM-DD | [required] |
+**checkout** | **String** | Check-out date YYYY-MM-DD | [required] |
+**adults** | Option<**i32**> |  |  |[default to 2]
+**children** | Option<**String**> | Comma-separated children ages, e.g. '4,9' |  |
+**rooms** | Option<**i32**> |  |  |[default to 1]
+**currency** | Option<**String**> | ISO currency, e.g. EUR, USD, GBP |  |
+**language** | Option<**String**> | Locale, e.g. en-us, fr, de |  |
 
 ### Return type
 

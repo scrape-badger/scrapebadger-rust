@@ -45,6 +45,14 @@ pub enum BookingGetPropertyReviewsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`booking_get_room_types_and_live_rates`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BookingGetRoomTypesAndLiveRatesError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`booking_search_destinations`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -228,6 +236,59 @@ pub async fn booking_get_property_reviews(configuration: &configuration::Configu
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<BookingGetPropertyReviewsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Every room type at one property with every rate bookable on it for the given dates — price, price before discount, price per night, discounts and badges — plus per-room facilities, bed layouts, occupancy and photos. /search returns only the cheapest rate per property; this returns the whole table.
+pub async fn booking_get_room_types_and_live_rates(configuration: &configuration::Configuration, country_code: &str, slug: &str, checkin: &str, checkout: &str, adults: Option<i32>, children: Option<&str>, rooms: Option<i32>, currency: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<BookingGetRoomTypesAndLiveRatesError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/booking/properties/{country_code}/{slug}/rooms", local_var_configuration.base_path, country_code=crate::apis::urlencode(country_code), slug=crate::apis::urlencode(slug));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    local_var_req_builder = local_var_req_builder.query(&[("checkin", &checkin.to_string())]);
+    local_var_req_builder = local_var_req_builder.query(&[("checkout", &checkout.to_string())]);
+    if let Some(ref local_var_str) = adults {
+        local_var_req_builder = local_var_req_builder.query(&[("adults", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = children {
+        local_var_req_builder = local_var_req_builder.query(&[("children", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = rooms {
+        local_var_req_builder = local_var_req_builder.query(&[("rooms", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = currency {
+        local_var_req_builder = local_var_req_builder.query(&[("currency", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = language {
+        local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<BookingGetRoomTypesAndLiveRatesError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
