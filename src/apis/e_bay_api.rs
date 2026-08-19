@@ -23,10 +23,10 @@ pub enum EbayBrowseACategoryError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`ebay_completed_sold_listings`]
+/// struct for typed errors of method [`ebay_completed_sold_listings_deprecated`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum EbayCompletedSoldListingsError {
+pub enum EbayCompletedSoldListingsDeprecatedError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -170,8 +170,8 @@ pub async fn ebay_browse_a_category(configuration: &configuration::Configuration
     }
 }
 
-/// Search completed/sold listings — eBay's sold-price history.
-pub async fn ebay_completed_sold_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsError>> {
+/// Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
+pub async fn ebay_completed_sold_listings_deprecated(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsDeprecatedError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -225,7 +225,7 @@ pub async fn ebay_completed_sold_listings(configuration: &configuration::Configu
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<EbayCompletedSoldListingsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<EbayCompletedSoldListingsDeprecatedError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

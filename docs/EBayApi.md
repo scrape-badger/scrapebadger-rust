@@ -5,7 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ebay_browse_a_category**](EBayApi.md#ebay_browse_a_category) | **GET** /v1/ebay/categories/{category_id}/items | Browse a category
-[**ebay_completed_sold_listings**](EBayApi.md#ebay_completed_sold_listings) | **GET** /v1/ebay/completed | Completed / sold listings
+[**ebay_completed_sold_listings_deprecated**](EBayApi.md#ebay_completed_sold_listings_deprecated) | **GET** /v1/ebay/completed | Completed / sold listings (deprecated)
 [**ebay_ebay_scraper_health_check**](EBayApi.md#ebay_ebay_scraper_health_check) | **GET** /v1/ebay/health | eBay scraper health check
 [**ebay_ebay_scraper_health_check_head**](EBayApi.md#ebay_ebay_scraper_health_check_head) | **HEAD** /v1/ebay/health | eBay scraper health check
 [**ebay_get_item_detail**](EBayApi.md#ebay_get_item_detail) | **GET** /v1/ebay/items/{item_id} | Get item detail
@@ -56,12 +56,12 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## ebay_completed_sold_listings
+## ebay_completed_sold_listings_deprecated
 
-> serde_json::Value ebay_completed_sold_listings(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price)
-Completed / sold listings
+> serde_json::Value ebay_completed_sold_listings_deprecated(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price)
+Completed / sold listings (deprecated)
 
-Search completed/sold listings — eBay's sold-price history.
+Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
 
 ### Parameters
 
