@@ -5,7 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ebay_browse_a_category**](EBayApi.md#ebay_browse_a_category) | **GET** /v1/ebay/categories/{category_id}/items | Browse a category
-[**ebay_completed_sold_listings_deprecated**](EBayApi.md#ebay_completed_sold_listings_deprecated) | **GET** /v1/ebay/completed | Completed / sold listings (deprecated)
+[**ebay_completed_sold_listings**](EBayApi.md#ebay_completed_sold_listings) | **GET** /v1/ebay/completed | Completed / sold listings
 [**ebay_ebay_scraper_health_check**](EBayApi.md#ebay_ebay_scraper_health_check) | **GET** /v1/ebay/health | eBay scraper health check
 [**ebay_ebay_scraper_health_check_head**](EBayApi.md#ebay_ebay_scraper_health_check_head) | **HEAD** /v1/ebay/health | eBay scraper health check
 [**ebay_get_item_detail**](EBayApi.md#ebay_get_item_detail) | **GET** /v1/ebay/items/{item_id} | Get item detail
@@ -56,12 +56,12 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## ebay_completed_sold_listings_deprecated
+## ebay_completed_sold_listings
 
-> serde_json::Value ebay_completed_sold_listings_deprecated(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price)
-Completed / sold listings (deprecated)
+> serde_json::Value ebay_completed_sold_listings(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price)
+Completed / sold listings
 
-Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
+Search completed/sold listings — eBay's sold-price history.
 
 ### Parameters
 
@@ -69,10 +69,10 @@ Deprecated — eBay requires a signed-in account for sold listings. Returns 410.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **query** | **String** | Search keywords | [required] |
-**domain** | Option<**String**> |  |  |[default to com]
-**category_id** | Option<**String**> |  |  |
+**domain** | Option<**String**> | Marketplace domain (com, co.uk, de …) |  |[default to com]
+**category_id** | Option<**String**> | Restrict to a category id |  |
 **page** | Option<**i32**> |  |  |[default to 1]
-**per_page** | Option<**i32**> |  |  |
+**per_page** | Option<**i32**> | 60, 120 or 240 |  |
 **sort_by** | Option<**String**> | best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low |  |[default to best_match]
 **condition** | Option<**String**> | new|open_box|refurbished|used|for_parts |  |
 **min_price** | Option<**f64**> |  |  |
