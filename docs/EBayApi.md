@@ -58,7 +58,7 @@ Name | Type | Description  | Required | Notes
 
 ## ebay_completed_sold_listings
 
-> serde_json::Value ebay_completed_sold_listings(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price)
+> serde_json::Value ebay_completed_sold_listings(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price, location)
 Completed / sold listings
 
 Search completed/sold listings — eBay's sold-price history.
@@ -74,9 +74,10 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> |  |  |[default to 1]
 **per_page** | Option<**i32**> | 60, 120 or 240 |  |
 **sort_by** | Option<**String**> | best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low |  |[default to best_match]
-**condition** | Option<**String**> | new|open_box|refurbished|used|for_parts |  |
+**condition** | Option<**String**> | new|open_box|refurbished|used|for_parts|graded|ungraded |  |
 **min_price** | Option<**f64**> |  |  |
 **max_price** | Option<**f64**> |  |  |
+**location** | Option<**String**> | domestic|worldwide |  |
 
 ### Return type
 
@@ -395,7 +396,7 @@ This endpoint does not need any parameter.
 
 ## ebay_search_listings
 
-> serde_json::Value ebay_search_listings(query, domain, category_id, page, per_page, sort_by, condition, buying_format, min_price, max_price, free_shipping)
+> serde_json::Value ebay_search_listings(query, domain, category_id, page, per_page, sort_by, condition, buying_format, min_price, max_price, free_shipping, location)
 Search listings
 
 Search an eBay marketplace for active listings.
@@ -411,11 +412,12 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> |  |  |[default to 1]
 **per_page** | Option<**i32**> | 60, 120 or 240 |  |
 **sort_by** | Option<**String**> | best_match|ending_soonest|newly_listed|price_low_to_high|price_high_to_low |  |[default to best_match]
-**condition** | Option<**String**> | new|open_box|refurbished|used|for_parts |  |
+**condition** | Option<**String**> | new|open_box|refurbished|used|for_parts|graded|ungraded |  |
 **buying_format** | Option<**String**> | auction|buy_it_now|best_offer |  |
 **min_price** | Option<**f64**> |  |  |
 **max_price** | Option<**f64**> |  |  |
 **free_shipping** | Option<**bool**> |  |  |[default to false]
+**location** | Option<**String**> | domestic|worldwide |  |
 
 ### Return type
 
