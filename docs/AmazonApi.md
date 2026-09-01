@@ -144,7 +144,7 @@ Name | Type | Description  | Required | Notes
 
 ## amazon_get_all_seller_offers_buybox
 
-> serde_json::Value amazon_get_all_seller_offers_buybox(asin, domain, zip)
+> serde_json::Value amazon_get_all_seller_offers_buybox(asin, domain, zip, page)
 Get all seller offers (buybox)
 
 All third-party offers for an ASIN, including the Buy Box winner.
@@ -157,6 +157,7 @@ Name | Type | Description  | Required | Notes
 **asin** | **String** |  | [required] |
 **domain** | Option<**String**> |  |  |[default to com]
 **zip** | Option<**String**> |  |  |
+**page** | Option<**i32**> | Offer page, 10 rows each |  |[default to 1]
 
 ### Return type
 

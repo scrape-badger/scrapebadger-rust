@@ -305,7 +305,7 @@ pub async fn amazon_browse_node_category_listing(configuration: &configuration::
 }
 
 /// All third-party offers for an ASIN, including the Buy Box winner.
-pub async fn amazon_get_all_seller_offers_buybox(configuration: &configuration::Configuration, asin: &str, domain: Option<&str>, zip: Option<&str>) -> Result<serde_json::Value, Error<AmazonGetAllSellerOffersBuyboxError>> {
+pub async fn amazon_get_all_seller_offers_buybox(configuration: &configuration::Configuration, asin: &str, domain: Option<&str>, zip: Option<&str>, page: Option<i32>) -> Result<serde_json::Value, Error<AmazonGetAllSellerOffersBuyboxError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -318,6 +318,9 @@ pub async fn amazon_get_all_seller_offers_buybox(configuration: &configuration::
     }
     if let Some(ref local_var_str) = zip {
         local_var_req_builder = local_var_req_builder.query(&[("zip", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page {
+        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
