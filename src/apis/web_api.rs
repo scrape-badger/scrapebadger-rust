@@ -297,7 +297,7 @@ pub async fn web_submit_batch_scraping_job(configuration: &configuration::Config
     }
 }
 
-/// Take a screenshot of a URL. (Phase 2 — patchright engine)
+/// Take a screenshot of a URL. (browser engine)
 pub async fn web_take_a_screenshot(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<WebTakeAScreenshotError>> {
     let local_var_configuration = configuration;
 

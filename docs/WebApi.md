@@ -189,7 +189,7 @@ This endpoint does not need any parameter.
 > serde_json::Value web_take_a_screenshot()
 Take a screenshot
 
-Take a screenshot of a URL. (Phase 2 — patchright engine)
+Take a screenshot of a URL. (browser engine)
 
 ### Parameters
 
