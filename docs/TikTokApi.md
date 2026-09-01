@@ -28,8 +28,13 @@ Method | HTTP request | Description
 [**tiktok_search_hashtags**](TikTokApi.md#tiktok_search_hashtags) | **GET** /v1/tiktok/search/hashtags | Search hashtags
 [**tiktok_search_the_tiktok_ad_library**](TikTokApi.md#tiktok_search_the_tiktok_ad_library) | **GET** /v1/tiktok/ads/search | Search the TikTok Ad Library
 [**tiktok_search_tiktok_advertisers**](TikTokApi.md#tiktok_search_tiktok_advertisers) | **GET** /v1/tiktok/ads/advertisers | Search TikTok advertisers
+[**tiktok_search_tiktok_shop_products**](TikTokApi.md#tiktok_search_tiktok_shop_products) | **GET** /v1/tiktok/shop/search | Search TikTok Shop products
 [**tiktok_search_users**](TikTokApi.md#tiktok_search_users) | **GET** /v1/tiktok/search/users | Search users
 [**tiktok_search_videos**](TikTokApi.md#tiktok_search_videos) | **GET** /v1/tiktok/search/videos | Search videos
+[**tiktok_tiktok_shop_best_sellers**](TikTokApi.md#tiktok_tiktok_shop_best_sellers) | **GET** /v1/tiktok/shop/ranking | TikTok Shop best sellers
+[**tiktok_tiktok_shop_category_subcategories_top_products**](TikTokApi.md#tiktok_tiktok_shop_category_subcategories_top_products) | **GET** /v1/tiktok/shop/categories/{category_id} | TikTok Shop category: subcategories + top products
+[**tiktok_tiktok_shop_product_detail**](TikTokApi.md#tiktok_tiktok_shop_product_detail) | **GET** /v1/tiktok/shop/products/{product_id} | TikTok Shop product detail
+[**tiktok_tiktok_shop_root_categories**](TikTokApi.md#tiktok_tiktok_shop_root_categories) | **GET** /v1/tiktok/shop/categories | TikTok Shop root categories
 [**tiktok_trending_hashtags**](TikTokApi.md#tiktok_trending_hashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags
 [**tiktok_trending_songs**](TikTokApi.md#tiktok_trending_songs) | **GET** /v1/tiktok/trending/songs | Trending songs
 [**tiktok_trending_videos**](TikTokApi.md#tiktok_trending_videos) | **GET** /v1/tiktok/trending/videos | Trending videos
@@ -796,6 +801,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## tiktok_search_tiktok_shop_products
+
+> serde_json::Value tiktok_search_tiktok_shop_products(q)
+Search TikTok Shop products
+
+Keyword search over TikTok Shop products (US): products with their bound video, matching shops, related searches and categories.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**q** | **String** | Keyword, e.g. 'wireless earbuds' | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## tiktok_search_users
 
 > serde_json::Value tiktok_search_users(query, region, count, cursor)
@@ -845,6 +880,123 @@ Name | Type | Description  | Required | Notes
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 20]
 **cursor** | Option<**String**> | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor |  |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_tiktok_shop_best_sellers
+
+> serde_json::Value tiktok_tiktok_shop_best_sellers(count)
+TikTok Shop best sellers
+
+TikTok Shop's own ranking of the best-selling products of the past 30 days (US).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**count** | Option<**i32**> | Max products to return |  |[default to 20]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_tiktok_shop_category_subcategories_top_products
+
+> serde_json::Value tiktok_tiktok_shop_category_subcategories_top_products(category_id)
+TikTok Shop category: subcategories + top products
+
+A category's subcategories and its top products as TikTok Shop ranks them (US).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**category_id** | **String** |  | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_tiktok_shop_product_detail
+
+> serde_json::Value tiktok_tiktok_shop_product_detail(product_id)
+TikTok Shop product detail
+
+Full TikTok Shop product page (US): description, images, price, SKUs with stock, reviews, shop and TikTok's AI summary.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**product_id** | **String** |  | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_tiktok_shop_root_categories
+
+> serde_json::Value tiktok_tiktok_shop_root_categories()
+TikTok Shop root categories
+
+Top-level TikTok Shop categories (US). Drill down with /shop/categories/{category_id}.
+
+### Parameters
+
+This endpoint does not need any parameter.
 
 ### Return type
 
