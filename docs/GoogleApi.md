@@ -791,19 +791,21 @@ Name | Type | Description  | Required | Notes
 
 ## google_multi_seller_offers_by_barcode
 
-> serde_json::Value google_multi_seller_offers_by_barcode(barcode, gl, hl)
+> serde_json::Value google_multi_seller_offers_by_barcode(barcode, catalog_id, gl, hl, domain)
 Multi-seller offers by barcode
 
-Resolve a barcode to a product via Google web search, then return its Google Shopping seller offers (source + price per merchant).
+Google Shopping seller offers (source + price + link per merchant) for a product identified either by ``barcode`` (resolved via Google web search) or by its Google Shopping ``catalog_id`` (read straight off Google's product page, all seller pages fetched in parallel).
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**barcode** | **String** | Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 | [required] |
+**barcode** | Option<**String**> | Product barcode — GTIN-8 / UPC-A / EAN-13 / GTIN-14 |  |
+**catalog_id** | Option<**String**> | Google Shopping catalogid (the `catalog_id` on /shopping/search tiles, or `prds=catalogid:<id>` in a Google Shopping URL). Alternative to `barcode`; exactly one of the two is required |  |
 **gl** | Option<**String**> | Country code (ISO 3166 alpha-2) |  |
 **hl** | Option<**String**> | Language code |  |[default to en]
+**domain** | Option<**String**> | Google domain |  |[default to google.com]
 
 ### Return type
 

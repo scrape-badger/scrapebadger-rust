@@ -1426,8 +1426,8 @@ pub async fn google_interest_over_time(configuration: &configuration::Configurat
     }
 }
 
-/// Resolve a barcode to a product via Google web search, then return its Google Shopping seller offers (source + price per merchant).
-pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration::Configuration, barcode: &str, gl: Option<&str>, hl: Option<&str>) -> Result<serde_json::Value, Error<GoogleMultiSellerOffersByBarcodeError>> {
+/// Google Shopping seller offers (source + price + link per merchant) for a product identified either by ``barcode`` (resolved via Google web search) or by its Google Shopping ``catalog_id`` (read straight off Google's product page, all seller pages fetched in parallel).
+pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration::Configuration, barcode: Option<&str>, catalog_id: Option<&str>, gl: Option<&str>, hl: Option<&str>, domain: Option<&str>) -> Result<serde_json::Value, Error<GoogleMultiSellerOffersByBarcodeError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1435,12 +1435,20 @@ pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration
     let local_var_uri_str = format!("{}/v1/google/shopping/offers", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    local_var_req_builder = local_var_req_builder.query(&[("barcode", &barcode.to_string())]);
+    if let Some(ref local_var_str) = barcode {
+        local_var_req_builder = local_var_req_builder.query(&[("barcode", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = catalog_id {
+        local_var_req_builder = local_var_req_builder.query(&[("catalog_id", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_str) = gl {
         local_var_req_builder = local_var_req_builder.query(&[("gl", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = domain {
+        local_var_req_builder = local_var_req_builder.query(&[("domain", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
