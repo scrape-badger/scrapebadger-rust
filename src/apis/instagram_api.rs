@@ -198,7 +198,7 @@ pub enum InstagramTopHashtagPostsError {
 }
 
 
-/// Country, join date and former usernames.
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview. Country, join date and former usernames.
 pub async fn instagram_about_this_account(configuration: &configuration::Configuration, username: &str) -> Result<serde_json::Value, Error<InstagramAboutThisAccountError>> {
     let local_var_configuration = configuration;
 
@@ -234,6 +234,7 @@ pub async fn instagram_about_this_account(configuration: &configuration::Configu
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_blended_top_search(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<InstagramBlendedTopSearchError>> {
     let local_var_configuration = configuration;
 
@@ -270,7 +271,7 @@ pub async fn instagram_blended_top_search(configuration: &configuration::Configu
     }
 }
 
-/// Active stories (account pool only).
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview. Active stories (account pool only).
 pub async fn instagram_get_active_stories(configuration: &configuration::Configuration, username: &str) -> Result<serde_json::Value, Error<InstagramGetActiveStoriesError>> {
     let local_var_configuration = configuration;
 
@@ -306,6 +307,7 @@ pub async fn instagram_get_active_stories(configuration: &configuration::Configu
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_audio_track(configuration: &configuration::Configuration, audio_id: &str) -> Result<serde_json::Value, Error<InstagramGetAudioTrackError>> {
     let local_var_configuration = configuration;
 
@@ -382,7 +384,7 @@ pub async fn instagram_get_comments(configuration: &configuration::Configuration
     }
 }
 
-/// Followers list, paginated (account pool).
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview. Followers list, paginated (account pool).
 pub async fn instagram_get_followers(configuration: &configuration::Configuration, username: &str, amount: Option<i32>, cursor: Option<&str>, order: Option<&str>) -> Result<serde_json::Value, Error<InstagramGetFollowersError>> {
     let local_var_configuration = configuration;
 
@@ -427,6 +429,7 @@ pub async fn instagram_get_followers(configuration: &configuration::Configuratio
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_following(configuration: &configuration::Configuration, username: &str, amount: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<InstagramGetFollowingError>> {
     let local_var_configuration = configuration;
 
@@ -468,6 +471,7 @@ pub async fn instagram_get_following(configuration: &configuration::Configuratio
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_hashtag_info(configuration: &configuration::Configuration, tag: &str) -> Result<serde_json::Value, Error<InstagramGetHashtagInfoError>> {
     let local_var_configuration = configuration;
 
@@ -503,6 +507,7 @@ pub async fn instagram_get_hashtag_info(configuration: &configuration::Configura
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_highlights(configuration: &configuration::Configuration, username: &str) -> Result<serde_json::Value, Error<InstagramGetHighlightsError>> {
     let local_var_configuration = configuration;
 
@@ -538,6 +543,7 @@ pub async fn instagram_get_highlights(configuration: &configuration::Configurati
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_likers(configuration: &configuration::Configuration, code: &str) -> Result<serde_json::Value, Error<InstagramGetLikersError>> {
     let local_var_configuration = configuration;
 
@@ -573,6 +579,7 @@ pub async fn instagram_get_likers(configuration: &configuration::Configuration, 
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_location(configuration: &configuration::Configuration, location_pk: i32) -> Result<serde_json::Value, Error<InstagramGetLocationError>> {
     let local_var_configuration = configuration;
 
@@ -680,6 +687,7 @@ pub async fn instagram_get_profile(configuration: &configuration::Configuration,
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_tagged_posts(configuration: &configuration::Configuration, username: &str, amount: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<InstagramGetTaggedPostsError>> {
     let local_var_configuration = configuration;
 
@@ -763,6 +771,7 @@ pub async fn instagram_get_user_posts(configuration: &configuration::Configurati
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_get_user_reels(configuration: &configuration::Configuration, username: &str, amount: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<InstagramGetUserReelsError>> {
     let local_var_configuration = configuration;
 
@@ -874,6 +883,7 @@ pub async fn instagram_health_head(configuration: &configuration::Configuration,
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_recent_hashtag_posts(configuration: &configuration::Configuration, tag: &str, amount: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<InstagramRecentHashtagPostsError>> {
     let local_var_configuration = configuration;
 
@@ -915,6 +925,7 @@ pub async fn instagram_recent_hashtag_posts(configuration: &configuration::Confi
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_related_profiles(configuration: &configuration::Configuration, username: &str) -> Result<serde_json::Value, Error<InstagramRelatedProfilesError>> {
     let local_var_configuration = configuration;
 
@@ -950,6 +961,7 @@ pub async fn instagram_related_profiles(configuration: &configuration::Configura
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_search_hashtags(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<InstagramSearchHashtagsError>> {
     let local_var_configuration = configuration;
 
@@ -986,6 +998,7 @@ pub async fn instagram_search_hashtags(configuration: &configuration::Configurat
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_search_users(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<InstagramSearchUsersError>> {
     let local_var_configuration = configuration;
 
@@ -1022,6 +1035,7 @@ pub async fn instagram_search_users(configuration: &configuration::Configuration
     }
 }
 
+/// **Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 pub async fn instagram_top_hashtag_posts(configuration: &configuration::Configuration, tag: &str, amount: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<InstagramTopHashtagPostsError>> {
     let local_var_configuration = configuration;
 

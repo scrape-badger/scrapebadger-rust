@@ -35,7 +35,7 @@ Method | HTTP request | Description
 > serde_json::Value instagram_about_this_account(username)
 About this account
 
-Country, join date and former usernames.
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview. Country, join date and former usernames.
 
 ### Parameters
 
@@ -65,6 +65,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_blended_top_search(query)
 Blended top search
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -93,7 +95,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_get_active_stories(username)
 Get active stories
 
-Active stories (account pool only).
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview. Active stories (account pool only).
 
 ### Parameters
 
@@ -122,6 +124,8 @@ Name | Type | Description  | Required | Notes
 
 > serde_json::Value instagram_get_audio_track(audio_id)
 Get audio track
+
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 
 ### Parameters
 
@@ -181,7 +185,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_get_followers(username, amount, cursor, order)
 Get followers
 
-Followers list, paginated (account pool).
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview. Followers list, paginated (account pool).
 
 ### Parameters
 
@@ -214,6 +218,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_get_following(username, amount, cursor)
 Get following
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -244,6 +250,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_get_hashtag_info(tag)
 Get hashtag info
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -271,6 +279,8 @@ Name | Type | Description  | Required | Notes
 
 > serde_json::Value instagram_get_highlights(username)
 Get highlights
+
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 
 ### Parameters
 
@@ -300,6 +310,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_get_likers(code)
 Get likers
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -327,6 +339,8 @@ Name | Type | Description  | Required | Notes
 
 > serde_json::Value instagram_get_location(location_pk)
 Get location
+
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 
 ### Parameters
 
@@ -416,6 +430,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_get_tagged_posts(username, amount, cursor)
 Get tagged posts
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -477,6 +493,8 @@ Name | Type | Description  | Required | Notes
 
 > serde_json::Value instagram_get_user_reels(username, amount, cursor)
 Get user reels
+
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 
 ### Parameters
 
@@ -558,6 +576,8 @@ This endpoint does not need any parameter.
 > serde_json::Value instagram_recent_hashtag_posts(tag, amount, cursor)
 Recent hashtag posts
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -588,6 +608,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_related_profiles(username)
 Related profiles
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -615,6 +637,8 @@ Name | Type | Description  | Required | Notes
 
 > serde_json::Value instagram_search_hashtags(query)
 Search hashtags
+
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 
 ### Parameters
 
@@ -644,6 +668,8 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value instagram_search_users(query)
 Search users
 
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
+
 ### Parameters
 
 
@@ -671,6 +697,8 @@ Name | Type | Description  | Required | Notes
 
 > serde_json::Value instagram_top_hashtag_posts(tag, amount, cursor)
 Top hashtag posts
+
+**Temporarily unavailable.** The authenticated Instagram tier is offline, so this endpoint currently returns `503 temporarily_unavailable` (not billed, `Retry-After` set) — see https://docs.scrapebadger.com/instagram/overview.
 
 ### Parameters
 
