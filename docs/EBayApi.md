@@ -58,7 +58,7 @@ Name | Type | Description  | Required | Notes
 
 ## ebay_completed_sold_listings
 
-> serde_json::Value ebay_completed_sold_listings(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price, location)
+> serde_json::Value ebay_completed_sold_listings(query, domain, category_id, page, per_page, sort_by, condition, min_price, max_price, location, language)
 Completed / sold listings
 
 Search completed/sold listings — eBay's sold-price history.
@@ -78,6 +78,7 @@ Name | Type | Description  | Required | Notes
 **min_price** | Option<**f64**> |  |  |
 **max_price** | Option<**f64**> |  |  |
 **location** | Option<**String**> | domestic|worldwide |  |
+**language** | Option<**String**> | english|japanese|chinese|korean |  |
 
 ### Return type
 
@@ -396,7 +397,7 @@ This endpoint does not need any parameter.
 
 ## ebay_search_listings
 
-> serde_json::Value ebay_search_listings(query, domain, category_id, page, per_page, sort_by, condition, buying_format, min_price, max_price, free_shipping, location)
+> serde_json::Value ebay_search_listings(query, domain, category_id, page, per_page, sort_by, condition, buying_format, min_price, max_price, free_shipping, location, language)
 Search listings
 
 Search an eBay marketplace for active listings.
@@ -418,6 +419,7 @@ Name | Type | Description  | Required | Notes
 **max_price** | Option<**f64**> |  |  |
 **free_shipping** | Option<**bool**> |  |  |[default to false]
 **location** | Option<**String**> | domestic|worldwide |  |
+**language** | Option<**String**> | english|japanese|chinese|korean |  |
 
 ### Return type
 

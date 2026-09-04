@@ -171,7 +171,7 @@ pub async fn ebay_browse_a_category(configuration: &configuration::Configuration
 }
 
 /// Search completed/sold listings — eBay's sold-price history.
-pub async fn ebay_completed_sold_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, location: Option<&str>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsError>> {
+pub async fn ebay_completed_sold_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, location: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -206,6 +206,9 @@ pub async fn ebay_completed_sold_listings(configuration: &configuration::Configu
     }
     if let Some(ref local_var_str) = location {
         local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = language {
+        local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -629,7 +632,7 @@ pub async fn ebay_list_markets(configuration: &configuration::Configuration, ) -
 }
 
 /// Search an eBay marketplace for active listings.
-pub async fn ebay_search_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, buying_format: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, free_shipping: Option<bool>, location: Option<&str>) -> Result<serde_json::Value, Error<EbaySearchListingsError>> {
+pub async fn ebay_search_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, buying_format: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, free_shipping: Option<bool>, location: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<EbaySearchListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -670,6 +673,9 @@ pub async fn ebay_search_listings(configuration: &configuration::Configuration, 
     }
     if let Some(ref local_var_str) = location {
         local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = language {
+        local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
