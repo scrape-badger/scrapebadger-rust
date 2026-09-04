@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## gemini_ask_gemini_a_question
 
-> serde_json::Value gemini_ask_gemini_a_question(prompt, country, web_search)
+> serde_json::Value gemini_ask_gemini_a_question(prompt, country, web_search, image_url)
 Ask Gemini a question
 
 Send a prompt to Gemini and get the answer plus the web sources it cited.
@@ -28,6 +28,7 @@ Name | Type | Description  | Required | Notes
 **prompt** | **String** | The prompt to send to Gemini (max 4096 characters). | [required] |
 **country** | Option<**String**> | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'. |  |
 **web_search** | Option<**String**> | auto (let Gemini decide) | force (ask it to browse) | off (answer from memory). `web_search_triggered` in the response always reports what actually happened. |  |[default to auto]
+**image_url** | Option<**String**> | Public http(s) URL of an image to attach to the prompt. Gemini reads it and answers about it. POST also accepts `image_base64`. Exactly one of the two. |  |
 
 ### Return type
 

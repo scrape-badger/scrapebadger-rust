@@ -69,7 +69,7 @@ pub enum ChatgptMeasureABrandSVisibilityInAChatgptAnswerPostError {
 
 
 /// Send a prompt to ChatGPT and get the answer plus the web sources it cited.
-pub async fn chatgpt_ask_chatgpt_a_question(configuration: &configuration::Configuration, prompt: &str, country: Option<&str>, web_search: Option<&str>) -> Result<serde_json::Value, Error<ChatgptAskChatgptAQuestionError>> {
+pub async fn chatgpt_ask_chatgpt_a_question(configuration: &configuration::Configuration, prompt: &str, country: Option<&str>, web_search: Option<&str>, image_url: Option<&str>) -> Result<serde_json::Value, Error<ChatgptAskChatgptAQuestionError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -83,6 +83,9 @@ pub async fn chatgpt_ask_chatgpt_a_question(configuration: &configuration::Confi
     }
     if let Some(ref local_var_str) = web_search {
         local_var_req_builder = local_var_req_builder.query(&[("web_search", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = image_url {
+        local_var_req_builder = local_var_req_builder.query(&[("image_url", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
