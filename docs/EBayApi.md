@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**ebay_keyword_suggestions**](EBayApi.md#ebay_keyword_suggestions) | **GET** /v1/ebay/autocomplete | Keyword suggestions
 [**ebay_list_categories**](EBayApi.md#ebay_list_categories) | **GET** /v1/ebay/categories | List categories
 [**ebay_list_markets**](EBayApi.md#ebay_list_markets) | **GET** /v1/ebay/markets | List markets
+[**ebay_search_by_image**](EBayApi.md#ebay_search_by_image) | **POST** /v1/ebay/search/by-image | Search by image
 [**ebay_search_listings**](EBayApi.md#ebay_search_listings) | **GET** /v1/ebay/search | Search listings
 
 
@@ -390,6 +391,36 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## ebay_search_by_image
+
+> serde_json::Value ebay_search_by_image(request_body)
+Search by image
+
+Search active listings by image, the way eBay's camera icon does.  No ``sort_by``: eBay ignores it on a visual results page.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**request_body** | [**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md) |  | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
