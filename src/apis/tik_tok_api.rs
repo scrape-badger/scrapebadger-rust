@@ -228,26 +228,10 @@ pub enum TiktokSearchVideosError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`tiktok_tiktok_shop_best_sellers`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum TiktokTiktokShopBestSellersError {
-    Status422(models::HttpValidationError),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`tiktok_tiktok_shop_category_subcategories_top_products`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TiktokTiktokShopCategorySubcategoriesTopProductsError {
-    Status422(models::HttpValidationError),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`tiktok_tiktok_shop_deals_feed`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum TiktokTiktokShopDealsFeedError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -1460,48 +1444,6 @@ pub async fn tiktok_search_videos(configuration: &configuration::Configuration, 
     }
 }
 
-/// TikTok Shop's own ranking of the best-selling products of the past 30 days (US only).
-pub async fn tiktok_tiktok_shop_best_sellers(configuration: &configuration::Configuration, region: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokTiktokShopBestSellersError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/v1/tiktok/shop/ranking", local_var_configuration.base_path);
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_str) = region {
-        local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = count {
-        local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<TiktokTiktokShopBestSellersError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
 /// A category's subcategories and its top products as TikTok Shop ranks them.
 pub async fn tiktok_tiktok_shop_category_subcategories_top_products(configuration: &configuration::Configuration, category_id: &str, region: Option<&str>) -> Result<serde_json::Value, Error<TiktokTiktokShopCategorySubcategoriesTopProductsError>> {
     let local_var_configuration = configuration;
@@ -1536,45 +1478,6 @@ pub async fn tiktok_tiktok_shop_category_subcategories_top_products(configuratio
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<TiktokTiktokShopCategorySubcategoriesTopProductsError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-/// A curated storefront feed: recommended-for-you, or premium-offers (US only).
-pub async fn tiktok_tiktok_shop_deals_feed(configuration: &configuration::Configuration, deal: &str, region: Option<&str>) -> Result<serde_json::Value, Error<TiktokTiktokShopDealsFeedError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/v1/tiktok/shop/deals/{deal}", local_var_configuration.base_path, deal=crate::apis::urlencode(deal));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_str) = region {
-        local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<TiktokTiktokShopDealsFeedError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

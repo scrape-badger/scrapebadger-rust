@@ -31,9 +31,7 @@ Method | HTTP request | Description
 [**tiktok_search_tiktok_shop_products**](TikTokApi.md#tiktok_search_tiktok_shop_products) | **GET** /v1/tiktok/shop/search | Search TikTok Shop products
 [**tiktok_search_users**](TikTokApi.md#tiktok_search_users) | **GET** /v1/tiktok/search/users | Search users
 [**tiktok_search_videos**](TikTokApi.md#tiktok_search_videos) | **GET** /v1/tiktok/search/videos | Search videos
-[**tiktok_tiktok_shop_best_sellers**](TikTokApi.md#tiktok_tiktok_shop_best_sellers) | **GET** /v1/tiktok/shop/ranking | TikTok Shop best sellers
 [**tiktok_tiktok_shop_category_subcategories_top_products**](TikTokApi.md#tiktok_tiktok_shop_category_subcategories_top_products) | **GET** /v1/tiktok/shop/categories/{category_id} | TikTok Shop category: subcategories + top products
-[**tiktok_tiktok_shop_deals_feed**](TikTokApi.md#tiktok_tiktok_shop_deals_feed) | **GET** /v1/tiktok/shop/deals/{deal} | TikTok Shop deals feed
 [**tiktok_tiktok_shop_product_detail**](TikTokApi.md#tiktok_tiktok_shop_product_detail) | **GET** /v1/tiktok/shop/products/{product_id} | TikTok Shop product detail
 [**tiktok_tiktok_shop_product_reviews**](TikTokApi.md#tiktok_tiktok_shop_product_reviews) | **GET** /v1/tiktok/shop/products/{product_id}/reviews | TikTok Shop product reviews
 [**tiktok_tiktok_shop_root_categories**](TikTokApi.md#tiktok_tiktok_shop_root_categories) | **GET** /v1/tiktok/shop/categories | TikTok Shop root categories
@@ -902,37 +900,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## tiktok_tiktok_shop_best_sellers
-
-> serde_json::Value tiktok_tiktok_shop_best_sellers(region, count)
-TikTok Shop best sellers
-
-TikTok Shop's own ranking of the best-selling products of the past 30 days (US only).
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
-**count** | Option<**i32**> | Max products to return |  |[default to 20]
-
-### Return type
-
-[**serde_json::Value**](serde_json::Value.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## tiktok_tiktok_shop_category_subcategories_top_products
 
 > serde_json::Value tiktok_tiktok_shop_category_subcategories_top_products(category_id, region)
@@ -946,37 +913,6 @@ A category's subcategories and its top products as TikTok Shop ranks them.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **category_id** | **String** |  | [required] |
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
-
-### Return type
-
-[**serde_json::Value**](serde_json::Value.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## tiktok_tiktok_shop_deals_feed
-
-> serde_json::Value tiktok_tiktok_shop_deals_feed(deal, region)
-TikTok Shop deals feed
-
-A curated storefront feed: recommended-for-you, or premium-offers (US only).
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**deal** | **String** |  | [required] |
 **region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
 
 ### Return type
