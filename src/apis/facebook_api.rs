@@ -521,8 +521,8 @@ pub async fn facebook_get_page_posts(configuration: &configuration::Configuratio
     }
 }
 
-/// Get a Facebook post's comment thread (paginated).
-pub async fn facebook_get_post_comments(configuration: &configuration::Configuration, post_id: &str, after: Option<&str>, sort: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostCommentsError>> {
+/// Get a Facebook post's comment thread, 10 per page.  ``sort`` is ``relevance`` (Facebook's ranked order, the default) or ``newest``. Follow ``end_cursor`` while ``has_next_page`` to walk the whole thread; ``total_count`` is how many the post has.
+pub async fn facebook_get_post_comments(configuration: &configuration::Configuration, post_id: &str, url: Option<&str>, after: Option<&str>, sort: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostCommentsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -530,6 +530,9 @@ pub async fn facebook_get_post_comments(configuration: &configuration::Configura
     let local_var_uri_str = format!("{}/v1/facebook/posts/{post_id}/comments", local_var_configuration.base_path, post_id=crate::apis::urlencode(post_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = url {
+        local_var_req_builder = local_var_req_builder.query(&[("url", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
@@ -563,8 +566,8 @@ pub async fn facebook_get_post_comments(configuration: &configuration::Configura
     }
 }
 
-/// Get a Facebook post's detail plus its top comments.
-pub async fn facebook_get_post_detail(configuration: &configuration::Configuration, post_id: &str) -> Result<serde_json::Value, Error<FacebookGetPostDetailError>> {
+/// Get a Facebook post's detail: text, media, author, date and the reaction / comment / share counts. The comments themselves come from ``/posts/{post_id}/comments``.
+pub async fn facebook_get_post_detail(configuration: &configuration::Configuration, post_id: &str, url: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -572,6 +575,9 @@ pub async fn facebook_get_post_detail(configuration: &configuration::Configurati
     let local_var_uri_str = format!("{}/v1/facebook/posts/{post_id}", local_var_configuration.base_path, post_id=crate::apis::urlencode(post_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = url {
+        local_var_req_builder = local_var_req_builder.query(&[("url", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }

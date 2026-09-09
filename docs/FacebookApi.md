@@ -282,10 +282,10 @@ Name | Type | Description  | Required | Notes
 
 ## facebook_get_post_comments
 
-> serde_json::Value facebook_get_post_comments(post_id, after, sort)
+> serde_json::Value facebook_get_post_comments(post_id, url, after, sort)
 Get post comments
 
-Get a Facebook post's comment thread (paginated).
+Get a Facebook post's comment thread, 10 per page.  ``sort`` is ``relevance`` (Facebook's ranked order, the default) or ``newest``. Follow ``end_cursor`` while ``has_next_page`` to walk the whole thread; ``total_count`` is how many the post has.
 
 ### Parameters
 
@@ -293,8 +293,9 @@ Get a Facebook post's comment thread (paginated).
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **post_id** | **String** |  | [required] |
+**url** | Option<**String**> | Full post permalink/reel URL — overrides post_id |  |
 **after** | Option<**String**> |  |  |
-**sort** | Option<**String**> |  |  |[default to relevance]
+**sort** | Option<**String**> | relevance | newest |  |[default to relevance]
 
 ### Return type
 
@@ -314,10 +315,10 @@ Name | Type | Description  | Required | Notes
 
 ## facebook_get_post_detail
 
-> serde_json::Value facebook_get_post_detail(post_id)
+> serde_json::Value facebook_get_post_detail(post_id, url)
 Get post detail
 
-Get a Facebook post's detail plus its top comments.
+Get a Facebook post's detail: text, media, author, date and the reaction / comment / share counts. The comments themselves come from ``/posts/{post_id}/comments``.
 
 ### Parameters
 
@@ -325,6 +326,7 @@ Get a Facebook post's detail plus its top comments.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **post_id** | **String** |  | [required] |
+**url** | Option<**String**> | Full post permalink/reel URL — overrides post_id |  |
 
 ### Return type
 
