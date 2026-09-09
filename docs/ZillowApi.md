@@ -5,6 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**zillow_get_agent_profile_listings**](ZillowApi.md#zillow_get_agent_profile_listings) | **GET** /v1/zillow/agent | Get agent profile + listings
+[**zillow_get_multifamily_building**](ZillowApi.md#zillow_get_multifamily_building) | **GET** /v1/zillow/building | Get multifamily building
 [**zillow_get_property_detail**](ZillowApi.md#zillow_get_property_detail) | **GET** /v1/zillow/property/{zpid} | Get property detail
 [**zillow_get_property_detail_by_url**](ZillowApi.md#zillow_get_property_detail_by_url) | **GET** /v1/zillow/property | Get property detail by URL
 [**zillow_list_coverage_markets**](ZillowApi.md#zillow_list_coverage_markets) | **GET** /v1/zillow/markets | List coverage markets
@@ -29,6 +30,36 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **username** | Option<**String**> | Zillow profile username |  |
 **url** | Option<**String**> | Full Zillow /profile/... URL |  |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## zillow_get_multifamily_building
+
+> serde_json::Value zillow_get_multifamily_building(url)
+Get multifamily building
+
+Get a Zillow apartment community with per-unit pricing and availability.  Multi-unit rentals are served on `/apartments/...` and `/b/...` pages, which `/property` cannot read — pass a `home_type=BUILDING` search result's `detail_url` here instead.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**url** | **String** | Full Zillow building URL, e.g. https://www.zillow.com/apartments/kansas-city-mo/brookside-51/CkBJqt/ | [required] |
 
 ### Return type
 
