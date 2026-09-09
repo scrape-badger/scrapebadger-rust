@@ -583,10 +583,10 @@ Name | Type | Description  | Required | Notes
 
 ## facebook_search_marketplace
 
-> serde_json::Value facebook_search_marketplace(query, location, min_price, max_price, days_since_listed, sort_by, item_condition, delivery_method, after)
+> serde_json::Value facebook_search_marketplace(query, location, min_price, max_price, days_since_listed, sort_by, item_condition, delivery_method, radius, after)
 Search Marketplace
 
-Search Facebook Marketplace listings by keyword and location.
+Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.
 
 ### Parameters
 
@@ -594,13 +594,14 @@ Search Facebook Marketplace listings by keyword and location.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **query** | **String** | Search keywords | [required] |
-**location** | Option<**String**> | Marketplace location slug |  |[default to nyc]
+**location** | Option<**String**> | Marketplace location slug or numeric place id |  |[default to nyc]
 **min_price** | Option<**i32**> |  |  |
 **max_price** | Option<**i32**> |  |  |
 **days_since_listed** | Option<**i32**> |  |  |
 **sort_by** | Option<**String**> |  |  |
 **item_condition** | Option<**String**> |  |  |
 **delivery_method** | Option<**String**> |  |  |
+**radius** | Option<**i32**> | Search radius around the location (km, or miles in the US) |  |
 **after** | Option<**String**> |  |  |
 
 ### Return type

@@ -906,8 +906,8 @@ pub async fn facebook_search_groups(configuration: &configuration::Configuration
     }
 }
 
-/// Search Facebook Marketplace listings by keyword and location.
-pub async fn facebook_search_marketplace(configuration: &configuration::Configuration, query: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, days_since_listed: Option<i32>, sort_by: Option<&str>, item_condition: Option<&str>, delivery_method: Option<&str>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchMarketplaceError>> {
+/// Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.
+pub async fn facebook_search_marketplace(configuration: &configuration::Configuration, query: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, days_since_listed: Option<i32>, sort_by: Option<&str>, item_condition: Option<&str>, delivery_method: Option<&str>, radius: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchMarketplaceError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -936,6 +936,9 @@ pub async fn facebook_search_marketplace(configuration: &configuration::Configur
     }
     if let Some(ref local_var_str) = delivery_method {
         local_var_req_builder = local_var_req_builder.query(&[("delivery_method", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = radius {
+        local_var_req_builder = local_var_req_builder.query(&[("radius", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
