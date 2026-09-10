@@ -178,7 +178,7 @@ pub async fn ebay_browse_a_category(configuration: &configuration::Configuration
     }
 }
 
-/// Search completed/sold listings — eBay's sold-price history.
+/// Search completed/sold listings — eBay's sold-price history.  eBay pads a short result set with \"results matching fewer words\" and counts only the exact ones in ``pagination.total_results``. Results come back in eBay's own ranking order with the exact matches first, and each one carries ``exact_match`` (true/false) so a price series can be built without parsing titles. An empty ``results`` with ``total_results: 0`` is eBay's own answer and costs 0 credits — a fetch failure is never a 200.
 pub async fn ebay_completed_sold_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, location: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsError>> {
     let local_var_configuration = configuration;
 
