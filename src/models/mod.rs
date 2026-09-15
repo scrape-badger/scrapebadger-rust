@@ -42,6 +42,8 @@ pub mod validation_error;
 pub use self::validation_error::ValidationError;
 pub mod validation_error_loc_inner;
 pub use self::validation_error_loc_inner::ValidationErrorLocInner;
+pub mod vinted_image_search_request;
+pub use self::vinted_image_search_request::VintedImageSearchRequest;
 pub mod vinted_mobile_read_request;
 pub use self::vinted_mobile_read_request::VintedMobileReadRequest;
 pub mod webhook_create;

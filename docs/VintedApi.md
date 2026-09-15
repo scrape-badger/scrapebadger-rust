@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**vinted_list_public_vinted_mobile_operations**](VintedApi.md#vinted_list_public_vinted_mobile_operations) | **GET** /v1/vinted/mobile/operations | List public Vinted mobile operations
 [**vinted_read_vinted_mobile_data**](VintedApi.md#vinted_read_vinted_mobile_data) | **POST** /v1/vinted/mobile/{operation} | Read Vinted mobile data
 [**vinted_search_brands**](VintedApi.md#vinted_search_brands) | **GET** /v1/vinted/brands | Search brands
+[**vinted_search_by_image**](VintedApi.md#vinted_search_by_image) | **POST** /v1/vinted/search_by_image | Search by image
 [**vinted_search_vinted_items**](VintedApi.md#vinted_search_vinted_items) | **GET** /v1/vinted/search | Search Vinted items
 [**vinted_vinted_scraper_health_check**](VintedApi.md#vinted_vinted_scraper_health_check) | **GET** /v1/vinted/health | Vinted scraper health check
 [**vinted_vinted_scraper_health_check_head**](VintedApi.md#vinted_vinted_scraper_health_check_head) | **HEAD** /v1/vinted/health | Vinted scraper health check
@@ -285,6 +286,36 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## vinted_search_by_image
+
+> serde_json::Value vinted_search_by_image(vinted_image_search_request)
+Search by image
+
+Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking; no similarity score. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**vinted_image_search_request** | [**VintedImageSearchRequest**](VintedImageSearchRequest.md) |  | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
