@@ -10,6 +10,8 @@ Method | HTTP request | Description
 [**vinted_list_colors**](VintedApi.md#vinted_list_colors) | **GET** /v1/vinted/colors | List colors
 [**vinted_list_item_conditions**](VintedApi.md#vinted_list_item_conditions) | **GET** /v1/vinted/statuses | List item conditions
 [**vinted_list_markets**](VintedApi.md#vinted_list_markets) | **GET** /v1/vinted/markets | List markets
+[**vinted_list_public_vinted_mobile_operations**](VintedApi.md#vinted_list_public_vinted_mobile_operations) | **GET** /v1/vinted/mobile/operations | List public Vinted mobile operations
+[**vinted_read_vinted_mobile_data**](VintedApi.md#vinted_read_vinted_mobile_data) | **POST** /v1/vinted/mobile/{operation} | Read Vinted mobile data
 [**vinted_search_brands**](VintedApi.md#vinted_search_brands) | **GET** /v1/vinted/brands | Search brands
 [**vinted_search_vinted_items**](VintedApi.md#vinted_search_vinted_items) | **GET** /v1/vinted/search | Search Vinted items
 [**vinted_vinted_scraper_health_check**](VintedApi.md#vinted_vinted_scraper_health_check) | **GET** /v1/vinted/health | Vinted scraper health check
@@ -199,6 +201,64 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## vinted_list_public_vinted_mobile_operations
+
+> serde_json::Value vinted_list_public_vinted_mobile_operations()
+List public Vinted mobile operations
+
+Discover public read operations, parameters and runnable examples. Free.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## vinted_read_vinted_mobile_data
+
+> serde_json::Value vinted_read_vinted_mobile_data(operation, vinted_mobile_read_request)
+Read Vinted mobile data
+
+Read catalog, listing, seller, review, sold-comparable, pricing, reference, shipping-reference, homepage or help data. No Vinted account is required. This is an allowlisted read API, including read-only upstream POST queries. Returns operation, market, and the upstream JSON under data. One credit. Sold comparable prices are not guaranteed final negotiated sale prices.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**operation** | **String** |  | [required] |
+**vinted_mobile_read_request** | [**VintedMobileReadRequest**](VintedMobileReadRequest.md) |  | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## vinted_search_brands
 
 > serde_json::Value vinted_search_brands(keyword, market)
@@ -232,7 +292,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_search_vinted_items
 
-> serde_json::Value vinted_search_vinted_items(query, market, seller_country, page, per_page, price_from, price_to, brand_ids, catalog_ids, color_ids, status_ids, order)
+> serde_json::Value vinted_search_vinted_items(query, market, seller_country, page, per_page, price_from, price_to, brand_ids, catalog_ids, color_ids, size_ids, material_ids, time, search_session_id, status_ids, order)
 Search Vinted items
 
 Search Vinted catalog items with filters.
@@ -252,6 +312,10 @@ Name | Type | Description  | Required | Notes
 **brand_ids** | Option<**String**> |  |  |
 **catalog_ids** | Option<**String**> | Comma-separated Vinted catalog (category) IDs to restrict the search to, e.g. '1904' or '1904,79'. Vinted applies this before searching, so pagination totals reflect the filtered set. A catalog ID is the `catalog[]` value in a Vinted category URL (vinted.fr/catalog?catalog[]=1904). |  |
 **color_ids** | Option<**String**> | Comma-separated color IDs |  |
+**size_ids** | Option<**String**> | Comma-separated size IDs |  |
+**material_ids** | Option<**String**> | Comma-separated material IDs |  |
+**time** | Option<**i32**> | Pagination time returned by the preceding page |  |
+**search_session_id** | Option<**String**> | Reuse across pages of one search |  |
 **status_ids** | Option<**String**> | Comma-separated condition/status IDs |  |
 **order** | Option<**String**> |  |  |
 

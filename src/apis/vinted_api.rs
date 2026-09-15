@@ -62,6 +62,21 @@ pub enum VintedListMarketsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`vinted_list_public_vinted_mobile_operations`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VintedListPublicVintedMobileOperationsError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`vinted_read_vinted_mobile_data`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VintedReadVintedMobileDataError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`vinted_search_brands`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -330,6 +345,79 @@ pub async fn vinted_list_markets(configuration: &configuration::Configuration, )
     }
 }
 
+/// Discover public read operations, parameters and runnable examples. Free.
+pub async fn vinted_list_public_vinted_mobile_operations(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<VintedListPublicVintedMobileOperationsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/vinted/mobile/operations", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<VintedListPublicVintedMobileOperationsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Read catalog, listing, seller, review, sold-comparable, pricing, reference, shipping-reference, homepage or help data. No Vinted account is required. This is an allowlisted read API, including read-only upstream POST queries. Returns operation, market, and the upstream JSON under data. One credit. Sold comparable prices are not guaranteed final negotiated sale prices.
+pub async fn vinted_read_vinted_mobile_data(configuration: &configuration::Configuration, operation: &str, vinted_mobile_read_request: models::VintedMobileReadRequest) -> Result<serde_json::Value, Error<VintedReadVintedMobileDataError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/vinted/mobile/{operation}", local_var_configuration.base_path, operation=crate::apis::urlencode(operation));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+    local_var_req_builder = local_var_req_builder.json(&vinted_mobile_read_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<VintedReadVintedMobileDataError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 /// Search Vinted brands.
 pub async fn vinted_search_brands(configuration: &configuration::Configuration, keyword: &str, market: Option<&str>) -> Result<serde_json::Value, Error<VintedSearchBrandsError>> {
     let local_var_configuration = configuration;
@@ -371,7 +459,7 @@ pub async fn vinted_search_brands(configuration: &configuration::Configuration, 
 }
 
 /// Search Vinted catalog items with filters.
-pub async fn vinted_search_vinted_items(configuration: &configuration::Configuration, query: &str, market: Option<&str>, seller_country: Option<&str>, page: Option<i32>, per_page: Option<i32>, price_from: Option<f64>, price_to: Option<f64>, brand_ids: Option<&str>, catalog_ids: Option<&str>, color_ids: Option<&str>, status_ids: Option<&str>, order: Option<&str>) -> Result<serde_json::Value, Error<VintedSearchVintedItemsError>> {
+pub async fn vinted_search_vinted_items(configuration: &configuration::Configuration, query: &str, market: Option<&str>, seller_country: Option<&str>, page: Option<i32>, per_page: Option<i32>, price_from: Option<f64>, price_to: Option<f64>, brand_ids: Option<&str>, catalog_ids: Option<&str>, color_ids: Option<&str>, size_ids: Option<&str>, material_ids: Option<&str>, time: Option<i32>, search_session_id: Option<&str>, status_ids: Option<&str>, order: Option<&str>) -> Result<serde_json::Value, Error<VintedSearchVintedItemsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -406,6 +494,18 @@ pub async fn vinted_search_vinted_items(configuration: &configuration::Configura
     }
     if let Some(ref local_var_str) = color_ids {
         local_var_req_builder = local_var_req_builder.query(&[("color_ids", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = size_ids {
+        local_var_req_builder = local_var_req_builder.query(&[("size_ids", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = material_ids {
+        local_var_req_builder = local_var_req_builder.query(&[("material_ids", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = time {
+        local_var_req_builder = local_var_req_builder.query(&[("time", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = search_session_id {
+        local_var_req_builder = local_var_req_builder.query(&[("search_session_id", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = status_ids {
         local_var_req_builder = local_var_req_builder.query(&[("status_ids", &local_var_str.to_string())]);

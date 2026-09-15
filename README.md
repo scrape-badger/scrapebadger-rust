@@ -473,6 +473,8 @@ Class | Method | HTTP request | Description
 *VintedApi* | [**vinted_list_colors**](docs/VintedApi.md#vinted_list_colors) | **GET** /v1/vinted/colors | List colors
 *VintedApi* | [**vinted_list_item_conditions**](docs/VintedApi.md#vinted_list_item_conditions) | **GET** /v1/vinted/statuses | List item conditions
 *VintedApi* | [**vinted_list_markets**](docs/VintedApi.md#vinted_list_markets) | **GET** /v1/vinted/markets | List markets
+*VintedApi* | [**vinted_list_public_vinted_mobile_operations**](docs/VintedApi.md#vinted_list_public_vinted_mobile_operations) | **GET** /v1/vinted/mobile/operations | List public Vinted mobile operations
+*VintedApi* | [**vinted_read_vinted_mobile_data**](docs/VintedApi.md#vinted_read_vinted_mobile_data) | **POST** /v1/vinted/mobile/{operation} | Read Vinted mobile data
 *VintedApi* | [**vinted_search_brands**](docs/VintedApi.md#vinted_search_brands) | **GET** /v1/vinted/brands | Search brands
 *VintedApi* | [**vinted_search_vinted_items**](docs/VintedApi.md#vinted_search_vinted_items) | **GET** /v1/vinted/search | Search Vinted items
 *VintedApi* | [**vinted_vinted_scraper_health_check**](docs/VintedApi.md#vinted_vinted_scraper_health_check) | **GET** /v1/vinted/health | Vinted scraper health check
@@ -587,6 +589,7 @@ Class | Method | HTTP request | Description
  - [TweetDeliveryLogResponse](docs/TweetDeliveryLogResponse.md)
  - [ValidationError](docs/ValidationError.md)
  - [ValidationErrorLocInner](docs/ValidationErrorLocInner.md)
+ - [VintedMobileReadRequest](docs/VintedMobileReadRequest.md)
  - [WebhookCreate](docs/WebhookCreate.md)
  - [WebhookListItem](docs/WebhookListItem.md)
  - [WebhookListResponse](docs/WebhookListResponse.md)

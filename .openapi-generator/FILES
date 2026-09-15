@@ -54,6 +54,7 @@ docs/TwitterApi.md
 docs/ValidationError.md
 docs/ValidationErrorLocInner.md
 docs/VintedApi.md
+docs/VintedMobileReadRequest.md
 docs/WalmartApi.md
 docs/WebApi.md
 docs/WebhookCreate.md
@@ -128,6 +129,7 @@ src/models/tweet_delivery_log_list_response.rs
 src/models/tweet_delivery_log_response.rs
 src/models/validation_error.rs
 src/models/validation_error_loc_inner.rs
+src/models/vinted_mobile_read_request.rs
 src/models/webhook_create.rs
 src/models/webhook_list_item.rs
 src/models/webhook_list_response.rs
