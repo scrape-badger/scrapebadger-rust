@@ -213,7 +213,7 @@ Name | Type | Description  | Required | Notes
 **sizes** | Option<**String**> | Comma-separated size IDs |  |
 **conditions** | Option<**String**> | Comma-separated condition slugs (brand_new, used_excellent, ...) |  |
 **gender** | Option<**String**> | male | female |  |
-**sort** | Option<**String**> | relevance | newlyListed | priceAscending | priceDescending |  |
+**sort** | Option<**String**> | relevance (default) | priceAscending | priceDescending |  |
 
 ### Return type
 
