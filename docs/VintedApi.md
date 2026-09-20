@@ -296,7 +296,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value vinted_search_by_image(vinted_image_search_request)
 Search by image
 
-Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking; no similarity score. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
+Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries `similarity_score` (0-1; the query image's own listing scores 1.0) on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
 
 ### Parameters
 
