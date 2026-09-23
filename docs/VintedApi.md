@@ -22,7 +22,7 @@ Method | HTTP request | Description
 
 ## vinted_get_item_details
 
-> serde_json::Value vinted_get_item_details(item_id, market)
+> models::ItemDetailResponse vinted_get_item_details(item_id, market)
 Get item details
 
 Get detailed information about a Vinted item.
@@ -37,7 +37,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::ItemDetailResponse**](ItemDetailResponse.md)
 
 ### Authorization
 
@@ -53,7 +53,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_get_user_profile
 
-> serde_json::Value vinted_get_user_profile(user_id, market)
+> models::UserProfileResponse vinted_get_user_profile(user_id, market)
 Get user profile
 
 Get a Vinted user's profile.
@@ -68,7 +68,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::UserProfileResponse**](UserProfileResponse.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_get_user_s_listed_items
 
-> serde_json::Value vinted_get_user_s_listed_items(user_id, market, page, per_page)
+> models::UserItemsResponse vinted_get_user_s_listed_items(user_id, market, page, per_page)
 Get user's listed items
 
 Get items listed by a Vinted user.
@@ -101,7 +101,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::UserItemsResponse**](UserItemsResponse.md)
 
 ### Authorization
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_list_colors
 
-> serde_json::Value vinted_list_colors(market)
+> models::ColorsResponse vinted_list_colors(market)
 List colors
 
 Get available Vinted colors for filtering.
@@ -131,7 +131,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::ColorsResponse**](ColorsResponse.md)
 
 ### Authorization
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_list_item_conditions
 
-> serde_json::Value vinted_list_item_conditions(market)
+> models::StatusesResponse vinted_list_item_conditions(market)
 List item conditions
 
 Get available item condition statuses.
@@ -161,7 +161,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::StatusesResponse**](StatusesResponse.md)
 
 ### Authorization
 
@@ -177,7 +177,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_list_markets
 
-> serde_json::Value vinted_list_markets()
+> models::MarketsResponse vinted_list_markets()
 List markets
 
 List all supported Vinted markets.
@@ -188,7 +188,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::MarketsResponse**](MarketsResponse.md)
 
 ### Authorization
 
@@ -262,7 +262,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_search_brands
 
-> serde_json::Value vinted_search_brands(keyword, market)
+> models::BrandsResponse vinted_search_brands(keyword, market)
 Search brands
 
 Search Vinted brands.
@@ -277,7 +277,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::BrandsResponse**](BrandsResponse.md)
 
 ### Authorization
 
@@ -293,7 +293,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_search_by_image
 
-> serde_json::Value vinted_search_by_image(vinted_image_search_request)
+> models::SearchResponse vinted_search_by_image(vinted_image_search_request)
 Search by image
 
 Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries `similarity_score` on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
@@ -307,7 +307,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::SearchResponse**](SearchResponse.md)
 
 ### Authorization
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_search_vinted_items
 
-> serde_json::Value vinted_search_vinted_items(query, market, seller_country, page, per_page, price_from, price_to, brand_ids, catalog_ids, color_ids, size_ids, material_ids, time, search_session_id, status_ids, order)
+> models::SearchResponse vinted_search_vinted_items(query, market, seller_country, page, per_page, price_from, price_to, brand_ids, catalog_ids, color_ids, size_ids, material_ids, time, search_session_id, status_ids, order)
 Search Vinted items
 
 Search Vinted catalog items with filters.
@@ -352,7 +352,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**serde_json::Value**](serde_json::Value.md)
+[**models::SearchResponse**](SearchResponse.md)
 
 ### Authorization
 

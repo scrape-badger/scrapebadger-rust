@@ -117,7 +117,7 @@ pub enum VintedVintedScraperHealthCheckHeadError {
 
 
 /// Get detailed information about a Vinted item.
-pub async fn vinted_get_item_details(configuration: &configuration::Configuration, item_id: i32, market: Option<&str>) -> Result<serde_json::Value, Error<VintedGetItemDetailsError>> {
+pub async fn vinted_get_item_details(configuration: &configuration::Configuration, item_id: i32, market: Option<&str>) -> Result<models::ItemDetailResponse, Error<VintedGetItemDetailsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -156,7 +156,7 @@ pub async fn vinted_get_item_details(configuration: &configuration::Configuratio
 }
 
 /// Get a Vinted user's profile.
-pub async fn vinted_get_user_profile(configuration: &configuration::Configuration, user_id: i32, market: Option<&str>) -> Result<serde_json::Value, Error<VintedGetUserProfileError>> {
+pub async fn vinted_get_user_profile(configuration: &configuration::Configuration, user_id: i32, market: Option<&str>) -> Result<models::UserProfileResponse, Error<VintedGetUserProfileError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -195,7 +195,7 @@ pub async fn vinted_get_user_profile(configuration: &configuration::Configuratio
 }
 
 /// Get items listed by a Vinted user.
-pub async fn vinted_get_user_s_listed_items(configuration: &configuration::Configuration, user_id: i32, market: Option<&str>, page: Option<i32>, per_page: Option<i32>) -> Result<serde_json::Value, Error<VintedGetUserSListedItemsError>> {
+pub async fn vinted_get_user_s_listed_items(configuration: &configuration::Configuration, user_id: i32, market: Option<&str>, page: Option<i32>, per_page: Option<i32>) -> Result<models::UserItemsResponse, Error<VintedGetUserSListedItemsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -240,7 +240,7 @@ pub async fn vinted_get_user_s_listed_items(configuration: &configuration::Confi
 }
 
 /// Get available Vinted colors for filtering.
-pub async fn vinted_list_colors(configuration: &configuration::Configuration, market: Option<&str>) -> Result<serde_json::Value, Error<VintedListColorsError>> {
+pub async fn vinted_list_colors(configuration: &configuration::Configuration, market: Option<&str>) -> Result<models::ColorsResponse, Error<VintedListColorsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -279,7 +279,7 @@ pub async fn vinted_list_colors(configuration: &configuration::Configuration, ma
 }
 
 /// Get available item condition statuses.
-pub async fn vinted_list_item_conditions(configuration: &configuration::Configuration, market: Option<&str>) -> Result<serde_json::Value, Error<VintedListItemConditionsError>> {
+pub async fn vinted_list_item_conditions(configuration: &configuration::Configuration, market: Option<&str>) -> Result<models::StatusesResponse, Error<VintedListItemConditionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -318,7 +318,7 @@ pub async fn vinted_list_item_conditions(configuration: &configuration::Configur
 }
 
 /// List all supported Vinted markets.
-pub async fn vinted_list_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<VintedListMarketsError>> {
+pub async fn vinted_list_markets(configuration: &configuration::Configuration, ) -> Result<models::MarketsResponse, Error<VintedListMarketsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -427,7 +427,7 @@ pub async fn vinted_read_vinted_mobile_data(configuration: &configuration::Confi
 }
 
 /// Search Vinted brands.
-pub async fn vinted_search_brands(configuration: &configuration::Configuration, keyword: &str, market: Option<&str>) -> Result<serde_json::Value, Error<VintedSearchBrandsError>> {
+pub async fn vinted_search_brands(configuration: &configuration::Configuration, keyword: &str, market: Option<&str>) -> Result<models::BrandsResponse, Error<VintedSearchBrandsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -467,7 +467,7 @@ pub async fn vinted_search_brands(configuration: &configuration::Configuration, 
 }
 
 /// Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries `similarity_score` on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
-pub async fn vinted_search_by_image(configuration: &configuration::Configuration, vinted_image_search_request: models::VintedImageSearchRequest) -> Result<serde_json::Value, Error<VintedSearchByImageError>> {
+pub async fn vinted_search_by_image(configuration: &configuration::Configuration, vinted_image_search_request: models::VintedImageSearchRequest) -> Result<models::SearchResponse, Error<VintedSearchByImageError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -504,7 +504,7 @@ pub async fn vinted_search_by_image(configuration: &configuration::Configuration
 }
 
 /// Search Vinted catalog items with filters.
-pub async fn vinted_search_vinted_items(configuration: &configuration::Configuration, query: &str, market: Option<&str>, seller_country: Option<&str>, page: Option<i32>, per_page: Option<i32>, price_from: Option<f64>, price_to: Option<f64>, brand_ids: Option<&str>, catalog_ids: Option<&str>, color_ids: Option<&str>, size_ids: Option<&str>, material_ids: Option<&str>, time: Option<i32>, search_session_id: Option<&str>, status_ids: Option<&str>, order: Option<&str>) -> Result<serde_json::Value, Error<VintedSearchVintedItemsError>> {
+pub async fn vinted_search_vinted_items(configuration: &configuration::Configuration, query: &str, market: Option<&str>, seller_country: Option<&str>, page: Option<i32>, per_page: Option<i32>, price_from: Option<f64>, price_to: Option<f64>, brand_ids: Option<&str>, catalog_ids: Option<&str>, color_ids: Option<&str>, size_ids: Option<&str>, material_ids: Option<&str>, time: Option<i32>, search_session_id: Option<&str>, status_ids: Option<&str>, order: Option<&str>) -> Result<models::SearchResponse, Error<VintedSearchVintedItemsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
