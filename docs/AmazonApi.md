@@ -213,7 +213,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value amazon_get_product_reviews(asin, domain, page, sort_by, star, verified_only, media_only)
 Get product reviews
 
-Customer reviews for an ASIN (featured + paginated, with filters).
+Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page's public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (``ratings_total`` reports the true total). ``pagination`` gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised ``star`` or ``sort_by`` is rejected with 422 rather than silently answered with unfiltered reviews.
 
 ### Parameters
 
@@ -222,9 +222,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **asin** | **String** |  | [required] |
 **domain** | Option<**String**> |  |  |[default to com]
-**page** | Option<**i32**> | Review page (1-100, ~10 reviews/page) |  |[default to 1]
+**page** | Option<**i32**> | Review page (10 reviews/page) |  |[default to 1]
 **sort_by** | Option<**String**> | helpful | recent |  |[default to helpful]
-**star** | Option<**String**> | one_star..five_star | positive | critical |  |
+**star** | Option<**String**> | 1-5 | one_star..five_star | positive | critical | all_stars |  |
 **verified_only** | Option<**bool**> |  |  |[default to false]
 **media_only** | Option<**bool**> |  |  |[default to false]
 
