@@ -4,6 +4,7 @@ All URIs are relative to *https://scrapebadger.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**tiktok_best_selling_tiktok_shop_products**](TikTokApi.md#tiktok_best_selling_tiktok_shop_products) | **GET** /v1/tiktok/shop/bestsellers | Best-selling TikTok Shop products
 [**tiktok_general_search**](TikTokApi.md#tiktok_general_search) | **GET** /v1/tiktok/search | General search
 [**tiktok_get_comment_replies**](TikTokApi.md#tiktok_get_comment_replies) | **GET** /v1/tiktok/comments/{comment_id}/replies | Get comment replies
 [**tiktok_get_comments**](TikTokApi.md#tiktok_get_comments) | **GET** /v1/tiktok/videos/{video_id}/comments | Get comments
@@ -31,15 +32,51 @@ Method | HTTP request | Description
 [**tiktok_search_tiktok_shop_products**](TikTokApi.md#tiktok_search_tiktok_shop_products) | **GET** /v1/tiktok/shop/search | Search TikTok Shop products
 [**tiktok_search_users**](TikTokApi.md#tiktok_search_users) | **GET** /v1/tiktok/search/users | Search users
 [**tiktok_search_videos**](TikTokApi.md#tiktok_search_videos) | **GET** /v1/tiktok/search/videos | Search videos
+[**tiktok_tiktok_shop_category_products**](TikTokApi.md#tiktok_tiktok_shop_category_products) | **GET** /v1/tiktok/shop/categories/{category_id}/products | TikTok Shop category products
 [**tiktok_tiktok_shop_category_subcategories_top_products**](TikTokApi.md#tiktok_tiktok_shop_category_subcategories_top_products) | **GET** /v1/tiktok/shop/categories/{category_id} | TikTok Shop category: subcategories + top products
 [**tiktok_tiktok_shop_product_detail**](TikTokApi.md#tiktok_tiktok_shop_product_detail) | **GET** /v1/tiktok/shop/products/{product_id} | TikTok Shop product detail
 [**tiktok_tiktok_shop_product_reviews**](TikTokApi.md#tiktok_tiktok_shop_product_reviews) | **GET** /v1/tiktok/shop/products/{product_id}/reviews | TikTok Shop product reviews
+[**tiktok_tiktok_shop_regional_mall_feed**](TikTokApi.md#tiktok_tiktok_shop_regional_mall_feed) | **GET** /v1/tiktok/shop/mall | TikTok Shop regional mall feed
 [**tiktok_tiktok_shop_root_categories**](TikTokApi.md#tiktok_tiktok_shop_root_categories) | **GET** /v1/tiktok/shop/categories | TikTok Shop root categories
 [**tiktok_tiktok_shop_store_products**](TikTokApi.md#tiktok_tiktok_shop_store_products) | **GET** /v1/tiktok/shop/stores/{seller_id} | TikTok Shop store + products
+[**tiktok_tiktok_shop_theme_ranking**](TikTokApi.md#tiktok_tiktok_shop_theme_ranking) | **GET** /v1/tiktok/shop/rankings/{rank_id} | TikTok Shop theme ranking
 [**tiktok_trending_hashtags**](TikTokApi.md#tiktok_trending_hashtags) | **GET** /v1/tiktok/trending/hashtags | Trending hashtags
 [**tiktok_trending_songs**](TikTokApi.md#tiktok_trending_songs) | **GET** /v1/tiktok/trending/songs | Trending songs
 [**tiktok_trending_videos**](TikTokApi.md#tiktok_trending_videos) | **GET** /v1/tiktok/trending/videos | Trending videos
 
+
+
+## tiktok_best_selling_tiktok_shop_products
+
+> serde_json::Value tiktok_best_selling_tiktok_shop_products(region, category_id, pages, limit)
+Best-selling TikTok Shop products
+
+Sales-ranked best-selling products, available for every operating market.  Ranked by real sold_count (source: sales_ranked); works for SG/MY/JP where TikTok's curated /shop/rankings are not exposed. Omit category_id for a market-wide list.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
+**category_id** | Option<**String**> |  |  |
+**pages** | Option<**i32**> |  |  |[default to 2]
+**limit** | Option<**i32**> |  |  |[default to 20]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## tiktok_general_search
@@ -804,7 +841,7 @@ Name | Type | Description  | Required | Notes
 
 ## tiktok_search_tiktok_shop_products
 
-> serde_json::Value tiktok_search_tiktok_shop_products(q, region, offset)
+> serde_json::Value tiktok_search_tiktok_shop_products(q, region, page_token, offset)
 Search TikTok Shop products
 
 Keyword search over TikTok Shop products: 30 per page with offset pagination (US); the first page also carries matching shops and related searches.
@@ -815,7 +852,8 @@ Keyword search over TikTok Shop products: 30 per page with offset pagination (US
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **q** | **String** | Keyword, e.g. 'wireless earbuds' | [required] |
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
+**page_token** | Option<**String**> |  |  |
 **offset** | Option<**i32**> | Pass back next_offset for the next page (US) |  |[default to 0]
 
 ### Return type
@@ -900,6 +938,39 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## tiktok_tiktok_shop_category_products
+
+> serde_json::Value tiktok_tiktok_shop_category_products(category_id, region, count, exclude_product_ids)
+TikTok Shop category products
+
+Category recommendations. Pass accumulated exclusion IDs for the next page; these are not sales rankings.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**category_id** | **String** |  | [required] |
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
+**count** | Option<**i32**> |  |  |[default to 20]
+**exclude_product_ids** | Option<[**Vec<String>**](String.md)> | Repeat for every next_exclude_product_ids value |  |[default to []]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## tiktok_tiktok_shop_category_subcategories_top_products
 
 > serde_json::Value tiktok_tiktok_shop_category_subcategories_top_products(category_id, region)
@@ -913,7 +984,7 @@ A category's subcategories and its top products as TikTok Shop ranks them.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **category_id** | **String** |  | [required] |
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
 
 ### Return type
 
@@ -944,7 +1015,7 @@ Full TikTok Shop product page: description, images, price, SKUs with stock, firs
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **product_id** | **String** |  | [required] |
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
 
 ### Return type
 
@@ -967,7 +1038,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value tiktok_tiktok_shop_product_reviews(product_id, region, page, count, sort, rating, with_media, verified)
 TikTok Shop product reviews
 
-Paginated product reviews with the rating breakdown (US).
+Paginated product reviews with rating breakdown (US and ID). Indonesia supports recent/recommended ordering, star and media filters; verified=true is not supported.
 
 ### Parameters
 
@@ -975,13 +1046,45 @@ Paginated product reviews with the rating breakdown (US).
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **product_id** | **String** |  | [required] |
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
 **page** | Option<**i32**> |  |  |[default to 1]
 **count** | Option<**i32**> |  |  |[default to 20]
 **sort** | Option<**String**> | recommended | recent |  |[default to recommended]
 **rating** | Option<**i32**> | Only this star rating |  |
 **with_media** | Option<**bool**> | Only reviews with photos/videos |  |[default to false]
 **verified** | Option<**bool**> | Only verified purchases |  |[default to false]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_tiktok_shop_regional_mall_feed
+
+> serde_json::Value tiktok_tiktok_shop_regional_mall_feed(region, tab_id, page_token)
+TikTok Shop regional mall feed
+
+Mall navigation and recommendations with a 15-minute continuation token.  ID, SG, MY, PH, TH, VN and JP are locally verified. Tabs are not a complete category taxonomy.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
+**tab_id** | Option<**i32**> |  |  |[default to 0]
+**page_token** | Option<**String**> |  |  |
 
 ### Return type
 
@@ -1011,7 +1114,7 @@ Top-level TikTok Shop categories of a market. Drill down with /shop/categories/{
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
 
 ### Return type
 
@@ -1042,8 +1145,42 @@ A store's stats and its cursor-paginated product catalogue (US).
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **seller_id** | **String** |  | [required] |
-**region** | Option<**String**> | Market: US, GB, ID |  |[default to US]
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
 **cursor** | Option<**String**> | Pass back next_cursor for the next page |  |[default to ]
+**count** | Option<**i32**> |  |  |[default to 20]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## tiktok_tiktok_shop_theme_ranking
+
+> serde_json::Value tiktok_tiktok_shop_theme_ranking(rank_id, region, rank_type, cursor, count)
+TikTok Shop theme ranking
+
+Native category/theme ranking. ID, PH, TH and VN are locally verified.  Types: 1 high seller, 2 trending, 3 ratings. Coverage depends on the configured guest profile; a category recommendation feed is not used as a substitute.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**rank_id** | **String** |  | [required] |
+**region** | Option<**String**> | Market: US, GB, ID, JP, MX, SG, MY, PH, TH, VN; coverage varies by endpoint |  |[default to US]
+**rank_type** | Option<**i32**> |  |  |[default to 1]
+**cursor** | Option<**i32**> |  |  |[default to 0]
 **count** | Option<**i32**> |  |  |[default to 20]
 
 ### Return type

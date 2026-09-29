@@ -15,6 +15,14 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration};
 
 
+/// struct for typed errors of method [`tiktok_best_selling_tiktok_shop_products`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TiktokBestSellingTiktokShopProductsError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`tiktok_general_search`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -228,6 +236,14 @@ pub enum TiktokSearchVideosError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`tiktok_tiktok_shop_category_products`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TiktokTiktokShopCategoryProductsError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`tiktok_tiktok_shop_category_subcategories_top_products`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -252,6 +268,14 @@ pub enum TiktokTiktokShopProductReviewsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`tiktok_tiktok_shop_regional_mall_feed`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TiktokTiktokShopRegionalMallFeedError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`tiktok_tiktok_shop_root_categories`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -264,6 +288,14 @@ pub enum TiktokTiktokShopRootCategoriesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TiktokTiktokShopStoreProductsError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`tiktok_tiktok_shop_theme_ranking`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TiktokTiktokShopThemeRankingError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -292,6 +324,54 @@ pub enum TiktokTrendingVideosError {
     UnknownValue(serde_json::Value),
 }
 
+
+/// Sales-ranked best-selling products, available for every operating market.  Ranked by real sold_count (source: sales_ranked); works for SG/MY/JP where TikTok's curated /shop/rankings are not exposed. Omit category_id for a market-wide list.
+pub async fn tiktok_best_selling_tiktok_shop_products(configuration: &configuration::Configuration, region: Option<&str>, category_id: Option<&str>, pages: Option<i32>, limit: Option<i32>) -> Result<serde_json::Value, Error<TiktokBestSellingTiktokShopProductsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tiktok/shop/bestsellers", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = region {
+        local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = category_id {
+        local_var_req_builder = local_var_req_builder.query(&[("category_id", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = pages {
+        local_var_req_builder = local_var_req_builder.query(&[("pages", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<TiktokBestSellingTiktokShopProductsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
 
 /// General TikTok search — video results from the Top feed.
 pub async fn tiktok_general_search(configuration: &configuration::Configuration, query: &str, region: Option<&str>, count: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<TiktokGeneralSearchError>> {
@@ -1310,7 +1390,7 @@ pub async fn tiktok_search_tiktok_advertisers(configuration: &configuration::Con
 }
 
 /// Keyword search over TikTok Shop products: 30 per page with offset pagination (US); the first page also carries matching shops and related searches.
-pub async fn tiktok_search_tiktok_shop_products(configuration: &configuration::Configuration, q: &str, region: Option<&str>, offset: Option<i32>) -> Result<serde_json::Value, Error<TiktokSearchTiktokShopProductsError>> {
+pub async fn tiktok_search_tiktok_shop_products(configuration: &configuration::Configuration, q: &str, region: Option<&str>, page_token: Option<&str>, offset: Option<i32>) -> Result<serde_json::Value, Error<TiktokSearchTiktokShopProductsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1321,6 +1401,9 @@ pub async fn tiktok_search_tiktok_shop_products(configuration: &configuration::C
     local_var_req_builder = local_var_req_builder.query(&[("q", &q.to_string())]);
     if let Some(ref local_var_str) = region {
         local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page_token {
+        local_var_req_builder = local_var_req_builder.query(&[("page_token", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = offset {
         local_var_req_builder = local_var_req_builder.query(&[("offset", &local_var_str.to_string())]);
@@ -1444,6 +1527,54 @@ pub async fn tiktok_search_videos(configuration: &configuration::Configuration, 
     }
 }
 
+/// Category recommendations. Pass accumulated exclusion IDs for the next page; these are not sales rankings.
+pub async fn tiktok_tiktok_shop_category_products(configuration: &configuration::Configuration, category_id: &str, region: Option<&str>, count: Option<i32>, exclude_product_ids: Option<Vec<String>>) -> Result<serde_json::Value, Error<TiktokTiktokShopCategoryProductsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tiktok/shop/categories/{category_id}/products", local_var_configuration.base_path, category_id=crate::apis::urlencode(category_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = region {
+        local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = count {
+        local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = exclude_product_ids {
+        local_var_req_builder = match "multi" {
+            "multi" => local_var_req_builder.query(&local_var_str.into_iter().map(|p| ("exclude_product_ids".to_owned(), p.to_string())).collect::<Vec<(std::string::String, std::string::String)>>()),
+            _ => local_var_req_builder.query(&[("exclude_product_ids", &local_var_str.into_iter().map(|p| p.to_string()).collect::<Vec<String>>().join(",").to_string())]),
+        };
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<TiktokTiktokShopCategoryProductsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 /// A category's subcategories and its top products as TikTok Shop ranks them.
 pub async fn tiktok_tiktok_shop_category_subcategories_top_products(configuration: &configuration::Configuration, category_id: &str, region: Option<&str>) -> Result<serde_json::Value, Error<TiktokTiktokShopCategorySubcategoriesTopProductsError>> {
     let local_var_configuration = configuration;
@@ -1522,7 +1653,7 @@ pub async fn tiktok_tiktok_shop_product_detail(configuration: &configuration::Co
     }
 }
 
-/// Paginated product reviews with the rating breakdown (US).
+/// Paginated product reviews with rating breakdown (US and ID). Indonesia supports recent/recommended ordering, star and media filters; verified=true is not supported.
 pub async fn tiktok_tiktok_shop_product_reviews(configuration: &configuration::Configuration, product_id: &str, region: Option<&str>, page: Option<i32>, count: Option<i32>, sort: Option<&str>, rating: Option<i32>, with_media: Option<bool>, verified: Option<bool>) -> Result<serde_json::Value, Error<TiktokTiktokShopProductReviewsError>> {
     let local_var_configuration = configuration;
 
@@ -1574,6 +1705,51 @@ pub async fn tiktok_tiktok_shop_product_reviews(configuration: &configuration::C
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<TiktokTiktokShopProductReviewsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Mall navigation and recommendations with a 15-minute continuation token.  ID, SG, MY, PH, TH, VN and JP are locally verified. Tabs are not a complete category taxonomy.
+pub async fn tiktok_tiktok_shop_regional_mall_feed(configuration: &configuration::Configuration, region: Option<&str>, tab_id: Option<i32>, page_token: Option<&str>) -> Result<serde_json::Value, Error<TiktokTiktokShopRegionalMallFeedError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tiktok/shop/mall", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = region {
+        local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tab_id {
+        local_var_req_builder = local_var_req_builder.query(&[("tab_id", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = page_token {
+        local_var_req_builder = local_var_req_builder.query(&[("page_token", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<TiktokTiktokShopRegionalMallFeedError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -1658,6 +1834,54 @@ pub async fn tiktok_tiktok_shop_store_products(configuration: &configuration::Co
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<TiktokTiktokShopStoreProductsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Native category/theme ranking. ID, PH, TH and VN are locally verified.  Types: 1 high seller, 2 trending, 3 ratings. Coverage depends on the configured guest profile; a category recommendation feed is not used as a substitute.
+pub async fn tiktok_tiktok_shop_theme_ranking(configuration: &configuration::Configuration, rank_id: &str, region: Option<&str>, rank_type: Option<i32>, cursor: Option<i32>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokTiktokShopThemeRankingError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/tiktok/shop/rankings/{rank_id}", local_var_configuration.base_path, rank_id=crate::apis::urlencode(rank_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = region {
+        local_var_req_builder = local_var_req_builder.query(&[("region", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = rank_type {
+        local_var_req_builder = local_var_req_builder.query(&[("rank_type", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cursor {
+        local_var_req_builder = local_var_req_builder.query(&[("cursor", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = count {
+        local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<TiktokTiktokShopThemeRankingError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
