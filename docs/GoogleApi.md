@@ -454,7 +454,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value google_google_lens_visual_search(url, query, country, language, gl, hl, product, visual_matches, exact_matches)
 Google Lens visual search
 
-Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.
+Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.  ``query`` refines the grid with text and is honoured. ``product`` and ``exact_matches`` are not yet supported, and ``visual_matches=false`` cannot be: visual matches are the only surface served. Setting any of the three adds a line to the ``warnings`` array on the response rather than changing the result — see SCR-177. The match grid still CONTAINS an image's exact matches; Google just does not label which they are.
 
 ### Parameters
 
@@ -467,9 +467,9 @@ Name | Type | Description  | Required | Notes
 **language** | Option<**String**> | Language code (alias for hl) |  |
 **gl** | Option<**String**> | Country code |  |[default to us]
 **hl** | Option<**String**> | Language code |  |[default to en]
-**product** | Option<**bool**> | Bias towards shoppable product matches |  |[default to false]
-**visual_matches** | Option<**bool**> | Include the visual-matches carousel |  |[default to true]
-**exact_matches** | Option<**bool**> | Restrict to exact-match results |  |[default to false]
+**product** | Option<**bool**> | NOT YET SUPPORTED — accepted, and reported back in `warnings` |  |[default to false]
+**visual_matches** | Option<**bool**> | Always true in practice — `false` is reported back in `warnings` |  |[default to true]
+**exact_matches** | Option<**bool**> | NOT YET SUPPORTED — accepted, and reported back in `warnings` |  |[default to false]
 
 ### Return type
 

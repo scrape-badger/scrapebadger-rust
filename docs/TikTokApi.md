@@ -8,11 +8,11 @@ Method | HTTP request | Description
 [**tiktok_general_search**](TikTokApi.md#tiktok_general_search) | **GET** /v1/tiktok/search | General search
 [**tiktok_get_comment_replies**](TikTokApi.md#tiktok_get_comment_replies) | **GET** /v1/tiktok/comments/{comment_id}/replies | Get comment replies
 [**tiktok_get_comments**](TikTokApi.md#tiktok_get_comments) | **GET** /v1/tiktok/videos/{video_id}/comments | Get comments
-[**tiktok_get_followers_deprecated**](TikTokApi.md#tiktok_get_followers_deprecated) | **GET** /v1/tiktok/users/{username}/followers | Get followers (deprecated)
-[**tiktok_get_following_deprecated**](TikTokApi.md#tiktok_get_following_deprecated) | **GET** /v1/tiktok/users/{username}/following | Get following (deprecated)
+[**tiktok_get_followers**](TikTokApi.md#tiktok_get_followers) | **GET** /v1/tiktok/users/{username}/followers | Get followers
+[**tiktok_get_following**](TikTokApi.md#tiktok_get_following) | **GET** /v1/tiktok/users/{username}/following | Get following
 [**tiktok_get_hashtag_detail**](TikTokApi.md#tiktok_get_hashtag_detail) | **GET** /v1/tiktok/hashtags/{name} | Get hashtag detail
 [**tiktok_get_hashtag_videos**](TikTokApi.md#tiktok_get_hashtag_videos) | **GET** /v1/tiktok/hashtags/{name}/videos | Get hashtag videos
-[**tiktok_get_liked_videos_deprecated**](TikTokApi.md#tiktok_get_liked_videos_deprecated) | **GET** /v1/tiktok/users/{username}/liked | Get liked videos (deprecated)
+[**tiktok_get_liked_videos**](TikTokApi.md#tiktok_get_liked_videos) | **GET** /v1/tiktok/users/{username}/liked | Get liked videos
 [**tiktok_get_music_sound_detail**](TikTokApi.md#tiktok_get_music_sound_detail) | **GET** /v1/tiktok/music/{music_id} | Get music/sound detail
 [**tiktok_get_music_videos**](TikTokApi.md#tiktok_get_music_videos) | **GET** /v1/tiktok/music/{music_id}/videos | Get music videos
 [**tiktok_get_oembed_metadata**](TikTokApi.md#tiktok_get_oembed_metadata) | **GET** /v1/tiktok/oembed | Get oEmbed metadata
@@ -94,7 +94,7 @@ Name | Type | Description  | Required | Notes
 **query** | **String** | Search keyword | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 20]
-**cursor** | Option<**String**> | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor |  |
+**cursor** | Option<**String**> | Opaque continuation cursor from a prior page's pagination.cursor |  |
 
 ### Return type
 
@@ -179,12 +179,12 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## tiktok_get_followers_deprecated
+## tiktok_get_followers
 
-> serde_json::Value tiktok_get_followers_deprecated(username, region, count)
-Get followers (deprecated)
+> serde_json::Value tiktok_get_followers(username, region, count, cursor)
+Get followers
 
-DEPRECATED — TikTok followers require an authenticated account session. Returns HTTP 410.
+Get publicly visible followers without an account.
 
 ### Parameters
 
@@ -194,6 +194,7 @@ Name | Type | Description  | Required | Notes
 **username** | **String** |  | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 30]
+**cursor** | Option<**String**> | Continuation cursor from the previous page |  |
 
 ### Return type
 
@@ -211,12 +212,12 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## tiktok_get_following_deprecated
+## tiktok_get_following
 
-> serde_json::Value tiktok_get_following_deprecated(username, region, count)
-Get following (deprecated)
+> serde_json::Value tiktok_get_following(username, region, count, cursor)
+Get following
 
-DEPRECATED — TikTok following requires an authenticated account session. Returns HTTP 410.
+Get publicly visible followed accounts. Hidden lists return HTTP 403.
 
 ### Parameters
 
@@ -226,6 +227,7 @@ Name | Type | Description  | Required | Notes
 **username** | **String** |  | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 30]
+**cursor** | Option<**String**> | Continuation cursor from the previous page |  |
 
 ### Return type
 
@@ -307,12 +309,12 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## tiktok_get_liked_videos_deprecated
+## tiktok_get_liked_videos
 
-> serde_json::Value tiktok_get_liked_videos_deprecated(username, region, count)
-Get liked videos (deprecated)
+> serde_json::Value tiktok_get_liked_videos(username, region, count, cursor)
+Get liked videos
 
-DEPRECATED — TikTok liked videos require an authenticated account session. Returns HTTP 410.
+Get public liked videos. Hidden liked lists return HTTP 403.
 
 ### Parameters
 
@@ -322,6 +324,7 @@ Name | Type | Description  | Required | Notes
 **username** | **String** |  | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 30]
+**cursor** | Option<**String**> | Continuation cursor from the previous page |  |
 
 ### Return type
 
@@ -436,7 +439,7 @@ Name | Type | Description  | Required | Notes
 
 ## tiktok_get_related_videos
 
-> serde_json::Value tiktok_get_related_videos(video_id, region, count)
+> serde_json::Value tiktok_get_related_videos(video_id, region, count, cursor)
 Get related videos
 
 Get TikTok's related videos for a given video.
@@ -449,6 +452,7 @@ Name | Type | Description  | Required | Notes
 **video_id** | **String** |  | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 16]
+**cursor** | Option<**String**> | Continuation cursor from the previous page |  |
 
 ### Return type
 
@@ -468,7 +472,7 @@ Name | Type | Description  | Required | Notes
 
 ## tiktok_get_reposts
 
-> serde_json::Value tiktok_get_reposts(username, region, count)
+> serde_json::Value tiktok_get_reposts(username, region, count, cursor)
 Get reposts
 
 Get videos a TikTok user has reposted.
@@ -481,6 +485,7 @@ Name | Type | Description  | Required | Notes
 **username** | **String** |  | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 30]
+**cursor** | Option<**String**> | Continuation cursor from the previous page |  |
 
 ### Return type
 
@@ -606,7 +611,7 @@ Name | Type | Description  | Required | Notes
 **username** | **String** |  | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 30]
-**cursor** | Option<**String**> | Pagination cursor from a prior page's `pagination.cursor` (signer path only). |  |
+**cursor** | Option<**String**> | Pagination cursor from a prior page's `pagination.cursor` (opaque; expires after 15 minutes). |  |
 
 ### Return type
 
@@ -752,7 +757,7 @@ Name | Type | Description  | Required | Notes
 **query** | **String** | Search keyword | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 20]
-**cursor** | Option<**String**> | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor |  |
+**cursor** | Option<**String**> | Opaque continuation cursor from a prior page's pagination.cursor |  |
 
 ### Return type
 
@@ -887,7 +892,7 @@ Name | Type | Description  | Required | Notes
 **query** | **String** | Search keyword | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 20]
-**cursor** | Option<**String**> | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor |  |
+**cursor** | Option<**String**> | Opaque continuation cursor from a prior page's pagination.cursor |  |
 
 ### Return type
 
@@ -920,7 +925,7 @@ Name | Type | Description  | Required | Notes
 **query** | **String** | Search keyword | [required] |
 **region** | Option<**String**> |  |  |[default to US]
 **count** | Option<**i32**> |  |  |[default to 20]
-**cursor** | Option<**String**> | Composite pagination cursor (offset.search_id) from a prior page's pagination.cursor |  |
+**cursor** | Option<**String**> | Opaque continuation cursor from a prior page's pagination.cursor |  |
 
 ### Return type
 
@@ -1212,7 +1217,7 @@ Get trending hashtags (mobile Discover surface — view_count + creators).
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **region** | Option<**String**> |  |  |[default to US]
-**period** | Option<**i32**> |  |  |[default to 7]
+**period** | Option<**i32**> | Historical windows are unavailable; omit period |  |
 **count** | Option<**i32**> |  |  |[default to 20]
 
 ### Return type
@@ -1244,7 +1249,7 @@ Get trending songs/sounds (mobile hot-music feed — ranked by usage).
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **region** | Option<**String**> |  |  |[default to US]
-**period** | Option<**i32**> |  |  |[default to 7]
+**period** | Option<**i32**> | Historical windows are unavailable; omit period |  |
 **count** | Option<**i32**> |  |  |[default to 20]
 
 ### Return type

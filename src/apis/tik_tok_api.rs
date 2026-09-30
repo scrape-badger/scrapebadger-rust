@@ -47,18 +47,18 @@ pub enum TiktokGetCommentsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`tiktok_get_followers_deprecated`]
+/// struct for typed errors of method [`tiktok_get_followers`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum TiktokGetFollowersDeprecatedError {
+pub enum TiktokGetFollowersError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`tiktok_get_following_deprecated`]
+/// struct for typed errors of method [`tiktok_get_following`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum TiktokGetFollowingDeprecatedError {
+pub enum TiktokGetFollowingError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -79,10 +79,10 @@ pub enum TiktokGetHashtagVideosError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`tiktok_get_liked_videos_deprecated`]
+/// struct for typed errors of method [`tiktok_get_liked_videos`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum TiktokGetLikedVideosDeprecatedError {
+pub enum TiktokGetLikedVideosError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -510,8 +510,8 @@ pub async fn tiktok_get_comments(configuration: &configuration::Configuration, v
     }
 }
 
-/// DEPRECATED — TikTok followers require an authenticated account session. Returns HTTP 410.
-pub async fn tiktok_get_followers_deprecated(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokGetFollowersDeprecatedError>> {
+/// Get publicly visible followers without an account.
+pub async fn tiktok_get_followers(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<TiktokGetFollowersError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -525,6 +525,9 @@ pub async fn tiktok_get_followers_deprecated(configuration: &configuration::Conf
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = cursor {
+        local_var_req_builder = local_var_req_builder.query(&[("cursor", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -546,14 +549,14 @@ pub async fn tiktok_get_followers_deprecated(configuration: &configuration::Conf
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<TiktokGetFollowersDeprecatedError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<TiktokGetFollowersError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-/// DEPRECATED — TikTok following requires an authenticated account session. Returns HTTP 410.
-pub async fn tiktok_get_following_deprecated(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokGetFollowingDeprecatedError>> {
+/// Get publicly visible followed accounts. Hidden lists return HTTP 403.
+pub async fn tiktok_get_following(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<TiktokGetFollowingError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -567,6 +570,9 @@ pub async fn tiktok_get_following_deprecated(configuration: &configuration::Conf
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = cursor {
+        local_var_req_builder = local_var_req_builder.query(&[("cursor", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -588,7 +594,7 @@ pub async fn tiktok_get_following_deprecated(configuration: &configuration::Conf
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<TiktokGetFollowingDeprecatedError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<TiktokGetFollowingError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -678,8 +684,8 @@ pub async fn tiktok_get_hashtag_videos(configuration: &configuration::Configurat
     }
 }
 
-/// DEPRECATED — TikTok liked videos require an authenticated account session. Returns HTTP 410.
-pub async fn tiktok_get_liked_videos_deprecated(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokGetLikedVideosDeprecatedError>> {
+/// Get public liked videos. Hidden liked lists return HTTP 403.
+pub async fn tiktok_get_liked_videos(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<TiktokGetLikedVideosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -692,6 +698,9 @@ pub async fn tiktok_get_liked_videos_deprecated(configuration: &configuration::C
     }
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cursor {
+        local_var_req_builder = local_var_req_builder.query(&[("cursor", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -714,7 +723,7 @@ pub async fn tiktok_get_liked_videos_deprecated(configuration: &configuration::C
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<TiktokGetLikedVideosDeprecatedError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<TiktokGetLikedVideosError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -845,7 +854,7 @@ pub async fn tiktok_get_oembed_metadata(configuration: &configuration::Configura
 }
 
 /// Get TikTok's related videos for a given video.
-pub async fn tiktok_get_related_videos(configuration: &configuration::Configuration, video_id: &str, region: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokGetRelatedVideosError>> {
+pub async fn tiktok_get_related_videos(configuration: &configuration::Configuration, video_id: &str, region: Option<&str>, count: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<TiktokGetRelatedVideosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -858,6 +867,9 @@ pub async fn tiktok_get_related_videos(configuration: &configuration::Configurat
     }
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cursor {
+        local_var_req_builder = local_var_req_builder.query(&[("cursor", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -887,7 +899,7 @@ pub async fn tiktok_get_related_videos(configuration: &configuration::Configurat
 }
 
 /// Get videos a TikTok user has reposted.
-pub async fn tiktok_get_reposts(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<TiktokGetRepostsError>> {
+pub async fn tiktok_get_reposts(configuration: &configuration::Configuration, username: &str, region: Option<&str>, count: Option<i32>, cursor: Option<&str>) -> Result<serde_json::Value, Error<TiktokGetRepostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -900,6 +912,9 @@ pub async fn tiktok_get_reposts(configuration: &configuration::Configuration, us
     }
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cursor {
+        local_var_req_builder = local_var_req_builder.query(&[("cursor", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
