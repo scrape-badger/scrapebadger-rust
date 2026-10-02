@@ -454,7 +454,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value google_google_lens_visual_search(url, query, country, language, gl, hl, product, visual_matches, exact_matches)
 Google Lens visual search
 
-Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.  ``query`` refines the grid with text. ``exact_matches=true`` swaps the grid for Google's high-precision source set — the pages actually hosting the image, each flagged ``exact_match: true`` — which is much smaller than the grid (one result vs ~58 on our reference image). ``product`` is still not supported, and ``visual_matches=false`` cannot be: visual matches are the only grid served. Anything that could not be applied, including an exact-match lookup that came back empty, is named in the ``warnings`` array rather than silently dropped (SCR-177, SCR-180).
+Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.  ``query`` refines the grid with text. ``exact_matches=true`` is EXPERIMENTAL and off by default: when Google's source set is available it returns just the pages hosting the image, each flagged ``exact_match: true``, but that set is frequently empty and the request then falls back to the grid. ``product`` is not supported, and ``visual_matches=false`` cannot be: visual matches are the only grid served. Anything that could not be applied — including an exact-match lookup that came back empty — is named in the ``warnings`` array rather than silently dropped (SCR-177, SCR-180).
 
 ### Parameters
 
@@ -469,7 +469,7 @@ Name | Type | Description  | Required | Notes
 **hl** | Option<**String**> | Language code |  |[default to en]
 **product** | Option<**bool**> | NOT YET SUPPORTED — accepted, and reported back in `warnings` |  |[default to false]
 **visual_matches** | Option<**bool**> | Always true in practice — `false` is reported back in `warnings` |  |[default to true]
-**exact_matches** | Option<**bool**> | Return the pages hosting this image, flagged `exact_match` |  |[default to false]
+**exact_matches** | Option<**bool**> | EXPERIMENTAL and off by default: when Google's source set is available this returns only the pages hosting the image, each flagged exact_match; it is frequently unavailable, and every request that falls back says so in warnings |  |[default to false]
 
 ### Return type
 
