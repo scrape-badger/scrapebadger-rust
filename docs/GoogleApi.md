@@ -454,7 +454,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value google_google_lens_visual_search(url, query, country, language, gl, hl, product, visual_matches, exact_matches)
 Google Lens visual search
 
-Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.  ``query`` refines the grid with text. ``exact_matches=true`` returns just the pages hosting the image, each flagged ``exact_match: true``, instead of the broad grid — available for most images (7 of 10 in sampling) and falling back to the grid otherwise. ``product`` is not supported, and ``visual_matches=false`` cannot be: visual matches are the only grid served. Anything that could not be applied — including an exact-match lookup that came back empty — is named in the ``warnings`` array rather than silently dropped (SCR-177, SCR-180).
+Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.  ``query`` refines the grid with text. ``exact_matches=true`` returns just the pages hosting the image, each flagged ``exact_match: true``, instead of the broad grid — available for most images (8 of 10 in sampling) and falling back to the grid otherwise. ``product=true`` narrows the grid to the tiles Google marked buyable. ``visual_matches=false`` cannot be honoured: ``visual_matches=false`` cannot be: visual matches are the only grid served. Anything that could not be applied — including an exact-match lookup that came back empty — is named in the ``warnings`` array rather than silently dropped (SCR-177, SCR-180).
 
 ### Parameters
 
@@ -467,9 +467,9 @@ Name | Type | Description  | Required | Notes
 **language** | Option<**String**> | Language code (alias for hl) |  |
 **gl** | Option<**String**> | Country code |  |[default to us]
 **hl** | Option<**String**> | Language code |  |[default to en]
-**product** | Option<**bool**> | NOT YET SUPPORTED — accepted, and reported back in `warnings` |  |[default to false]
+**product** | Option<**bool**> | Only the tiles Google marked buyable (price + stock), drawn from the same grid |  |[default to false]
 **visual_matches** | Option<**bool**> | Always true in practice — `false` is reported back in `warnings` |  |[default to true]
-**exact_matches** | Option<**bool**> | Return only the pages hosting this image, flagged exact_match. Available for most images (7/10 in sampling); falls back to the full grid otherwise, saying so in warnings |  |[default to false]
+**exact_matches** | Option<**bool**> | Return only the pages hosting this image, flagged exact_match. Available for most images (8/10 in sampling); falls back to the full grid otherwise, saying so in warnings |  |[default to false]
 
 ### Return type
 
