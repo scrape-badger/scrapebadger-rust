@@ -112,6 +112,7 @@ pub mod instagram_api;
 pub mod leboncoin_api;
 pub mod linked_in_api;
 pub mod loop_net_api;
+pub mod naver_api;
 pub mod perplexity_api;
 pub mod realtor_api;
 pub mod reddit_api;

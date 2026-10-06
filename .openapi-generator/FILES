@@ -41,6 +41,7 @@ docs/LeboncoinApi.md
 docs/LinkedInApi.md
 docs/LoopNetApi.md
 docs/MarketsResponse.md
+docs/NaverApi.md
 docs/PerplexityApi.md
 docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md
 docs/RealtorApi.md
@@ -112,6 +113,7 @@ src/apis/leboncoin_api.rs
 src/apis/linked_in_api.rs
 src/apis/loop_net_api.rs
 src/apis/mod.rs
+src/apis/naver_api.rs
 src/apis/perplexity_api.rs
 src/apis/realtor_api.rs
 src/apis/reddit_api.rs
