@@ -26,13 +26,6 @@ pub enum WebDetectAntiBotAndCaptchaSystemsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum WebExtractStructuredDataError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`web_get_batch_job_status`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum WebGetBatchJobStatusError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -52,17 +45,11 @@ pub enum WebScrapeAUrlError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`web_submit_batch_scraping_job`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum WebSubmitBatchScrapingJobError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`web_take_a_screenshot`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum WebTakeAScreenshotError {
+    Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
 
@@ -117,8 +104,8 @@ pub async fn web_detect_anti_bot_and_captcha_systems(configuration: &configurati
     }
 }
 
-/// Extract structured data from a URL using CSS or XPath selectors. (Phase 6)
-pub async fn web_extract_structured_data(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<WebExtractStructuredDataError>> {
+/// Scrape a URL and extract fields with CSS/XPath selectors and/or AI.  ``extract_rules`` maps a field to a selector and returns ``data``; ``ai_extract_rules`` (field -> description) and ``ai_query`` return ``ai_extraction``. Billed as a scrape, plus the AI extraction credits when AI is asked for and succeeds.
+pub async fn web_extract_structured_data(configuration: &configuration::Configuration, extract_request: models::ExtractRequest) -> Result<serde_json::Value, Error<WebExtractStructuredDataError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -137,6 +124,7 @@ pub async fn web_extract_structured_data(configuration: &configuration::Configur
         };
         local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
     };
+    local_var_req_builder = local_var_req_builder.json(&extract_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -148,42 +136,6 @@ pub async fn web_extract_structured_data(configuration: &configuration::Configur
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<WebExtractStructuredDataError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-/// Get the status of a batch scraping job. (Phase 6)
-pub async fn web_get_batch_job_status(configuration: &configuration::Configuration, job_id: &str) -> Result<serde_json::Value, Error<WebGetBatchJobStatusError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/v1/web/batch/{job_id}", local_var_configuration.base_path, job_id=crate::apis::urlencode(job_id));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<WebGetBatchJobStatusError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -261,44 +213,8 @@ pub async fn web_scrape_a_url(configuration: &configuration::Configuration, ) ->
     }
 }
 
-/// Submit a batch of URLs for scraping. (Phase 6)
-pub async fn web_submit_batch_scraping_job(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<WebSubmitBatchScrapingJobError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/v1/web/batch", local_var_configuration.base_path);
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<WebSubmitBatchScrapingJobError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-/// Take a screenshot of a URL. (browser engine)
-pub async fn web_take_a_screenshot(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<WebTakeAScreenshotError>> {
+/// Render a URL in the browser engine and return a PNG screenshot.  ``screenshot`` is the PNG, base64-encoded. ``width``/``height`` set the viewport; ``full_page`` captures the whole scrollable page. Billed as a browser scrape (plus the proxy tier); a page that loads without a screenshot is a 502 and costs nothing.
+pub async fn web_take_a_screenshot(configuration: &configuration::Configuration, screenshot_request: models::ScreenshotRequest) -> Result<serde_json::Value, Error<WebTakeAScreenshotError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -317,6 +233,7 @@ pub async fn web_take_a_screenshot(configuration: &configuration::Configuration,
         };
         local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
     };
+    local_var_req_builder = local_var_req_builder.json(&screenshot_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;

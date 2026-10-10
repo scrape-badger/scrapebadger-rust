@@ -20,6 +20,9 @@ docs/ColorsResponse.md
 docs/DepopApi.md
 docs/DuckDuckGoApi.md
 docs/EBayApi.md
+docs/ExtractRequest.md
+docs/ExtractRequestExtractRulesValue.md
+docs/ExtractRule.md
 docs/FacebookApi.md
 docs/FilterRuleCreate.md
 docs/FilterRuleDeliveryLogListResponse.md
@@ -47,6 +50,7 @@ docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md
 docs/RealtorApi.md
 docs/RedditApi.md
 docs/RedfinApi.md
+docs/ScreenshotRequest.md
 docs/SearchResponse.md
 docs/StatusesResponse.md
 docs/StreamMonitorCreate.md
@@ -133,6 +137,9 @@ src/models/billing_log_list_response.rs
 src/models/billing_log_response.rs
 src/models/brands_response.rs
 src/models/colors_response.rs
+src/models/extract_request.rs
+src/models/extract_request_extract_rules_value.rs
+src/models/extract_rule.rs
 src/models/filter_rule_create.rs
 src/models/filter_rule_delivery_log_list_response.rs
 src/models/filter_rule_delivery_log_response.rs
@@ -146,6 +153,7 @@ src/models/item_detail_response.rs
 src/models/markets_response.rs
 src/models/mod.rs
 src/models/portal_api__routers__v1_twitter_filter_rules__filter_rule_pricing_response.rs
+src/models/screenshot_request.rs
 src/models/search_response.rs
 src/models/statuses_response.rs
 src/models/stream_monitor_create.rs

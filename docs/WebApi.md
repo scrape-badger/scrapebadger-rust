@@ -6,10 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**web_detect_anti_bot_and_captcha_systems**](WebApi.md#web_detect_anti_bot_and_captcha_systems) | **POST** /v1/web/detect | Detect anti-bot and CAPTCHA systems
 [**web_extract_structured_data**](WebApi.md#web_extract_structured_data) | **POST** /v1/web/extract | Extract structured data
-[**web_get_batch_job_status**](WebApi.md#web_get_batch_job_status) | **GET** /v1/web/batch/{job_id} | Get batch job status
 [**web_poll_an_auto_unblock_discovery_job**](WebApi.md#web_poll_an_auto_unblock_discovery_job) | **GET** /v1/web/unblock/{job_id} | Poll an auto-unblock discovery job
 [**web_scrape_a_url**](WebApi.md#web_scrape_a_url) | **POST** /v1/web/scrape | Scrape a URL
-[**web_submit_batch_scraping_job**](WebApi.md#web_submit_batch_scraping_job) | **POST** /v1/web/batch | Submit batch scraping job
 [**web_take_a_screenshot**](WebApi.md#web_take_a_screenshot) | **POST** /v1/web/screenshot | Take a screenshot
 [**web_web_scraper_health_check**](WebApi.md#web_web_scraper_health_check) | **GET** /v1/web/health | Web scraper health check
 [**web_web_scraper_health_check_head**](WebApi.md#web_web_scraper_health_check_head) | **HEAD** /v1/web/health | Web scraper health check
@@ -45,44 +43,17 @@ This endpoint does not need any parameter.
 
 ## web_extract_structured_data
 
-> serde_json::Value web_extract_structured_data()
+> serde_json::Value web_extract_structured_data(extract_request)
 Extract structured data
 
-Extract structured data from a URL using CSS or XPath selectors. (Phase 6)
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**serde_json::Value**](serde_json::Value.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## web_get_batch_job_status
-
-> serde_json::Value web_get_batch_job_status(job_id)
-Get batch job status
-
-Get the status of a batch scraping job. (Phase 6)
+Scrape a URL and extract fields with CSS/XPath selectors and/or AI.  ``extract_rules`` maps a field to a selector and returns ``data``; ``ai_extract_rules`` (field -> description) and ``ai_query`` return ``ai_extraction``. Billed as a scrape, plus the AI extraction credits when AI is asked for and succeeds.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **String** |  | [required] |
+**extract_request** | [**ExtractRequest**](ExtractRequest.md) |  | [required] |
 
 ### Return type
 
@@ -94,7 +65,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -157,43 +128,19 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## web_submit_batch_scraping_job
-
-> serde_json::Value web_submit_batch_scraping_job()
-Submit batch scraping job
-
-Submit a batch of URLs for scraping. (Phase 6)
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**serde_json::Value**](serde_json::Value.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## web_take_a_screenshot
 
-> serde_json::Value web_take_a_screenshot()
+> serde_json::Value web_take_a_screenshot(screenshot_request)
 Take a screenshot
 
-Take a screenshot of a URL. (browser engine)
+Render a URL in the browser engine and return a PNG screenshot.  ``screenshot`` is the PNG, base64-encoded. ``width``/``height`` set the viewport; ``full_page`` captures the whole scrollable page. Billed as a browser scrape (plus the proxy tier); a page that loads without a screenshot is a 502 and costs nothing.
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**screenshot_request** | [**ScreenshotRequest**](ScreenshotRequest.md) |  | [required] |
 
 ### Return type
 
@@ -205,7 +152,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
