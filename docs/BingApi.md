@@ -239,8 +239,8 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **query** | **String** | Search keywords, e.g. 'coffee machine' | [required] |
 **market** | Option<**String**> | Bing market code, e.g. 'en-US', 'en-GB', 'de-DE'. See /markets. |  |[default to en-US]
-**count** | Option<**i32**> | Results per page (1-50) |  |[default to 10]
-**offset** | Option<**i32**> | Zero-based result offset for pagination |  |[default to 0]
+**count** | Option<**i32**> | Organic results to return (1-50), merged from Bing's following pages when one page is short. May return fewer. |  |[default to 10]
+**offset** | Option<**i32**> | Organic results to skip in Bing's ranking. Paginate with offset += count. |  |[default to 0]
 **safe_search** | Option<**String**> | off | moderate | strict (default moderate) |  |
 
 ### Return type
