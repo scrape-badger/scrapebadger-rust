@@ -35,6 +35,7 @@ docs/FilterRuleValidateResponse.md
 docs/GeminiApi.md
 docs/GoogleApi.md
 docs/GooglePlayApi.md
+docs/GumtreeApi.md
 docs/HttpValidationError.md
 docs/IdealistaApi.md
 docs/ImmobiliareApi.md
@@ -111,6 +112,7 @@ src/apis/facebook_api.rs
 src/apis/gemini_api.rs
 src/apis/google_api.rs
 src/apis/google_play_api.rs
+src/apis/gumtree_api.rs
 src/apis/idealista_api.rs
 src/apis/immobiliare_api.rs
 src/apis/instagram_api.rs

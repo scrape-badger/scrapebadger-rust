@@ -261,6 +261,16 @@ Class | Method | HTTP request | Description
 *GooglePlayApi* | [**google_play_list_markets**](docs/GooglePlayApi.md#google_play_list_markets) | **GET** /v1/google-play/markets | List markets
 *GooglePlayApi* | [**google_play_search_apps**](docs/GooglePlayApi.md#google_play_search_apps) | **GET** /v1/google-play/search | Search apps
 *GooglePlayApi* | [**google_play_top_charts**](docs/GooglePlayApi.md#google_play_top_charts) | **GET** /v1/google-play/collections/{collection} | Top charts
+*GumtreeApi* | [**gumtree_get_listing**](docs/GumtreeApi.md#gumtree_get_listing) | **GET** /v1/gumtree/listings/{listing_id} | Get listing
+*GumtreeApi* | [**gumtree_get_search_filters**](docs/GumtreeApi.md#gumtree_get_search_filters) | **GET** /v1/gumtree/search/filters | Get search filters
+*GumtreeApi* | [**gumtree_get_seller_listings**](docs/GumtreeApi.md#gumtree_get_seller_listings) | **GET** /v1/gumtree/listings/{listing_id}/seller-listings | Get seller listings
+*GumtreeApi* | [**gumtree_gumtree_scraper_health_check**](docs/GumtreeApi.md#gumtree_gumtree_scraper_health_check) | **GET** /v1/gumtree/health | Gumtree scraper health check
+*GumtreeApi* | [**gumtree_gumtree_scraper_health_check_head**](docs/GumtreeApi.md#gumtree_gumtree_scraper_health_check_head) | **HEAD** /v1/gumtree/health | Gumtree scraper health check
+*GumtreeApi* | [**gumtree_list_categories**](docs/GumtreeApi.md#gumtree_list_categories) | **GET** /v1/gumtree/categories | List categories
+*GumtreeApi* | [**gumtree_list_locations**](docs/GumtreeApi.md#gumtree_list_locations) | **GET** /v1/gumtree/locations | List locations
+*GumtreeApi* | [**gumtree_location_suggestions**](docs/GumtreeApi.md#gumtree_location_suggestions) | **GET** /v1/gumtree/locations/autocomplete | Location suggestions
+*GumtreeApi* | [**gumtree_search_listings**](docs/GumtreeApi.md#gumtree_search_listings) | **GET** /v1/gumtree/search | Search listings
+*GumtreeApi* | [**gumtree_search_suggestions**](docs/GumtreeApi.md#gumtree_search_suggestions) | **GET** /v1/gumtree/autocomplete | Search suggestions
 *IdealistaApi* | [**idealista_agency_by_phone**](docs/IdealistaApi.md#idealista_agency_by_phone) | **GET** /v1/idealista/agency/by-phone/{phone} | Agency by phone
 *IdealistaApi* | [**idealista_agency_profile_listings**](docs/IdealistaApi.md#idealista_agency_profile_listings) | **GET** /v1/idealista/agency/{short_name} | Agency profile + listings
 *IdealistaApi* | [**idealista_get_listing_engagement_stats**](docs/IdealistaApi.md#idealista_get_listing_engagement_stats) | **GET** /v1/idealista/properties/{property_code}/stats | Get listing engagement stats
