@@ -80,6 +80,7 @@ docs/VintedSellerSummary.md
 docs/VintedStatus.md
 docs/VintedUserProfile.md
 docs/VintedUserSummary.md
+docs/WallapopApi.md
 docs/WalmartApi.md
 docs/WebApi.md
 docs/WebhookCreate.md
@@ -125,6 +126,7 @@ src/apis/redfin_api.rs
 src/apis/tik_tok_api.rs
 src/apis/twitter_api.rs
 src/apis/vinted_api.rs
+src/apis/wallapop_api.rs
 src/apis/walmart_api.rs
 src/apis/web_api.rs
 src/apis/yahoo_api.rs

@@ -120,6 +120,7 @@ pub mod redfin_api;
 pub mod tik_tok_api;
 pub mod twitter_api;
 pub mod vinted_api;
+pub mod wallapop_api;
 pub mod walmart_api;
 pub mod web_api;
 pub mod yahoo_api;
