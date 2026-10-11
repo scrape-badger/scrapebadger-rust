@@ -190,10 +190,10 @@ Name | Type | Description  | Required | Notes
 
 ## facebook_get_group_posts
 
-> serde_json::Value facebook_get_group_posts(group_id, after)
+> serde_json::Value facebook_get_group_posts(group_id, after, sort)
 Get group posts
 
-Get a Facebook group's post feed.
+Get a public Facebook group's post feed.  ``sort`` is ``newest`` (newest first by post time, the default) or ``relevance`` (Facebook's \"top posts\" ranking, which moves posts with fresh comments up). Facebook serves 3 posts per page to logged-out visitors; follow ``end_cursor`` while ``has_next_page`` for older posts.
 
 ### Parameters
 
@@ -202,6 +202,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **group_id** | **String** |  | [required] |
 **after** | Option<**String**> |  |  |
+**sort** | Option<**String**> | newest | relevance |  |[default to newest]
 
 ### Return type
 

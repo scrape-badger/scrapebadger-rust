@@ -407,8 +407,8 @@ pub async fn facebook_get_group_detail(configuration: &configuration::Configurat
     }
 }
 
-/// Get a Facebook group's post feed.
-pub async fn facebook_get_group_posts(configuration: &configuration::Configuration, group_id: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetGroupPostsError>> {
+/// Get a public Facebook group's post feed.  ``sort`` is ``newest`` (newest first by post time, the default) or ``relevance`` (Facebook's \"top posts\" ranking, which moves posts with fresh comments up). Facebook serves 3 posts per page to logged-out visitors; follow ``end_cursor`` while ``has_next_page`` for older posts.
+pub async fn facebook_get_group_posts(configuration: &configuration::Configuration, group_id: &str, after: Option<&str>, sort: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetGroupPostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -418,6 +418,9 @@ pub async fn facebook_get_group_posts(configuration: &configuration::Configurati
 
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = sort {
+        local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
