@@ -268,6 +268,7 @@ Class | Method | HTTP request | Description
 *GumtreeApi* | [**gumtree_gumtree_scraper_health_check_head**](docs/GumtreeApi.md#gumtree_gumtree_scraper_health_check_head) | **HEAD** /v1/gumtree/health | Gumtree scraper health check
 *GumtreeApi* | [**gumtree_list_categories**](docs/GumtreeApi.md#gumtree_list_categories) | **GET** /v1/gumtree/categories | List categories
 *GumtreeApi* | [**gumtree_list_locations**](docs/GumtreeApi.md#gumtree_list_locations) | **GET** /v1/gumtree/locations | List locations
+*GumtreeApi* | [**gumtree_list_markets**](docs/GumtreeApi.md#gumtree_list_markets) | **GET** /v1/gumtree/markets | List markets
 *GumtreeApi* | [**gumtree_location_suggestions**](docs/GumtreeApi.md#gumtree_location_suggestions) | **GET** /v1/gumtree/locations/autocomplete | Location suggestions
 *GumtreeApi* | [**gumtree_search_listings**](docs/GumtreeApi.md#gumtree_search_listings) | **GET** /v1/gumtree/search | Search listings
 *GumtreeApi* | [**gumtree_search_suggestions**](docs/GumtreeApi.md#gumtree_search_suggestions) | **GET** /v1/gumtree/autocomplete | Search suggestions

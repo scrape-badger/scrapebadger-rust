@@ -69,6 +69,13 @@ pub enum GumtreeListLocationsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`gumtree_list_markets`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GumtreeListMarketsError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`gumtree_location_suggestions`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -95,7 +102,7 @@ pub enum GumtreeSearchSuggestionsError {
 
 
 /// Full listing — description, attributes, images, seller, similar listings.
-pub async fn gumtree_get_listing(configuration: &configuration::Configuration, listing_id: &str) -> Result<serde_json::Value, Error<GumtreeGetListingError>> {
+pub async fn gumtree_get_listing(configuration: &configuration::Configuration, listing_id: &str, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeGetListingError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -103,6 +110,9 @@ pub async fn gumtree_get_listing(configuration: &configuration::Configuration, l
     let local_var_uri_str = format!("{}/v1/gumtree/listings/{listing_id}", local_var_configuration.base_path, listing_id=crate::apis::urlencode(listing_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -130,8 +140,8 @@ pub async fn gumtree_get_listing(configuration: &configuration::Configuration, l
     }
 }
 
-/// Filters, sort orders and radius options for a category, with live counts.
-pub async fn gumtree_get_search_filters(configuration: &configuration::Configuration, category: Option<&str>, location: Option<&str>, query: Option<&str>) -> Result<serde_json::Value, Error<GumtreeGetSearchFiltersError>> {
+/// Filters, sort orders and radius options for a category, with live counts.  Feed a `key` and a `value` back into `/search` as `filters=key:value`. au bills 2x (browser render).
+pub async fn gumtree_get_search_filters(configuration: &configuration::Configuration, category: Option<&str>, location: Option<&str>, query: Option<&str>, filters: Option<&str>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeGetSearchFiltersError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -147,6 +157,12 @@ pub async fn gumtree_get_search_filters(configuration: &configuration::Configura
     }
     if let Some(ref local_var_str) = query {
         local_var_req_builder = local_var_req_builder.query(&[("query", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = filters {
+        local_var_req_builder = local_var_req_builder.query(&[("filters", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -176,7 +192,7 @@ pub async fn gumtree_get_search_filters(configuration: &configuration::Configura
 }
 
 /// Every live listing by the seller of the given listing.
-pub async fn gumtree_get_seller_listings(configuration: &configuration::Configuration, listing_id: &str, page: Option<i32>) -> Result<serde_json::Value, Error<GumtreeGetSellerListingsError>> {
+pub async fn gumtree_get_seller_listings(configuration: &configuration::Configuration, listing_id: &str, page: Option<i32>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeGetSellerListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -186,6 +202,9 @@ pub async fn gumtree_get_seller_listings(configuration: &configuration::Configur
 
     if let Some(ref local_var_str) = page {
         local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -286,8 +305,8 @@ pub async fn gumtree_gumtree_scraper_health_check_head(configuration: &configura
     }
 }
 
-/// Browse Gumtree's category tree. A node's `slug` is the `/search` category.
-pub async fn gumtree_list_categories(configuration: &configuration::Configuration, parent_id: Option<i32>) -> Result<serde_json::Value, Error<GumtreeListCategoriesError>> {
+/// Browse Gumtree's category tree.  A node's `slug` (uk) or `id` (au/za) is the `/search` category.
+pub async fn gumtree_list_categories(configuration: &configuration::Configuration, parent_id: Option<i32>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeListCategoriesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -297,6 +316,9 @@ pub async fn gumtree_list_categories(configuration: &configuration::Configuratio
 
     if let Some(ref local_var_str) = parent_id {
         local_var_req_builder = local_var_req_builder.query(&[("parent_id", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -325,8 +347,8 @@ pub async fn gumtree_list_categories(configuration: &configuration::Configuratio
     }
 }
 
-/// Browse Gumtree's location tree.
-pub async fn gumtree_list_locations(configuration: &configuration::Configuration, parent_id: Option<i32>) -> Result<serde_json::Value, Error<GumtreeListLocationsError>> {
+/// Browse Gumtree's location tree.  uk: UK -> nations -> counties -> towns. au: states -> regions -> areas, each with its live ad count (browser render, bills 5x). za: provinces -> towns.
+pub async fn gumtree_list_locations(configuration: &configuration::Configuration, parent_id: Option<i32>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeListLocationsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -336,6 +358,9 @@ pub async fn gumtree_list_locations(configuration: &configuration::Configuration
 
     if let Some(ref local_var_str) = parent_id {
         local_var_req_builder = local_var_req_builder.query(&[("parent_id", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -364,8 +389,44 @@ pub async fn gumtree_list_locations(configuration: &configuration::Configuration
     }
 }
 
-/// Resolve a place name or postcode to Gumtree locations with coordinates.
-pub async fn gumtree_location_suggestions(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<GumtreeLocationSuggestionsError>> {
+/// The Gumtree sites this API covers (uk, au, za) with currency and id formats.
+pub async fn gumtree_list_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<GumtreeListMarketsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/gumtree/markets", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GumtreeListMarketsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Resolve a place name or postcode to Gumtree location ids (uk: with coordinates).  The `id` (au/za) or `name` (uk) is what `/search` takes as `location`.
+pub async fn gumtree_location_suggestions(configuration: &configuration::Configuration, query: &str, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeLocationSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -374,6 +435,9 @@ pub async fn gumtree_location_suggestions(configuration: &configuration::Configu
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("query", &query.to_string())]);
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -401,8 +465,8 @@ pub async fn gumtree_location_suggestions(configuration: &configuration::Configu
     }
 }
 
-/// Search gumtree.com listings. ~25-30 per page, up to 50 pages.
-pub async fn gumtree_search_listings(configuration: &configuration::Configuration, query: Option<&str>, category: Option<&str>, location: Option<&str>, distance: Option<f64>, min_price: Option<i32>, max_price: Option<i32>, sort: Option<&str>, seller_type: Option<&str>, urgent_only: Option<bool>, with_photos: Option<bool>, filters: Option<&str>, page: Option<i32>) -> Result<serde_json::Value, Error<GumtreeSearchListingsError>> {
+/// Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20. An au search runs a real browser (~10-20 s) and bills 2x.
+pub async fn gumtree_search_listings(configuration: &configuration::Configuration, query: Option<&str>, category: Option<&str>, location: Option<&str>, distance: Option<f64>, min_price: Option<i32>, max_price: Option<i32>, sort: Option<&str>, seller_type: Option<&str>, urgent_only: Option<bool>, with_photos: Option<bool>, filters: Option<&str>, page: Option<i32>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeSearchListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -446,6 +510,9 @@ pub async fn gumtree_search_listings(configuration: &configuration::Configuratio
     if let Some(ref local_var_str) = page {
         local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -474,7 +541,7 @@ pub async fn gumtree_search_listings(configuration: &configuration::Configuratio
 }
 
 /// Gumtree search-box keyword suggestions with their categories.
-pub async fn gumtree_search_suggestions(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<GumtreeSearchSuggestionsError>> {
+pub async fn gumtree_search_suggestions(configuration: &configuration::Configuration, query: &str, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeSearchSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -483,6 +550,9 @@ pub async fn gumtree_search_suggestions(configuration: &configuration::Configura
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("query", &query.to_string())]);
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
