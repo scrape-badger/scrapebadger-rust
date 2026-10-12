@@ -54,7 +54,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value gumtree_get_search_filters(category, location, query, filters, market)
 Get search filters
 
-Filters, sort orders and radius options for a category, with live counts.  Feed a `key` and a `value` back into `/search` as `filters=key:value`. au bills 2x (browser render).
+Filters, sort orders and radius options for a category, with live counts.  Feed a `key` and a `value` back into `/search` as `filters=key:value`.
 
 ### Parameters
 
@@ -205,7 +205,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value gumtree_list_locations(parent_id, market)
 List locations
 
-Browse Gumtree's location tree.  uk: UK -> nations -> counties -> towns. au: states -> regions -> areas, each with its live ad count (browser render, bills 5x). za: provinces -> towns.
+Browse Gumtree's location tree.  uk: UK -> nations -> counties -> towns. au: states -> regions -> areas, each with its live ad count. za: provinces -> towns.
 
 ### Parameters
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value gumtree_search_listings(query, category, location, distance, min_price, max_price, sort, seller_type, urgent_only, with_photos, filters, page, market)
 Search listings
 
-Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20. An au search runs a real browser (~10-20 s) and bills 2x.
+Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20.
 
 ### Parameters
 

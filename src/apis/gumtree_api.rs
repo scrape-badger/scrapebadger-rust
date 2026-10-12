@@ -140,7 +140,7 @@ pub async fn gumtree_get_listing(configuration: &configuration::Configuration, l
     }
 }
 
-/// Filters, sort orders and radius options for a category, with live counts.  Feed a `key` and a `value` back into `/search` as `filters=key:value`. au bills 2x (browser render).
+/// Filters, sort orders and radius options for a category, with live counts.  Feed a `key` and a `value` back into `/search` as `filters=key:value`.
 pub async fn gumtree_get_search_filters(configuration: &configuration::Configuration, category: Option<&str>, location: Option<&str>, query: Option<&str>, filters: Option<&str>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeGetSearchFiltersError>> {
     let local_var_configuration = configuration;
 
@@ -347,7 +347,7 @@ pub async fn gumtree_list_categories(configuration: &configuration::Configuratio
     }
 }
 
-/// Browse Gumtree's location tree.  uk: UK -> nations -> counties -> towns. au: states -> regions -> areas, each with its live ad count (browser render, bills 5x). za: provinces -> towns.
+/// Browse Gumtree's location tree.  uk: UK -> nations -> counties -> towns. au: states -> regions -> areas, each with its live ad count. za: provinces -> towns.
 pub async fn gumtree_list_locations(configuration: &configuration::Configuration, parent_id: Option<i32>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeListLocationsError>> {
     let local_var_configuration = configuration;
 
@@ -465,7 +465,7 @@ pub async fn gumtree_location_suggestions(configuration: &configuration::Configu
     }
 }
 
-/// Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20. An au search runs a real browser (~10-20 s) and bills 2x.
+/// Search Gumtree listings in the UK, Australia or South Africa.  Up to 50 pages. Page size: uk 25, au 24 (plus up to 6 featured top ads), za 20.
 pub async fn gumtree_search_listings(configuration: &configuration::Configuration, query: Option<&str>, category: Option<&str>, location: Option<&str>, distance: Option<f64>, min_price: Option<i32>, max_price: Option<i32>, sort: Option<&str>, seller_type: Option<&str>, urgent_only: Option<bool>, with_photos: Option<bool>, filters: Option<&str>, page: Option<i32>, market: Option<&str>) -> Result<serde_json::Value, Error<GumtreeSearchListingsError>> {
     let local_var_configuration = configuration;
 
