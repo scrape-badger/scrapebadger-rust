@@ -87,6 +87,13 @@ All URIs are relative to *https://scrapebadger.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AsosApi* | [**asos_get_product_detail**](docs/AsosApi.md#asos_get_product_detail) | **GET** /v1/asos/products/{product_id} | Get product detail
+*AsosApi* | [**asos_get_stock_and_prices**](docs/AsosApi.md#asos_get_stock_and_prices) | **GET** /v1/asos/stock-price | Get stock and prices
+*AsosApi* | [**asos_list_categories**](docs/AsosApi.md#asos_list_categories) | **GET** /v1/asos/categories | List categories
+*AsosApi* | [**asos_list_markets**](docs/AsosApi.md#asos_list_markets) | **GET** /v1/asos/markets | List markets
+*AsosApi* | [**asos_list_search_filters**](docs/AsosApi.md#asos_list_search_filters) | **GET** /v1/asos/filters | List search filters
+*AsosApi* | [**asos_search_products**](docs/AsosApi.md#asos_search_products) | **GET** /v1/asos/search | Search products
+*AsosApi* | [**asos_search_suggestions**](docs/AsosApi.md#asos_search_suggestions) | **GET** /v1/asos/autocomplete | Search suggestions
 *AccountApi* | [**account_get_account_info**](docs/AccountApi.md#account_get_account_info) | **GET** /v1/account/me | Get account info
 *AirbnbApi* | [**airbnb_airbnb_scraper_health_check**](docs/AirbnbApi.md#airbnb_airbnb_scraper_health_check) | **GET** /v1/airbnb/health | Airbnb scraper health check
 *AirbnbApi* | [**airbnb_airbnb_scraper_health_check_head**](docs/AirbnbApi.md#airbnb_airbnb_scraper_health_check_head) | **HEAD** /v1/airbnb/health | Airbnb scraper health check
@@ -96,6 +103,14 @@ Class | Method | HTTP request | Description
 *AirbnbApi* | [**airbnb_get_listing_reviews**](docs/AirbnbApi.md#airbnb_get_listing_reviews) | **GET** /v1/airbnb/listings/{room_id}/reviews | Get listing reviews
 *AirbnbApi* | [**airbnb_search_experiences**](docs/AirbnbApi.md#airbnb_search_experiences) | **GET** /v1/airbnb/experiences | Search experiences
 *AirbnbApi* | [**airbnb_search_stays**](docs/AirbnbApi.md#airbnb_search_stays) | **GET** /v1/airbnb/search | Search stays
+*AliExpressApi* | [**aliexpress_get_category_navigation**](docs/AliExpressApi.md#aliexpress_get_category_navigation) | **GET** /v1/aliexpress/categories | Get category navigation
+*AliExpressApi* | [**aliexpress_get_product_detail**](docs/AliExpressApi.md#aliexpress_get_product_detail) | **GET** /v1/aliexpress/products/{product_id} | Get product detail
+*AliExpressApi* | [**aliexpress_get_product_reviews**](docs/AliExpressApi.md#aliexpress_get_product_reviews) | **GET** /v1/aliexpress/products/{product_id}/reviews | Get product reviews
+*AliExpressApi* | [**aliexpress_get_search_suggestions**](docs/AliExpressApi.md#aliexpress_get_search_suggestions) | **GET** /v1/aliexpress/autocomplete | Get search suggestions
+*AliExpressApi* | [**aliexpress_get_store_product_categories**](docs/AliExpressApi.md#aliexpress_get_store_product_categories) | **GET** /v1/aliexpress/stores/{store_id}/categories | Get store product categories
+*AliExpressApi* | [**aliexpress_get_store_products**](docs/AliExpressApi.md#aliexpress_get_store_products) | **GET** /v1/aliexpress/stores/{store_id}/products | Get store products
+*AliExpressApi* | [**aliexpress_get_store_profile**](docs/AliExpressApi.md#aliexpress_get_store_profile) | **GET** /v1/aliexpress/stores/{store_id} | Get store profile
+*AliExpressApi* | [**aliexpress_search_products**](docs/AliExpressApi.md#aliexpress_search_products) | **GET** /v1/aliexpress/search | Search products
 *AmazonApi* | [**amazon_amazon_scraper_health_check**](docs/AmazonApi.md#amazon_amazon_scraper_health_check) | **GET** /v1/amazon/health | Amazon scraper health check
 *AmazonApi* | [**amazon_amazon_scraper_health_check_head**](docs/AmazonApi.md#amazon_amazon_scraper_health_check_head) | **HEAD** /v1/amazon/health | Amazon scraper health check
 *AmazonApi* | [**amazon_bestsellers_by_category**](docs/AmazonApi.md#amazon_bestsellers_by_category) | **GET** /v1/amazon/bestsellers | Bestsellers by category
@@ -130,6 +145,16 @@ Class | Method | HTTP request | Description
 *BaiduApi* | [**baidu_baidu_scraper_health_check_head**](docs/BaiduApi.md#baidu_baidu_scraper_health_check_head) | **HEAD** /v1/baidu/health | Baidu scraper health check
 *BaiduApi* | [**baidu_baidu_web_search**](docs/BaiduApi.md#baidu_baidu_web_search) | **GET** /v1/baidu/search | Baidu web search
 *BaiduApi* | [**baidu_search_suggestions**](docs/BaiduApi.md#baidu_search_suggestions) | **GET** /v1/baidu/autocomplete | Search suggestions
+*BestBuyApi* | [**bestbuy_browse_a_category**](docs/BestBuyApi.md#bestbuy_browse_a_category) | **GET** /v1/bestbuy/category | Browse a category
+*BestBuyApi* | [**bestbuy_get_categories**](docs/BestBuyApi.md#bestbuy_get_categories) | **GET** /v1/bestbuy/categories | Get categories
+*BestBuyApi* | [**bestbuy_get_laptop_and_computer_deals**](docs/BestBuyApi.md#bestbuy_get_laptop_and_computer_deals) | **GET** /v1/bestbuy/deals | Get laptop and computer deals
+*BestBuyApi* | [**bestbuy_get_product_availability**](docs/BestBuyApi.md#bestbuy_get_product_availability) | **GET** /v1/bestbuy/products/{sku}/availability | Get product availability
+*BestBuyApi* | [**bestbuy_get_product_detail**](docs/BestBuyApi.md#bestbuy_get_product_detail) | **GET** /v1/bestbuy/products/{sku} | Get product detail
+*BestBuyApi* | [**bestbuy_get_product_questions**](docs/BestBuyApi.md#bestbuy_get_product_questions) | **GET** /v1/bestbuy/products/{sku}/questions | Get product questions
+*BestBuyApi* | [**bestbuy_get_product_reviews**](docs/BestBuyApi.md#bestbuy_get_product_reviews) | **GET** /v1/bestbuy/products/{sku}/reviews | Get product reviews
+*BestBuyApi* | [**bestbuy_get_search_suggestions**](docs/BestBuyApi.md#bestbuy_get_search_suggestions) | **GET** /v1/bestbuy/autocomplete | Get search suggestions
+*BestBuyApi* | [**bestbuy_list_supported_markets**](docs/BestBuyApi.md#bestbuy_list_supported_markets) | **GET** /v1/bestbuy/markets | List supported markets
+*BestBuyApi* | [**bestbuy_search_products**](docs/BestBuyApi.md#bestbuy_search_products) | **GET** /v1/bestbuy/search | Search products
 *BingApi* | [**bing_bing_scraper_health_check**](docs/BingApi.md#bing_bing_scraper_health_check) | **GET** /v1/bing/health | Bing scraper health check
 *BingApi* | [**bing_bing_scraper_health_check_head**](docs/BingApi.md#bing_bing_scraper_health_check_head) | **HEAD** /v1/bing/health | Bing scraper health check
 *BingApi* | [**bing_image_search**](docs/BingApi.md#bing_image_search) | **GET** /v1/bing/images | Image search
@@ -182,6 +207,14 @@ Class | Method | HTTP request | Description
 *EBayApi* | [**ebay_list_markets**](docs/EBayApi.md#ebay_list_markets) | **GET** /v1/ebay/markets | List markets
 *EBayApi* | [**ebay_search_by_image**](docs/EBayApi.md#ebay_search_by_image) | **POST** /v1/ebay/search/by-image | Search by image
 *EBayApi* | [**ebay_search_listings**](docs/EBayApi.md#ebay_search_listings) | **GET** /v1/ebay/search | Search listings
+*EtsyApi* | [**etsy_get_categories**](docs/EtsyApi.md#etsy_get_categories) | **GET** /v1/etsy/categories | Get categories
+*EtsyApi* | [**etsy_get_listing_detail**](docs/EtsyApi.md#etsy_get_listing_detail) | **GET** /v1/etsy/listings/{listing_id} | Get listing detail
+*EtsyApi* | [**etsy_get_listing_reviews**](docs/EtsyApi.md#etsy_get_listing_reviews) | **GET** /v1/etsy/listings/{listing_id}/reviews | Get listing reviews
+*EtsyApi* | [**etsy_get_search_suggestions**](docs/EtsyApi.md#etsy_get_search_suggestions) | **GET** /v1/etsy/autocomplete | Get search suggestions
+*EtsyApi* | [**etsy_get_shop_listings**](docs/EtsyApi.md#etsy_get_shop_listings) | **GET** /v1/etsy/shops/{shop_name}/listings | Get shop listings
+*EtsyApi* | [**etsy_get_shop_profile**](docs/EtsyApi.md#etsy_get_shop_profile) | **GET** /v1/etsy/shops/{shop_name} | Get shop profile
+*EtsyApi* | [**etsy_get_shop_reviews**](docs/EtsyApi.md#etsy_get_shop_reviews) | **GET** /v1/etsy/shops/{shop_name}/reviews | Get shop reviews
+*EtsyApi* | [**etsy_search_listings**](docs/EtsyApi.md#etsy_search_listings) | **GET** /v1/etsy/search | Search listings
 *FacebookApi* | [**facebook_browse_a_marketplace_category**](docs/FacebookApi.md#facebook_browse_a_marketplace_category) | **GET** /v1/facebook/marketplace/category/{category} | Browse a Marketplace category
 *FacebookApi* | [**facebook_get_a_marketplace_item**](docs/FacebookApi.md#facebook_get_a_marketplace_item) | **GET** /v1/facebook/marketplace/item/{item_id} | Get a Marketplace item
 *FacebookApi* | [**facebook_get_advertiser_page_info**](docs/FacebookApi.md#facebook_get_advertiser_page_info) | **GET** /v1/facebook/ads/pages/{page_id} | Get advertiser page info
@@ -401,6 +434,17 @@ Class | Method | HTTP request | Description
 *RedfinApi* | [**redfin_redfin_scraper_health_check_head**](docs/RedfinApi.md#redfin_redfin_scraper_health_check_head) | **HEAD** /v1/redfin/health | Redfin scraper health check
 *RedfinApi* | [**redfin_region_address_suggestions**](docs/RedfinApi.md#redfin_region_address_suggestions) | **GET** /v1/redfin/autocomplete | Region/address suggestions
 *RedfinApi* | [**redfin_search_properties**](docs/RedfinApi.md#redfin_search_properties) | **GET** /v1/redfin/search | Search properties
+*TargetApi* | [**target_browse_a_category**](docs/TargetApi.md#target_browse_a_category) | **GET** /v1/target/category | Browse a category
+*TargetApi* | [**target_find_nearby_stores**](docs/TargetApi.md#target_find_nearby_stores) | **GET** /v1/target/stores | Find nearby stores
+*TargetApi* | [**target_get_categories**](docs/TargetApi.md#target_get_categories) | **GET** /v1/target/categories | Get categories
+*TargetApi* | [**target_get_product_availability**](docs/TargetApi.md#target_get_product_availability) | **GET** /v1/target/products/{tcin}/availability | Get product availability
+*TargetApi* | [**target_get_product_detail**](docs/TargetApi.md#target_get_product_detail) | **GET** /v1/target/products/{tcin} | Get product detail
+*TargetApi* | [**target_get_product_questions**](docs/TargetApi.md#target_get_product_questions) | **GET** /v1/target/products/{tcin}/questions | Get product questions
+*TargetApi* | [**target_get_product_reviews**](docs/TargetApi.md#target_get_product_reviews) | **GET** /v1/target/products/{tcin}/reviews | Get product reviews
+*TargetApi* | [**target_get_search_suggestions**](docs/TargetApi.md#target_get_search_suggestions) | **GET** /v1/target/autocomplete | Get search suggestions
+*TargetApi* | [**target_get_store_detail**](docs/TargetApi.md#target_get_store_detail) | **GET** /v1/target/stores/{store_id} | Get store detail
+*TargetApi* | [**target_list_supported_markets**](docs/TargetApi.md#target_list_supported_markets) | **GET** /v1/target/markets | List supported markets
+*TargetApi* | [**target_search_products**](docs/TargetApi.md#target_search_products) | **GET** /v1/target/search | Search products
 *TikTokApi* | [**tiktok_best_selling_tiktok_shop_products**](docs/TikTokApi.md#tiktok_best_selling_tiktok_shop_products) | **GET** /v1/tiktok/shop/bestsellers | Best-selling TikTok Shop products
 *TikTokApi* | [**tiktok_general_search**](docs/TikTokApi.md#tiktok_general_search) | **GET** /v1/tiktok/search | General search
 *TikTokApi* | [**tiktok_get_comment_replies**](docs/TikTokApi.md#tiktok_get_comment_replies) | **GET** /v1/tiktok/comments/{comment_id}/replies | Get comment replies
@@ -609,8 +653,14 @@ Class | Method | HTTP request | Description
  - [AccountInfo](docs/AccountInfo.md)
  - [BillingLogListResponse](docs/BillingLogListResponse.md)
  - [BillingLogResponse](docs/BillingLogResponse.md)
+ - [Brandid](docs/Brandid.md)
+ - [Brandname](docs/Brandname.md)
  - [BrandsResponse](docs/BrandsResponse.md)
+ - [Categoryname](docs/Categoryname.md)
  - [ColorsResponse](docs/ColorsResponse.md)
+ - [Colour](docs/Colour.md)
+ - [Colourwayid](docs/Colourwayid.md)
+ - [Description](docs/Description.md)
  - [ExtractRequest](docs/ExtractRequest.md)
  - [ExtractRequestExtractRulesValue](docs/ExtractRequestExtractRulesValue.md)
  - [ExtractRule](docs/ExtractRule.md)
@@ -622,13 +672,30 @@ Class | Method | HTTP request | Description
  - [FilterRuleUpdate](docs/FilterRuleUpdate.md)
  - [FilterRuleValidateRequest](docs/FilterRuleValidateRequest.md)
  - [FilterRuleValidateResponse](docs/FilterRuleValidateResponse.md)
+ - [Gender](docs/Gender.md)
  - [HttpValidationError](docs/HttpValidationError.md)
+ - [Imageurl](docs/Imageurl.md)
+ - [Isinstock](docs/Isinstock.md)
+ - [Isrestockingsoon](docs/Isrestockingsoon.md)
+ - [Issellingfast](docs/Issellingfast.md)
  - [ItemDetailResponse](docs/ItemDetailResponse.md)
  - [MarketsResponse](docs/MarketsResponse.md)
+ - [NextOffset](docs/NextOffset.md)
+ - [PortalApiRoutersV1AsosSearchResponse](docs/PortalApiRoutersV1AsosSearchResponse.md)
  - [PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse](docs/PortalApiRoutersV1TwitterFilterRulesFilterRulePricingResponse.md)
+ - [PortalApiRoutersVintedSchemasSearchResponse](docs/PortalApiRoutersVintedSchemasSearchResponse.md)
+ - [Price](docs/Price.md)
+ - [PriceValue](docs/PriceValue.md)
+ - [Product](docs/Product.md)
+ - [ProductPrice](docs/ProductPrice.md)
+ - [ProductResponse](docs/ProductResponse.md)
+ - [Productcode](docs/Productcode.md)
+ - [Ratings](docs/Ratings.md)
  - [ScreenshotRequest](docs/ScreenshotRequest.md)
- - [SearchResponse](docs/SearchResponse.md)
+ - [Searchterm](docs/Searchterm.md)
  - [StatusesResponse](docs/StatusesResponse.md)
+ - [StockProduct](docs/StockProduct.md)
+ - [StockResponse](docs/StockResponse.md)
  - [StreamMonitorCreate](docs/StreamMonitorCreate.md)
  - [StreamMonitorListResponse](docs/StreamMonitorListResponse.md)
  - [StreamMonitorResponse](docs/StreamMonitorResponse.md)
@@ -636,10 +703,12 @@ Class | Method | HTTP request | Description
  - [SubscriptionInfo](docs/SubscriptionInfo.md)
  - [TweetDeliveryLogListResponse](docs/TweetDeliveryLogListResponse.md)
  - [TweetDeliveryLogResponse](docs/TweetDeliveryLogResponse.md)
+ - [Url](docs/Url.md)
  - [UserItemsResponse](docs/UserItemsResponse.md)
  - [UserProfileResponse](docs/UserProfileResponse.md)
  - [ValidationError](docs/ValidationError.md)
  - [ValidationErrorLocInner](docs/ValidationErrorLocInner.md)
+ - [Variant](docs/Variant.md)
  - [VintedBrand](docs/VintedBrand.md)
  - [VintedColor](docs/VintedColor.md)
  - [VintedImageSearchRequest](docs/VintedImageSearchRequest.md)

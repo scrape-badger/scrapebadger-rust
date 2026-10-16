@@ -11,9 +11,9 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// SearchResponse : Envelope returned by search and search_by_image.
+/// PortalApiRoutersVintedSchemasSearchResponse : Envelope returned by search and search_by_image.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SearchResponse {
+pub struct PortalApiRoutersVintedSchemasSearchResponse {
     #[serde(rename = "items")]
     pub items: Vec<models::VintedItemSummary>,
     #[serde(rename = "pagination")]
@@ -24,10 +24,10 @@ pub struct SearchResponse {
     pub seller_country: Option<Option<String>>,
 }
 
-impl SearchResponse {
+impl PortalApiRoutersVintedSchemasSearchResponse {
     /// Envelope returned by search and search_by_image.
-    pub fn new(items: Vec<models::VintedItemSummary>, pagination: models::VintedPagination, market: String) -> SearchResponse {
-        SearchResponse {
+    pub fn new(items: Vec<models::VintedItemSummary>, pagination: models::VintedPagination, market: String) -> PortalApiRoutersVintedSchemasSearchResponse {
+        PortalApiRoutersVintedSchemasSearchResponse {
             items,
             pagination: Box::new(pagination),
             market,

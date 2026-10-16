@@ -467,7 +467,7 @@ pub async fn vinted_search_brands(configuration: &configuration::Configuration, 
 }
 
 /// Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries `similarity_score` on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
-pub async fn vinted_search_by_image(configuration: &configuration::Configuration, vinted_image_search_request: models::VintedImageSearchRequest) -> Result<models::SearchResponse, Error<VintedSearchByImageError>> {
+pub async fn vinted_search_by_image(configuration: &configuration::Configuration, vinted_image_search_request: models::VintedImageSearchRequest) -> Result<models::PortalApiRoutersVintedSchemasSearchResponse, Error<VintedSearchByImageError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -504,7 +504,7 @@ pub async fn vinted_search_by_image(configuration: &configuration::Configuration
 }
 
 /// Search Vinted catalog items with filters.
-pub async fn vinted_search_vinted_items(configuration: &configuration::Configuration, query: &str, market: Option<&str>, seller_country: Option<&str>, page: Option<i32>, per_page: Option<i32>, price_from: Option<f64>, price_to: Option<f64>, brand_ids: Option<&str>, catalog_ids: Option<&str>, color_ids: Option<&str>, size_ids: Option<&str>, material_ids: Option<&str>, time: Option<i32>, search_session_id: Option<&str>, status_ids: Option<&str>, order: Option<&str>) -> Result<models::SearchResponse, Error<VintedSearchVintedItemsError>> {
+pub async fn vinted_search_vinted_items(configuration: &configuration::Configuration, query: &str, market: Option<&str>, seller_country: Option<&str>, page: Option<i32>, per_page: Option<i32>, price_from: Option<f64>, price_to: Option<f64>, brand_ids: Option<&str>, catalog_ids: Option<&str>, color_ids: Option<&str>, size_ids: Option<&str>, material_ids: Option<&str>, time: Option<i32>, search_session_id: Option<&str>, status_ids: Option<&str>, order: Option<&str>) -> Result<models::PortalApiRoutersVintedSchemasSearchResponse, Error<VintedSearchVintedItemsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

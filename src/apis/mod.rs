@@ -90,18 +90,22 @@ pub fn parse_deep_object(prefix: &str, value: &serde_json::Value) -> Vec<(String
     unimplemented!("Only objects are supported with style=deepObject")
 }
 
+pub mod asos_api;
 pub mod account_api;
 pub mod airbnb_api;
+pub mod ali_express_api;
 pub mod amazon_api;
 pub mod apartments_api;
 pub mod app_store_api;
 pub mod baidu_api;
+pub mod best_buy_api;
 pub mod bing_api;
 pub mod booking_api;
 pub mod chat_gpt_api;
 pub mod depop_api;
 pub mod duck_duck_go_api;
 pub mod e_bay_api;
+pub mod etsy_api;
 pub mod facebook_api;
 pub mod gemini_api;
 pub mod google_api;
@@ -118,6 +122,7 @@ pub mod perplexity_api;
 pub mod realtor_api;
 pub mod reddit_api;
 pub mod redfin_api;
+pub mod target_api;
 pub mod tik_tok_api;
 pub mod twitter_api;
 pub mod vinted_api;

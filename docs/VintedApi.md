@@ -293,7 +293,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_search_by_image
 
-> models::SearchResponse vinted_search_by_image(vinted_image_search_request)
+> models::PortalApiRoutersVintedSchemasSearchResponse vinted_search_by_image(vinted_image_search_request)
 Search by image
 
 Find active Vinted listings from a photo. 10 credits per successful request. Returns the usual items, pagination and market envelope. Visual ranking. Each item carries `similarity_score` on the calls where Vinted returns a ranking, and null on the ones where it does not -- a null says nothing about the item. The score sits on an unbounded scale that Vinted changes without notice (0-1 in Sep 2026, ~36-44 since): compare it only with the other items in the SAME response, never to a fixed cut-off. Resend the same image and pagination time for subsequent pages. Structured brand data may be null.
@@ -307,7 +307,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::SearchResponse**](SearchResponse.md)
+[**models::PortalApiRoutersVintedSchemasSearchResponse**](portal_api__routers___vinted_schemas__SearchResponse.md)
 
 ### Authorization
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Required | Notes
 
 ## vinted_search_vinted_items
 
-> models::SearchResponse vinted_search_vinted_items(query, market, seller_country, page, per_page, price_from, price_to, brand_ids, catalog_ids, color_ids, size_ids, material_ids, time, search_session_id, status_ids, order)
+> models::PortalApiRoutersVintedSchemasSearchResponse vinted_search_vinted_items(query, market, seller_country, page, per_page, price_from, price_to, brand_ids, catalog_ids, color_ids, size_ids, material_ids, time, search_session_id, status_ids, order)
 Search Vinted items
 
 Search Vinted catalog items with filters.
@@ -352,7 +352,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::SearchResponse**](SearchResponse.md)
+[**models::PortalApiRoutersVintedSchemasSearchResponse**](portal_api__routers___vinted_schemas__SearchResponse.md)
 
 ### Authorization
 
