@@ -643,7 +643,7 @@ Name | Type | Description  | Required | Notes
 **si** | Option<**String**> | Cached search params |  |
 **ibp** | Option<**String**> | Layout control |  |
 **uds** | Option<**String**> | Google filter string |  |
-**ai_overview** | Option<**bool**> | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s and 1 credit when the SERP defers the overview. |  |[default to false]
+**ai_overview** | Option<**bool**> | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. |  |[default to false]
 
 ### Return type
 
