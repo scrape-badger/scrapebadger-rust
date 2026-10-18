@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**google_google_flights_calendar_cheapest_fare_per_date**](GoogleApi.md#google_google_flights_calendar_cheapest_fare_per_date) | **GET** /v1/google/flights/calendar | Google Flights calendar — cheapest fare per date
 [**google_google_flights_search**](GoogleApi.md#google_google_flights_search) | **GET** /v1/google/flights/search | Google Flights search
 [**google_google_lens_visual_search**](GoogleApi.md#google_google_lens_visual_search) | **GET** /v1/google/lens/search | Google Lens visual search
+[**google_google_light_web_search**](GoogleApi.md#google_google_light_web_search) | **GET** /v1/google/light/search | Google Light web search
 [**google_google_scraper_health_check**](GoogleApi.md#google_google_scraper_health_check) | **GET** /v1/google/health | Google scraper health check
 [**google_google_scraper_health_check_head**](GoogleApi.md#google_google_scraper_health_check_head) | **HEAD** /v1/google/health | Google scraper health check
 [**google_google_search_suggestions**](GoogleApi.md#google_google_search_suggestions) | **GET** /v1/google/autocomplete | Google search suggestions
@@ -470,6 +471,49 @@ Name | Type | Description  | Required | Notes
 **product** | Option<**bool**> | Only the tiles Google marked buyable (price + stock), drawn from the same grid |  |[default to false]
 **visual_matches** | Option<**bool**> | Always true in practice — `false` is reported back in `warnings` |  |[default to true]
 **exact_matches** | Option<**bool**> | Return only the pages hosting this image, flagged exact_match. Available for most images (8/10 in sampling); falls back to the full grid otherwise, saying so in warnings |  |[default to false]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## google_google_light_web_search
+
+> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output)
+Google Light web search
+
+Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**q** | **String** | Search query (supports Google operators) | [required] |
+**gl** | Option<**String**> | Country code |  |[default to us]
+**hl** | Option<**String**> | Language code |  |[default to en]
+**num** | Option<**i32**> |  |  |[default to 10]
+**start** | Option<**i32**> | Page offset (0, 10, 20...) |  |[default to 0]
+**domain** | Option<**String**> | Google domain |  |[default to google.com]
+**location** | Option<**String**> | City-level geo-targeting |  |
+**uule** | Option<**String**> | Encoded location |  |
+**lr** | Option<**String**> | Language restrict (e.g. lang_en) |  |
+**tbs** | Option<**String**> | Time filter (e.g. qdr:d) |  |
+**safe** | Option<**String**> | Safe search: off or active |  |[default to off]
+**filter** | Option<**i32**> |  |  |
+**nfpr** | Option<**i32**> | Disable auto-correction |  |[default to 0]
+**output** | Option<**String**> |  |  |[default to json]
 
 ### Return type
 

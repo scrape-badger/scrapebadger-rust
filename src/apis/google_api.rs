@@ -119,6 +119,14 @@ pub enum GoogleGoogleLensVisualSearchError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`google_google_light_web_search`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GoogleGoogleLightWebSearchError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`google_google_scraper_health_check`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -967,6 +975,82 @@ pub async fn google_google_lens_visual_search(configuration: &configuration::Con
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GoogleGoogleLensVisualSearchError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
+pub async fn google_google_light_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, location: Option<&str>, uule: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, output: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleLightWebSearchError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/google/light/search", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    local_var_req_builder = local_var_req_builder.query(&[("q", &q.to_string())]);
+    if let Some(ref local_var_str) = gl {
+        local_var_req_builder = local_var_req_builder.query(&[("gl", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = hl {
+        local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = num {
+        local_var_req_builder = local_var_req_builder.query(&[("num", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = start {
+        local_var_req_builder = local_var_req_builder.query(&[("start", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = domain {
+        local_var_req_builder = local_var_req_builder.query(&[("domain", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = location {
+        local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = uule {
+        local_var_req_builder = local_var_req_builder.query(&[("uule", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lr {
+        local_var_req_builder = local_var_req_builder.query(&[("lr", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tbs {
+        local_var_req_builder = local_var_req_builder.query(&[("tbs", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = safe {
+        local_var_req_builder = local_var_req_builder.query(&[("safe", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = filter {
+        local_var_req_builder = local_var_req_builder.query(&[("filter", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = nfpr {
+        local_var_req_builder = local_var_req_builder.query(&[("nfpr", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = output {
+        local_var_req_builder = local_var_req_builder.query(&[("output", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GoogleGoogleLightWebSearchError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
