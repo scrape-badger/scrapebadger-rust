@@ -178,8 +178,8 @@ pub async fn ebay_browse_a_category(configuration: &configuration::Configuration
     }
 }
 
-/// Search completed/sold listings — eBay's sold-price history.  eBay pads a short result set with \"results matching fewer words\" and counts only the exact ones in ``pagination.total_results``. Results come back in eBay's own ranking order with the exact matches first, and each one carries ``exact_match`` (true/false) so a price series can be built without parsing titles. An empty ``results`` with ``total_results: 0`` is eBay's own answer and costs 0 credits — a fetch failure is never a 200.  ``price`` is what the listing sold for, including the market's buyer-protection fee, as a local buyer sees it. It is ``null`` on one shape: an auction that also accepted offers (``bids`` set). eBay's sold index answers those with either the listing's start/Buy-It-Now price or the price it sold at, varying between identical requests with nothing to say which, so no number there is trustworthy — ``/v1/ebay/items/{item_id}`` carries the winning bid for them (before the fee). A listing that closed purely on an accepted Best Offer prices normally: eBay never publishes the accepted amount, so ``price`` is the listed one, exactly as its own item page shows.
-pub async fn ebay_completed_sold_listings(configuration: &configuration::Configuration, query: &str, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, location: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsError>> {
+/// Search completed/sold listings — eBay's sold-price history.  Pass ``query``, ``seller`` or both. ``seller`` alone returns everything that seller sold, page by page, with no keyword needed.  eBay pads a short result set with \"results matching fewer words\" and counts only the exact ones in ``pagination.total_results``. Results come back in eBay's own ranking order with the exact matches first, and each one carries ``exact_match`` (true/false) so a price series can be built without parsing titles. An empty ``results`` with ``total_results: 0`` is eBay's own answer and costs 0 credits — a fetch failure is never a 200.  ``price`` is what the listing sold for, including the market's buyer-protection fee, as a local buyer sees it. It is ``null`` on one shape: an auction that also accepted offers (``bids`` set). eBay's sold index answers those with either the listing's start/Buy-It-Now price or the price it sold at, varying between identical requests with nothing to say which, so no number there is trustworthy — ``/v1/ebay/items/{item_id}`` carries the winning bid for them (before the fee). A listing that closed purely on an accepted Best Offer prices normally: eBay never publishes the accepted amount, so ``price`` is the listed one, exactly as its own item page shows.
+pub async fn ebay_completed_sold_listings(configuration: &configuration::Configuration, query: Option<&str>, seller: Option<&str>, domain: Option<&str>, category_id: Option<&str>, page: Option<i32>, per_page: Option<i32>, sort_by: Option<&str>, condition: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, location: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<EbayCompletedSoldListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -187,7 +187,12 @@ pub async fn ebay_completed_sold_listings(configuration: &configuration::Configu
     let local_var_uri_str = format!("{}/v1/ebay/completed", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    local_var_req_builder = local_var_req_builder.query(&[("query", &query.to_string())]);
+    if let Some(ref local_var_str) = query {
+        local_var_req_builder = local_var_req_builder.query(&[("query", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = seller {
+        local_var_req_builder = local_var_req_builder.query(&[("seller", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_str) = domain {
         local_var_req_builder = local_var_req_builder.query(&[("domain", &local_var_str.to_string())]);
     }
