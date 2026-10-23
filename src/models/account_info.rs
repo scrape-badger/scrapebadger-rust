@@ -26,6 +26,8 @@ pub struct AccountInfo {
     pub rate_limit_per_minute: Option<i32>,
     #[serde(rename = "subscription", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub subscription: Option<Option<Box<models::SubscriptionInfo>>>,
+    #[serde(rename = "agent_trial", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub agent_trial: Option<Option<Box<models::AgentTrialInfo>>>,
 }
 
 impl AccountInfo {
@@ -38,6 +40,7 @@ impl AccountInfo {
             tier,
             rate_limit_per_minute,
             subscription: None,
+            agent_trial: None,
         }
     }
 }
