@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**facebook_get_profile_posts**](FacebookApi.md#facebook_get_profile_posts) | **GET** /v1/facebook/profiles/{identifier}/posts | Get profile posts
 [**facebook_list_categories**](FacebookApi.md#facebook_list_categories) | **GET** /v1/facebook/marketplace/categories | List categories
 [**facebook_list_locations**](FacebookApi.md#facebook_list_locations) | **GET** /v1/facebook/marketplace/locations | List locations
+[**facebook_resolve_a_town_postcode_to_a_marketplace_location**](FacebookApi.md#facebook_resolve_a_town_postcode_to_a_marketplace_location) | **GET** /v1/facebook/marketplace/locations/resolve | Resolve a town/postcode to a Marketplace location
 [**facebook_search_advertiser_pages**](FacebookApi.md#facebook_search_advertiser_pages) | **GET** /v1/facebook/ads/pages/search | Search advertiser pages
 [**facebook_search_events**](FacebookApi.md#facebook_search_events) | **GET** /v1/facebook/search/events | Search events
 [**facebook_search_everything**](FacebookApi.md#facebook_search_everything) | **GET** /v1/facebook/search | Search everything
@@ -444,6 +445,39 @@ List common Marketplace location slugs (free).
 ### Parameters
 
 This endpoint does not need any parameter.
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## facebook_resolve_a_town_postcode_to_a_marketplace_location
+
+> serde_json::Value facebook_resolve_a_town_postcode_to_a_marketplace_location(query, latitude, longitude, country)
+Resolve a town/postcode to a Marketplace location
+
+Resolve a town, postcode or coordinates to a Facebook Marketplace place id.  Facebook keys Marketplace by place, not coordinates, and only a place slug or numeric place id works as ``location``. Pass the returned ``place_id`` as ``location`` on Marketplace search/category to centre results anywhere, not just the preset catalogue. Postcodes resolve exactly; a bare town name in an ambiguous country is best paired with ``country`` (e.g. ``gb``).
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**query** | Option<**String**> | Town, city, postcode or address (e.g. 'Durham', 'DH1 3LE') |  |
+**latitude** | Option<**f64**> | Resolve this exact point instead |  |
+**longitude** | Option<**f64**> |  |  |
+**country** | Option<**String**> | ISO country code hint for an ambiguous name (e.g. gb) |  |
 
 ### Return type
 
