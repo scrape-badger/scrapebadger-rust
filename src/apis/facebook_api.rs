@@ -207,7 +207,7 @@ pub enum FacebookSearchTheAdLibraryError {
 
 
 /// Browse Marketplace listings in a category (vehicles, electronics, ...).
-pub async fn facebook_browse_a_marketplace_category(configuration: &configuration::Configuration, category: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, sort_by: Option<&str>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookBrowseAMarketplaceCategoryError>> {
+pub async fn facebook_browse_a_marketplace_category(configuration: &configuration::Configuration, category: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, sort_by: Option<&str>, radius: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookBrowseAMarketplaceCategoryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -226,6 +226,9 @@ pub async fn facebook_browse_a_marketplace_category(configuration: &configuratio
     }
     if let Some(ref local_var_str) = sort_by {
         local_var_req_builder = local_var_req_builder.query(&[("sort_by", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = radius {
+        local_var_req_builder = local_var_req_builder.query(&[("radius", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);

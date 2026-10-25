@@ -33,7 +33,7 @@ Method | HTTP request | Description
 
 ## facebook_browse_a_marketplace_category
 
-> serde_json::Value facebook_browse_a_marketplace_category(category, location, min_price, max_price, sort_by, after)
+> serde_json::Value facebook_browse_a_marketplace_category(category, location, min_price, max_price, sort_by, radius, after)
 Browse a Marketplace category
 
 Browse Marketplace listings in a category (vehicles, electronics, ...).
@@ -48,6 +48,7 @@ Name | Type | Description  | Required | Notes
 **min_price** | Option<**i32**> |  |  |
 **max_price** | Option<**i32**> |  |  |
 **sort_by** | Option<**String**> |  |  |
+**radius** | Option<**i32**> | Radius around the location (km, or miles in the US) |  |
 **after** | Option<**String**> |  |  |
 
 ### Return type
