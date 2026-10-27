@@ -98,6 +98,7 @@ pub mod amazon_api;
 pub mod apartments_api;
 pub mod app_store_api;
 pub mod baidu_api;
+pub mod batch_api;
 pub mod best_buy_api;
 pub mod bing_api;
 pub mod booking_api;

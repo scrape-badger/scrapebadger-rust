@@ -13,6 +13,11 @@ docs/ApartmentsApi.md
 docs/AppStoreApi.md
 docs/AsosApi.md
 docs/BaiduApi.md
+docs/BatchApi.md
+docs/BatchItem.md
+docs/BatchItemQueryValue.md
+docs/BatchItemQueryValueAnyOfInner.md
+docs/BatchRequest.md
 docs/BestBuyApi.md
 docs/BillingLogListResponse.md
 docs/BillingLogResponse.md
@@ -125,6 +130,7 @@ docs/WebhookCreate.md
 docs/WebhookListItem.md
 docs/WebhookListResponse.md
 docs/WebhookResponse.md
+docs/WebhookSecret.md
 docs/WebhookTestRequest.md
 docs/WebhookTestResponse.md
 docs/YahooApi.md
@@ -140,6 +146,7 @@ src/apis/apartments_api.rs
 src/apis/app_store_api.rs
 src/apis/asos_api.rs
 src/apis/baidu_api.rs
+src/apis/batch_api.rs
 src/apis/best_buy_api.rs
 src/apis/bing_api.rs
 src/apis/booking_api.rs
@@ -184,6 +191,10 @@ src/apis/zillow_api.rs
 src/lib.rs
 src/models/account_info.rs
 src/models/agent_trial_info.rs
+src/models/batch_item.rs
+src/models/batch_item_query_value.rs
+src/models/batch_item_query_value_any_of_inner.rs
+src/models/batch_request.rs
 src/models/billing_log_list_response.rs
 src/models/billing_log_response.rs
 src/models/brandid.rs
@@ -262,5 +273,6 @@ src/models/webhook_create.rs
 src/models/webhook_list_item.rs
 src/models/webhook_list_response.rs
 src/models/webhook_response.rs
+src/models/webhook_secret.rs
 src/models/webhook_test_request.rs
 src/models/webhook_test_response.rs
