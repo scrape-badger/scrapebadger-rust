@@ -103,6 +103,7 @@ pub mod best_buy_api;
 pub mod bing_api;
 pub mod booking_api;
 pub mod chat_gpt_api;
+pub mod copilot_api;
 pub mod depop_api;
 pub mod duck_duck_go_api;
 pub mod e_bay_api;

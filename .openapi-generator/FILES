@@ -31,6 +31,7 @@ docs/ChatGptApi.md
 docs/ColorsResponse.md
 docs/Colour.md
 docs/Colourwayid.md
+docs/CopilotApi.md
 docs/DepopApi.md
 docs/Description.md
 docs/DuckDuckGoApi.md
@@ -152,6 +153,7 @@ src/apis/bing_api.rs
 src/apis/booking_api.rs
 src/apis/chat_gpt_api.rs
 src/apis/configuration.rs
+src/apis/copilot_api.rs
 src/apis/depop_api.rs
 src/apis/duck_duck_go_api.rs
 src/apis/e_bay_api.rs

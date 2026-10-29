@@ -180,6 +180,13 @@ Class | Method | HTTP request | Description
 *ChatGptApi* | [**chatgpt_list_chatgpt_models**](docs/ChatGptApi.md#chatgpt_list_chatgpt_models) | **GET** /v1/chatgpt/models | List ChatGPT models
 *ChatGptApi* | [**chatgpt_measure_a_brand_s_visibility_in_a_chatgpt_answer**](docs/ChatGptApi.md#chatgpt_measure_a_brand_s_visibility_in_a_chatgpt_answer) | **GET** /v1/chatgpt/brand-visibility | Measure a brand's visibility in a ChatGPT answer
 *ChatGptApi* | [**chatgpt_measure_a_brand_s_visibility_in_a_chatgpt_answer_post**](docs/ChatGptApi.md#chatgpt_measure_a_brand_s_visibility_in_a_chatgpt_answer_post) | **POST** /v1/chatgpt/brand-visibility | Measure a brand's visibility in a ChatGPT answer (POST)
+*CopilotApi* | [**copilot_ask_copilot_a_question**](docs/CopilotApi.md#copilot_ask_copilot_a_question) | **GET** /v1/copilot/ask | Ask Copilot a question
+*CopilotApi* | [**copilot_ask_copilot_a_question_post**](docs/CopilotApi.md#copilot_ask_copilot_a_question_post) | **POST** /v1/copilot/ask | Ask Copilot a question (POST)
+*CopilotApi* | [**copilot_copilot_scraper_health_check**](docs/CopilotApi.md#copilot_copilot_scraper_health_check) | **GET** /v1/copilot/health | Copilot scraper health check
+*CopilotApi* | [**copilot_copilot_scraper_health_check_head**](docs/CopilotApi.md#copilot_copilot_scraper_health_check_head) | **HEAD** /v1/copilot/health | Copilot scraper health check
+*CopilotApi* | [**copilot_list_copilot_markets**](docs/CopilotApi.md#copilot_list_copilot_markets) | **GET** /v1/copilot/markets | List Copilot markets
+*CopilotApi* | [**copilot_measure_a_brand_s_visibility_in_a_copilot_answer**](docs/CopilotApi.md#copilot_measure_a_brand_s_visibility_in_a_copilot_answer) | **GET** /v1/copilot/brand-visibility | Measure a brand's visibility in a Copilot answer
+*CopilotApi* | [**copilot_measure_a_brand_s_visibility_in_a_copilot_answer_post**](docs/CopilotApi.md#copilot_measure_a_brand_s_visibility_in_a_copilot_answer_post) | **POST** /v1/copilot/brand-visibility | Measure a brand's visibility in a Copilot answer (POST)
 *DepopApi* | [**depop_depop_scraper_health_check**](docs/DepopApi.md#depop_depop_scraper_health_check) | **GET** /v1/depop/health | Depop scraper health check
 *DepopApi* | [**depop_depop_scraper_health_check_head**](docs/DepopApi.md#depop_depop_scraper_health_check_head) | **HEAD** /v1/depop/health | Depop scraper health check
 *DepopApi* | [**depop_get_a_user_s_products**](docs/DepopApi.md#depop_get_a_user_s_products) | **GET** /v1/depop/users/{username}/products | Get a user's products
