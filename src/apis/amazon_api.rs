@@ -394,8 +394,8 @@ pub async fn amazon_get_product_detail(configuration: &configuration::Configurat
     }
 }
 
-/// Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page's public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (``ratings_total`` reports the true total). ``pagination`` gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised ``star`` or ``sort_by`` is rejected with 422 rather than silently answered with unfiltered reviews.
-pub async fn amazon_get_product_reviews(configuration: &configuration::Configuration, asin: &str, domain: Option<&str>, page: Option<i32>, sort_by: Option<&str>, star: Option<&str>, verified_only: Option<bool>, media_only: Option<bool>) -> Result<serde_json::Value, Error<AmazonGetProductReviewsError>> {
+/// Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page's public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (``ratings_total`` reports the true total). ``pagination`` gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised ``star`` or ``sort_by`` is rejected with 422 rather than silently answered with unfiltered reviews.  ``mode=full`` serves the rest, pool first and woot second: one pool account is leased and the authenticated review pages are walked until Amazon stops returning new rows (a gate, the review-limit banner or an expired session rotates the lease), then — when ``woot_offer`` names a current woot.com offer page carrying the ASIN (.com only) — Amazon-owned woot.com's anonymous reviews endpoint is fanned out as a bonus and merged in, deduped by review id. The same filter / sort / pagination contract applies to the collected set. When no source produced rows the answer is 503 (``pool_exhausted``, or ``reviews_unavailable`` when both paths ran) — never an empty 200 that reads as \"no reviews\". Auth, rate limits, credits and usage logging are the gateway's, exactly as for every other mode of this endpoint.
+pub async fn amazon_get_product_reviews(configuration: &configuration::Configuration, asin: &str, domain: Option<&str>, page: Option<i32>, sort_by: Option<&str>, star: Option<&str>, verified_only: Option<bool>, media_only: Option<bool>, mode: Option<&str>, max_pages: Option<i32>, per_star: Option<bool>, limit: Option<i32>, woot_offer: Option<&str>) -> Result<serde_json::Value, Error<AmazonGetProductReviewsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -420,6 +420,21 @@ pub async fn amazon_get_product_reviews(configuration: &configuration::Configura
     }
     if let Some(ref local_var_str) = media_only {
         local_var_req_builder = local_var_req_builder.query(&[("media_only", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = mode {
+        local_var_req_builder = local_var_req_builder.query(&[("mode", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = max_pages {
+        local_var_req_builder = local_var_req_builder.query(&[("max_pages", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = per_star {
+        local_var_req_builder = local_var_req_builder.query(&[("per_star", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = limit {
+        local_var_req_builder = local_var_req_builder.query(&[("limit", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = woot_offer {
+        local_var_req_builder = local_var_req_builder.query(&[("woot_offer", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

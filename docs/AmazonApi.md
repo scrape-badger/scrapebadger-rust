@@ -210,10 +210,10 @@ Name | Type | Description  | Required | Notes
 
 ## amazon_get_product_reviews
 
-> serde_json::Value amazon_get_product_reviews(asin, domain, page, sort_by, star, verified_only, media_only)
+> serde_json::Value amazon_get_product_reviews(asin, domain, page, sort_by, star, verified_only, media_only, mode, max_pages, per_star, limit, woot_offer)
 Get product reviews
 
-Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page's public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (``ratings_total`` reports the true total). ``pagination`` gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised ``star`` or ``sort_by`` is rejected with 422 rather than silently answered with unfiltered reviews.
+Customer reviews for an ASIN, filtered, sorted and paginated.  Reviews come from the product page's public featured block, which is the only review surface Amazon serves anonymously — a subset of the full history (``ratings_total`` reports the true total). ``pagination`` gives the filtered count and the last page, so paging past it returns an empty list. An unrecognised ``star`` or ``sort_by`` is rejected with 422 rather than silently answered with unfiltered reviews.  ``mode=full`` serves the rest, pool first and woot second: one pool account is leased and the authenticated review pages are walked until Amazon stops returning new rows (a gate, the review-limit banner or an expired session rotates the lease), then — when ``woot_offer`` names a current woot.com offer page carrying the ASIN (.com only) — Amazon-owned woot.com's anonymous reviews endpoint is fanned out as a bonus and merged in, deduped by review id. The same filter / sort / pagination contract applies to the collected set. When no source produced rows the answer is 503 (``pool_exhausted``, or ``reviews_unavailable`` when both paths ran) — never an empty 200 that reads as \"no reviews\". Auth, rate limits, credits and usage logging are the gateway's, exactly as for every other mode of this endpoint.
 
 ### Parameters
 
@@ -227,6 +227,11 @@ Name | Type | Description  | Required | Notes
 **star** | Option<**String**> | 1-5 | one_star..five_star | positive | critical | all_stars |  |
 **verified_only** | Option<**bool**> |  |  |[default to false]
 **media_only** | Option<**bool**> |  |  |[default to false]
+**mode** | Option<**String**> | public (anonymous featured block) | full (authenticated account pool) |  |[default to public]
+**max_pages** | Option<**i32**> | full mode: pages to walk per star sweep |  |[default to 10]
+**per_star** | Option<**bool**> | full mode: sweep each star filter and merge + dedupe |  |[default to false]
+**limit** | Option<**i32**> | full mode: stop at this many distinct reviews |  |
+**woot_offer** | Option<**String**> | full mode + .com: URL (or slug) of a CURRENT woot.com offer page carrying the ASIN — unlocks the anonymous woot reviews endpoint as a bonus transport after the account pool |  |
 
 ### Return type
 
