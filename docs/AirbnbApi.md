@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **room_id** | **String** |  | [required] |
 **month** | Option<**i32**> | Start month (1-12) |  |[default to 1]
-**year** | Option<**i32**> | Start year |  |[default to 2026]
+**year** | Option<**i32**> | Start year (current UTC year when omitted) |  |
 **months** | Option<**i32**> | Number of months (max 12) |  |[default to 12]
 **currency** | Option<**String**> |  |  |
 **locale** | Option<**String**> |  |  |
