@@ -959,7 +959,7 @@ pub async fn reddit_reddit_scraper_health_check_head(configuration: &configurati
     }
 }
 
-/// Search Reddit's current web UI globally or within a subreddit.  Pass pagination.after unchanged with the same query, scope, sort and time filter. Search cursors expire after 30 minutes. Reddit's native page may contain fewer rows than limit; continue while after is present.
+/// Search Reddit's current web UI globally or within one or more subreddits.  Pass pagination.after unchanged with the same query, scope, sort and time filter. Search cursors expire after 30 minutes. Reddit's native page may contain fewer rows than limit; continue while after is present.  Reddit reads only the first 256 UTF-8 bytes of a search query and ignores the rest, so a longer query returns 422. Several subreddits are searched as (q) (subreddit:a OR subreddit:b ...), and that whole string counts toward the limit: split long subreddit lists across requests.
 pub async fn reddit_search_reddit_posts(configuration: &configuration::Configuration, q: &str, subreddit: Option<&str>, sort: Option<&str>, t: Option<&str>, limit: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<RedditSearchRedditPostsError>> {
     let local_var_configuration = configuration;
 
@@ -1011,7 +1011,7 @@ pub async fn reddit_search_reddit_posts(configuration: &configuration::Configura
     }
 }
 
-/// Search communities using Reddit's current web UI ranking and pagination.  Pass pagination.after unchanged with the same query. Search cursors expire after 30 minutes. weekly_visitors and weekly_contributions are activity counters, separate from the subscriber count.
+/// Search communities using Reddit's current web UI ranking and pagination.  Pass pagination.after unchanged with the same query. Search cursors expire after 30 minutes. weekly_visitors and weekly_contributions are activity counters, separate from the subscriber count. A query over 256 UTF-8 bytes returns 422, because Reddit would silently drop the rest.
 pub async fn reddit_search_subreddits(configuration: &configuration::Configuration, q: &str, limit: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<RedditSearchSubredditsError>> {
     let local_var_configuration = configuration;
 
@@ -1054,7 +1054,7 @@ pub async fn reddit_search_subreddits(configuration: &configuration::Configurati
     }
 }
 
-/// Search profiles using Reddit's current web UI ranking and pagination.  Pass pagination.after unchanged with the same query. Search cursors expire after 30 minutes. The native page may contain fewer rows than limit.
+/// Search profiles using Reddit's current web UI ranking and pagination.  Pass pagination.after unchanged with the same query. Search cursors expire after 30 minutes. The native page may contain fewer rows than limit. A query over 256 UTF-8 bytes returns 422, because Reddit would silently drop the rest.
 pub async fn reddit_search_users(configuration: &configuration::Configuration, q: &str, limit: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<RedditSearchUsersError>> {
     let local_var_configuration = configuration;
 
