@@ -61,7 +61,7 @@ pub enum PerplexityPerplexityScraperHealthCheckHeadError {
 
 
 /// Send a prompt to Perplexity and get the answer plus the web sources it cited.
-pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration::Configuration, prompt: &str, country: Option<&str>, strict_country: Option<bool>) -> Result<serde_json::Value, Error<PerplexityAskPerplexityAQuestionError>> {
+pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration::Configuration, prompt: &str, country: Option<&str>, strict_country: Option<bool>, location: Option<&str>) -> Result<serde_json::Value, Error<PerplexityAskPerplexityAQuestionError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -75,6 +75,9 @@ pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration:
     }
     if let Some(ref local_var_str) = strict_country {
         local_var_req_builder = local_var_req_builder.query(&[("strict_country", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = location {
+        local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -140,7 +143,7 @@ pub async fn perplexity_ask_perplexity_a_question_post(configuration: &configura
 }
 
 /// Ask Perplexity, then report whether the brand is mentioned, cited and how prominently.
-pub async fn perplexity_measure_a_brand_s_visibility_in_a_perplexity_answer(configuration: &configuration::Configuration, prompt: &str, brand: &str, domain: Option<&str>, aliases: Option<&str>, competitors: Option<&str>, country: Option<&str>, strict_country: Option<bool>) -> Result<serde_json::Value, Error<PerplexityMeasureABrandSVisibilityInAPerplexityAnswerError>> {
+pub async fn perplexity_measure_a_brand_s_visibility_in_a_perplexity_answer(configuration: &configuration::Configuration, prompt: &str, brand: &str, domain: Option<&str>, aliases: Option<&str>, competitors: Option<&str>, country: Option<&str>, strict_country: Option<bool>, location: Option<&str>) -> Result<serde_json::Value, Error<PerplexityMeasureABrandSVisibilityInAPerplexityAnswerError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -164,6 +167,9 @@ pub async fn perplexity_measure_a_brand_s_visibility_in_a_perplexity_answer(conf
     }
     if let Some(ref local_var_str) = strict_country {
         local_var_req_builder = local_var_req_builder.query(&[("strict_country", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = location {
+        local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

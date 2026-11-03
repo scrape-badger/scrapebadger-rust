@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## perplexity_ask_perplexity_a_question
 
-> serde_json::Value perplexity_ask_perplexity_a_question(prompt, country, strict_country)
+> serde_json::Value perplexity_ask_perplexity_a_question(prompt, country, strict_country, location)
 Ask Perplexity a question
 
 Send a prompt to Perplexity and get the answer plus the web sources it cited.
@@ -28,6 +28,7 @@ Name | Type | Description  | Required | Notes
 **prompt** | **String** | The prompt to send to Perplexity (max 4096 characters). | [required] |
 **country** | Option<**String**> | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'. |  |
 **strict_country** | Option<**bool**> | Answer only from an exit in `country`, never another one; 503 `country_unavailable` (not billed) when none answers. Requires `country`. |  |[default to false]
+**location** | Option<**String**> | Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or 'lat,lng' in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP's city. It does not pick the egress: `country` does. |  |
 
 ### Return type
 
@@ -74,7 +75,7 @@ This endpoint does not need any parameter.
 
 ## perplexity_measure_a_brand_s_visibility_in_a_perplexity_answer
 
-> serde_json::Value perplexity_measure_a_brand_s_visibility_in_a_perplexity_answer(prompt, brand, domain, aliases, competitors, country, strict_country)
+> serde_json::Value perplexity_measure_a_brand_s_visibility_in_a_perplexity_answer(prompt, brand, domain, aliases, competitors, country, strict_country, location)
 Measure a brand's visibility in a Perplexity answer
 
 Ask Perplexity, then report whether the brand is mentioned, cited and how prominently.
@@ -91,6 +92,7 @@ Name | Type | Description  | Required | Notes
 **competitors** | Option<**String**> | Comma-separated competitor names. |  |
 **country** | Option<**String**> | ISO-3166 alpha-2 egress country. |  |
 **strict_country** | Option<**bool**> | Answer only from an exit in `country`, never another one; 503 `country_unavailable` (not billed) when none answers. Requires `country`. |  |[default to false]
+**location** | Option<**String**> | Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or 'lat,lng' in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP's city. It does not pick the egress: `country` does. |  |
 
 ### Return type
 
