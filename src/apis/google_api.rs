@@ -981,7 +981,7 @@ pub async fn google_google_lens_visual_search(configuration: &configuration::Con
 }
 
 /// Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
-pub async fn google_google_light_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, location: Option<&str>, uule: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, output: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleLightWebSearchError>> {
+pub async fn google_google_light_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, location: Option<&str>, uule: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, output: Option<&str>, google_domain: Option<&str>, lat: Option<f64>, lon: Option<f64>, radius: Option<f64>, color_scheme: Option<&str>, tbm: Option<&str>, udm: Option<&str>, no_cache: Option<bool>, as_dt: Option<&str>, as_epq: Option<&str>, as_eq: Option<&str>, as_lq: Option<&str>, as_nlo: Option<&str>, as_nhi: Option<&str>, as_oq: Option<&str>, as_q: Option<&str>, as_qdr: Option<&str>, as_rq: Option<&str>, as_sitesearch: Option<&str>, device: Option<&str>, user_agent: Option<&str>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleLightWebSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1028,6 +1028,90 @@ pub async fn google_google_light_web_search(configuration: &configuration::Confi
     }
     if let Some(ref local_var_str) = output {
         local_var_req_builder = local_var_req_builder.query(&[("output", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = google_domain {
+        local_var_req_builder = local_var_req_builder.query(&[("google_domain", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lat {
+        local_var_req_builder = local_var_req_builder.query(&[("lat", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lon {
+        local_var_req_builder = local_var_req_builder.query(&[("lon", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = radius {
+        local_var_req_builder = local_var_req_builder.query(&[("radius", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = color_scheme {
+        local_var_req_builder = local_var_req_builder.query(&[("color_scheme", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tbm {
+        local_var_req_builder = local_var_req_builder.query(&[("tbm", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = udm {
+        local_var_req_builder = local_var_req_builder.query(&[("udm", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = no_cache {
+        local_var_req_builder = local_var_req_builder.query(&[("no_cache", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_dt {
+        local_var_req_builder = local_var_req_builder.query(&[("as_dt", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_epq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_epq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_eq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_eq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_lq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_lq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_nlo {
+        local_var_req_builder = local_var_req_builder.query(&[("as_nlo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_nhi {
+        local_var_req_builder = local_var_req_builder.query(&[("as_nhi", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_oq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_oq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_q {
+        local_var_req_builder = local_var_req_builder.query(&[("as_q", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_qdr {
+        local_var_req_builder = local_var_req_builder.query(&[("as_qdr", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_rq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_rq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_sitesearch {
+        local_var_req_builder = local_var_req_builder.query(&[("as_sitesearch", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = device {
+        local_var_req_builder = local_var_req_builder.query(&[("device", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = user_agent {
+        local_var_req_builder = local_var_req_builder.query(&[("user_agent", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = cr {
+        local_var_req_builder = local_var_req_builder.query(&[("cr", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = ludocid {
+        local_var_req_builder = local_var_req_builder.query(&[("ludocid", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lsig {
+        local_var_req_builder = local_var_req_builder.query(&[("lsig", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = kgmid {
+        local_var_req_builder = local_var_req_builder.query(&[("kgmid", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = si {
+        local_var_req_builder = local_var_req_builder.query(&[("si", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = ibp {
+        local_var_req_builder = local_var_req_builder.query(&[("ibp", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = uds {
+        local_var_req_builder = local_var_req_builder.query(&[("uds", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -1224,7 +1308,7 @@ pub async fn google_google_shorts_search(configuration: &configuration::Configur
 }
 
 /// Search Google and get structured results (organic, ads, KG, AI overview, PAA).
-pub async fn google_google_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, device: Option<&str>, user_agent: Option<&str>, output: Option<&str>, location: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, uule: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>, ai_overview: Option<bool>) -> Result<serde_json::Value, Error<GoogleGoogleWebSearchError>> {
+pub async fn google_google_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, device: Option<&str>, user_agent: Option<&str>, output: Option<&str>, location: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, uule: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>, ai_overview: Option<bool>, mode: Option<&str>, expand_related_questions: Option<&str>, google_domain: Option<&str>, lat: Option<f64>, lon: Option<f64>, radius: Option<f64>, color_scheme: Option<&str>, tbm: Option<&str>, udm: Option<&str>, no_cache: Option<bool>, as_dt: Option<&str>, as_epq: Option<&str>, as_eq: Option<&str>, as_lq: Option<&str>, as_nlo: Option<&str>, as_nhi: Option<&str>, as_oq: Option<&str>, as_q: Option<&str>, as_qdr: Option<&str>, as_rq: Option<&str>, as_sitesearch: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleWebSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1301,6 +1385,69 @@ pub async fn google_google_web_search(configuration: &configuration::Configurati
     }
     if let Some(ref local_var_str) = ai_overview {
         local_var_req_builder = local_var_req_builder.query(&[("ai_overview", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = mode {
+        local_var_req_builder = local_var_req_builder.query(&[("mode", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = expand_related_questions {
+        local_var_req_builder = local_var_req_builder.query(&[("expand_related_questions", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = google_domain {
+        local_var_req_builder = local_var_req_builder.query(&[("google_domain", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lat {
+        local_var_req_builder = local_var_req_builder.query(&[("lat", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lon {
+        local_var_req_builder = local_var_req_builder.query(&[("lon", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = radius {
+        local_var_req_builder = local_var_req_builder.query(&[("radius", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = color_scheme {
+        local_var_req_builder = local_var_req_builder.query(&[("color_scheme", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = tbm {
+        local_var_req_builder = local_var_req_builder.query(&[("tbm", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = udm {
+        local_var_req_builder = local_var_req_builder.query(&[("udm", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = no_cache {
+        local_var_req_builder = local_var_req_builder.query(&[("no_cache", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_dt {
+        local_var_req_builder = local_var_req_builder.query(&[("as_dt", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_epq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_epq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_eq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_eq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_lq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_lq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_nlo {
+        local_var_req_builder = local_var_req_builder.query(&[("as_nlo", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_nhi {
+        local_var_req_builder = local_var_req_builder.query(&[("as_nhi", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_oq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_oq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_q {
+        local_var_req_builder = local_var_req_builder.query(&[("as_q", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_qdr {
+        local_var_req_builder = local_var_req_builder.query(&[("as_qdr", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_rq {
+        local_var_req_builder = local_var_req_builder.query(&[("as_rq", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = as_sitesearch {
+        local_var_req_builder = local_var_req_builder.query(&[("as_sitesearch", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

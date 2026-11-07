@@ -490,7 +490,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_light_web_search
 
-> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output)
+> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, device, user_agent, cr, ludocid, lsig, kgmid, si, ibp, uds)
 Google Light web search
 
 Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
@@ -514,6 +514,34 @@ Name | Type | Description  | Required | Notes
 **filter** | Option<**i32**> |  |  |
 **nfpr** | Option<**i32**> | Disable auto-correction |  |[default to 0]
 **output** | Option<**String**> |  |  |[default to json]
+**google_domain** | Option<**String**> | Alias for domain; Google requests use google.com with country targeting. |  |
+**lat** | Option<**f64**> | Latitude; supply together with lon instead of location or uule. |  |
+**lon** | Option<**f64**> | Longitude; supply together with lat. |  |
+**radius** | Option<**f64**> | Location accuracy in meters; requires lat/lon or a named city with a known center. |  |
+**color_scheme** | Option<**String**> | Google color scheme. |  |
+**tbm** | Option<**String**> | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results. |  |
+**udm** | Option<**String**> | Google result filter: 14 web, 18 forums. Other verticals require output=html. |  |
+**no_cache** | Option<**bool**> | Bypass result caches and request a fresh Google fetch. |  |[default to false]
+**as_dt** | Option<**String**> | Site restriction mode: i includes, e excludes as_sitesearch. |  |
+**as_epq** | Option<**String**> | Exact phrase. |  |
+**as_eq** | Option<**String**> | Words to exclude. |  |
+**as_lq** | Option<**String**> | Find pages linking to this URL; availability depends on Google. |  |
+**as_nlo** | Option<**String**> | Numeric range minimum. |  |
+**as_nhi** | Option<**String**> | Numeric range maximum. |  |
+**as_oq** | Option<**String**> | Match any of these words. |  |
+**as_q** | Option<**String**> | Additional query words. |  |
+**as_qdr** | Option<**String**> | Time range, such as d, w, m or y1. |  |
+**as_rq** | Option<**String**> | Related URL; availability depends on Google. |  |
+**as_sitesearch** | Option<**String**> | Restrict results to a site. |  |
+**device** | Option<**String**> | Device target. |  |
+**user_agent** | Option<**String**> | Custom User-Agent. |  |
+**cr** | Option<**String**> | Country restrict. |  |
+**ludocid** | Option<**String**> | Place CID. |  |
+**lsig** | Option<**String**> | Map view ID. |  |
+**kgmid** | Option<**String**> | Knowledge Graph entity ID. |  |
+**si** | Option<**String**> | Cached Google parameters. |  |
+**ibp** | Option<**String**> | Layout control. |  |
+**uds** | Option<**String**> | Google filter string. |  |
 
 ### Return type
 
@@ -654,7 +682,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_web_search
 
-> serde_json::Value google_google_web_search(q, gl, hl, num, start, domain, device, user_agent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, ai_overview)
+> serde_json::Value google_google_web_search(q, gl, hl, num, start, domain, device, user_agent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, ai_overview, mode, expand_related_questions, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch)
 Google web search
 
 Search Google and get structured results (organic, ads, KG, AI overview, PAA).
@@ -688,6 +716,27 @@ Name | Type | Description  | Required | Notes
 **ibp** | Option<**String**> | Layout control |  |
 **uds** | Option<**String**> | Google filter string |  |
 **ai_overview** | Option<**bool**> | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. |  |[default to false]
+**mode** | Option<**String**> |  |  |[default to full]
+**expand_related_questions** | Option<**String**> | Open all People Also Ask answers (true) or the first N (0-99). |  |
+**google_domain** | Option<**String**> | Alias for domain; Google requests use google.com with country targeting. |  |
+**lat** | Option<**f64**> | Latitude; supply together with lon instead of location or uule. |  |
+**lon** | Option<**f64**> | Longitude; supply together with lat. |  |
+**radius** | Option<**f64**> | Location accuracy in meters; requires lat/lon or a named city with a known center. |  |
+**color_scheme** | Option<**String**> | Google color scheme. |  |
+**tbm** | Option<**String**> | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results. |  |
+**udm** | Option<**String**> | Google result filter: 14 web, 18 forums. Other verticals require output=html. |  |
+**no_cache** | Option<**bool**> | Bypass result caches and request a fresh Google fetch. |  |[default to false]
+**as_dt** | Option<**String**> | Site restriction mode: i includes, e excludes as_sitesearch. |  |
+**as_epq** | Option<**String**> | Exact phrase. |  |
+**as_eq** | Option<**String**> | Words to exclude. |  |
+**as_lq** | Option<**String**> | Find pages linking to this URL; availability depends on Google. |  |
+**as_nlo** | Option<**String**> | Numeric range minimum. |  |
+**as_nhi** | Option<**String**> | Numeric range maximum. |  |
+**as_oq** | Option<**String**> | Match any of these words. |  |
+**as_q** | Option<**String**> | Additional query words. |  |
+**as_qdr** | Option<**String**> | Time range, such as d, w, m or y1. |  |
+**as_rq** | Option<**String**> | Related URL; availability depends on Google. |  |
+**as_sitesearch** | Option<**String**> | Restrict results to a site. |  |
 
 ### Return type
 
