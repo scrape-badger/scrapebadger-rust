@@ -140,6 +140,7 @@ pub mod walmart_api;
 pub mod web_api;
 pub mod yahoo_api;
 pub mod yandex_api;
+pub mod yelp_api;
 pub mod you_tube_api;
 pub mod zillow_api;
 

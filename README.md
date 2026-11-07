@@ -626,6 +626,8 @@ Class | Method | HTTP request | Description
 *YandexApi* | [**yandex_web_search**](docs/YandexApi.md#yandex_web_search) | **GET** /v1/yandex/search | Web search
 *YandexApi* | [**yandex_yandex_scraper_health_check**](docs/YandexApi.md#yandex_yandex_scraper_health_check) | **GET** /v1/yandex/health | Yandex scraper health check
 *YandexApi* | [**yandex_yandex_scraper_health_check_head**](docs/YandexApi.md#yandex_yandex_scraper_health_check_head) | **HEAD** /v1/yandex/health | Yandex scraper health check
+*YelpApi* | [**yelp_list_markets**](docs/YelpApi.md#yelp_list_markets) | **GET** /v1/yelp/markets | List markets
+*YelpApi* | [**yelp_search_businesses**](docs/YelpApi.md#yelp_search_businesses) | **GET** /v1/yelp/search | Search businesses
 *YouTubeApi* | [**youtube_batch_video_detail**](docs/YouTubeApi.md#youtube_batch_video_detail) | **POST** /v1/youtube/videos/batch | Batch video detail
 *YouTubeApi* | [**youtube_channel_about**](docs/YouTubeApi.md#youtube_channel_about) | **GET** /v1/youtube/channels/{channel_id}/about | Channel about
 *YouTubeApi* | [**youtube_channel_playlists**](docs/YouTubeApi.md#youtube_channel_playlists) | **GET** /v1/youtube/channels/{channel_id}/playlists | Channel playlists
@@ -853,6 +855,16 @@ Class | Method | HTTP request | Description
  - [WebhookSecret](docs/WebhookSecret.md)
  - [WebhookTestRequest](docs/WebhookTestRequest.md)
  - [WebhookTestResponse](docs/WebhookTestResponse.md)
+ - [YelpBusiness](docs/YelpBusiness.md)
+ - [YelpCategory](docs/YelpCategory.md)
+ - [YelpFilterGroup](docs/YelpFilterGroup.md)
+ - [YelpFilterOption](docs/YelpFilterOption.md)
+ - [YelpHours](docs/YelpHours.md)
+ - [YelpLink](docs/YelpLink.md)
+ - [YelpMarket](docs/YelpMarket.md)
+ - [YelpMarketsResponse](docs/YelpMarketsResponse.md)
+ - [YelpResolvedLocation](docs/YelpResolvedLocation.md)
+ - [YelpSearchResponse](docs/YelpSearchResponse.md)
 
 
 To get access to the crate's generated documentation, use:
