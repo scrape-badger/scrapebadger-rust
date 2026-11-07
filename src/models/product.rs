@@ -48,7 +48,7 @@ pub struct Product {
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Box<models::Gender>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<Box<models::Description>>,
+    pub description: Option<Box<models::Description1>>,
     #[serde(rename = "ratings", skip_serializing_if = "Option::is_none")]
     pub ratings: Option<Box<models::Ratings>>,
     #[serde(rename = "breadcrumbs", skip_serializing_if = "Option::is_none")]

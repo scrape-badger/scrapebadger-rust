@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **is_restocking_soon** | Option<[**models::Isrestockingsoon**](Isrestockingsoon.md)> |  | [optional]
 **is_in_stock** | Option<[**models::Isinstock**](Isinstock.md)> |  | [optional]
 **gender** | Option<[**models::Gender**](Gender.md)> |  | [optional]
-**description** | Option<[**models::Description**](Description.md)> |  | [optional]
+**description** | Option<[**models::Description1**](Description_1.md)> |  | [optional]
 **ratings** | Option<[**models::Ratings**](Ratings.md)> |  | [optional]
 **breadcrumbs** | Option<[**Vec<std::collections::HashMap<String, serde_json::Value>>**](std::collections::HashMap.md)> |  | [optional]
 

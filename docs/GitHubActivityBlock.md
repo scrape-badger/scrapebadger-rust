@@ -1,0 +1,14 @@
+# GitHubActivityBlock
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**r#type** | **String** |  | 
+**summary** | **String** |  | 
+**count** | Option<**i32**> |  | [optional]
+**rows** | [**Vec<models::GitHubActivityRow>**](GitHubActivityRow.md) |  | 
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
