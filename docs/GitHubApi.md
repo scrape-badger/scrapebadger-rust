@@ -5,6 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**github_get_profile**](GitHubApi.md#github_get_profile) | **GET** /v1/github/profiles/{username} | Get profile
+[**github_get_repository**](GitHubApi.md#github_get_repository) | **GET** /v1/github/repositories/{owner}/{repo} | Get repository
 
 
 
@@ -29,6 +30,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GitHubProfileResponse**](GitHubProfileResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## github_get_repository
+
+> models::GitHubRepositoryResponse github_get_repository(owner, repo)
+Get repository
+
+Public default-branch repository detail, native README, files and latest commit.  Use owner.login and name from a profile repository summary. Root file and contributor previews are not exhaustive recursive trees or membership lists. No GitHub token, market, ref, search or pagination parameter is accepted.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**owner** | **String** |  | [required] |
+**repo** | **String** |  | [required] |
+
+### Return type
+
+[**models::GitHubRepositoryResponse**](GitHubRepositoryResponse.md)
 
 ### Authorization
 
