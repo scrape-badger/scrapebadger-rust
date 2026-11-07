@@ -490,7 +490,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_light_web_search
 
-> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, device, user_agent, cr, ludocid, lsig, kgmid, si, ibp, uds)
+> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, device, user_agent, cr, ludocid, lsig, kgmid, si, ibp, uds)
 Google Light web search
 
 Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
@@ -514,13 +514,16 @@ Name | Type | Description  | Required | Notes
 **filter** | Option<**i32**> |  |  |
 **nfpr** | Option<**i32**> | Disable auto-correction |  |[default to 0]
 **output** | Option<**String**> |  |  |[default to json]
+**oq** | Option<**String**> | Original query sent to Google. Defaults to q; an empty string omits it. |  |
+**sourceid** | Option<**String**> | Google source identifier. Defaults to chrome; an empty string omits it. |  |
+**ie** | Option<**String**> | Google input encoding hint. Defaults to UTF-8; an empty string omits it. |  |
 **google_domain** | Option<**String**> | Alias for domain; Google requests use google.com with country targeting. |  |
 **lat** | Option<**f64**> | Latitude; supply together with lon instead of location or uule. |  |
 **lon** | Option<**f64**> | Longitude; supply together with lat. |  |
 **radius** | Option<**f64**> | Location accuracy in meters; requires lat/lon or a named city with a known center. |  |
 **color_scheme** | Option<**String**> | Google color scheme. |  |
 **tbm** | Option<**String**> | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results. |  |
-**udm** | Option<**String**> | Google result filter: 14 web, 18 forums. Other verticals require output=html. |  |
+**udm** | Option<**String**> | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html. |  |
 **no_cache** | Option<**bool**> | Bypass result caches and request a fresh Google fetch. |  |[default to false]
 **as_dt** | Option<**String**> | Site restriction mode: i includes, e excludes as_sitesearch. |  |
 **as_epq** | Option<**String**> | Exact phrase. |  |
@@ -682,7 +685,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_web_search
 
-> serde_json::Value google_google_web_search(q, gl, hl, num, start, domain, device, user_agent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, ai_overview, mode, expand_related_questions, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch)
+> serde_json::Value google_google_web_search(q, gl, hl, num, start, domain, device, user_agent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, ai_overview, mode, expand_related_questions, oq, sourceid, ie, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch)
 Google web search
 
 Search Google and get structured results (organic, ads, KG, AI overview, PAA).
@@ -718,13 +721,16 @@ Name | Type | Description  | Required | Notes
 **ai_overview** | Option<**bool**> | Chase deferred AI Overview page_token with a follow-up fetch and merge the result. Adds ~1s when the SERP defers the overview; the request price is unchanged. |  |[default to false]
 **mode** | Option<**String**> |  |  |[default to full]
 **expand_related_questions** | Option<**String**> | Open all People Also Ask answers (true) or the first N (0-99). |  |
+**oq** | Option<**String**> | Original query sent to Google. Defaults to q; an empty string omits it. |  |
+**sourceid** | Option<**String**> | Google source identifier. Defaults to chrome; an empty string omits it. |  |
+**ie** | Option<**String**> | Google input encoding hint. Defaults to UTF-8; an empty string omits it. |  |
 **google_domain** | Option<**String**> | Alias for domain; Google requests use google.com with country targeting. |  |
 **lat** | Option<**f64**> | Latitude; supply together with lon instead of location or uule. |  |
 **lon** | Option<**f64**> | Longitude; supply together with lat. |  |
 **radius** | Option<**f64**> | Location accuracy in meters; requires lat/lon or a named city with a known center. |  |
 **color_scheme** | Option<**String**> | Google color scheme. |  |
 **tbm** | Option<**String**> | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results. |  |
-**udm** | Option<**String**> | Google result filter: 14 web, 18 forums. Other verticals require output=html. |  |
+**udm** | Option<**String**> | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html. |  |
 **no_cache** | Option<**bool**> | Bypass result caches and request a fresh Google fetch. |  |[default to false]
 **as_dt** | Option<**String**> | Site restriction mode: i includes, e excludes as_sitesearch. |  |
 **as_epq** | Option<**String**> | Exact phrase. |  |
