@@ -5,6 +5,7 @@ All URIs are relative to *https://scrapebadger.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**autoscout24_check_autoscout24_health**](AutoScout24Api.md#autoscout24_check_autoscout24_health) | **GET** /v1/autoscout24/health | Check AutoScout24 health
+[**autoscout24_get_listing**](AutoScout24Api.md#autoscout24_get_listing) | **GET** /v1/autoscout24/listing | Get listing
 [**autoscout24_list_markets**](AutoScout24Api.md#autoscout24_list_markets) | **GET** /v1/autoscout24/markets | List markets
 [**autoscout24_list_search_filters**](AutoScout24Api.md#autoscout24_list_search_filters) | **GET** /v1/autoscout24/filters | List search filters
 [**autoscout24_search_vehicles**](AutoScout24Api.md#autoscout24_search_vehicles) | **GET** /v1/autoscout24/search | Search vehicles
@@ -23,6 +24,38 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## autoscout24_get_listing
+
+> models::AutoScout24ListingResponse autoscout24_get_listing(url, listing_id, market)
+Get listing
+
+Full public vehicle specifications, equipment, photos, price and seller data.  Exactly one of url or listing_id is required. Supported markets match /markets. Successful detail costs 10 credits; removed or missing listings return an unbilled 404. Invalid inputs return 422 and source failures 503.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**url** | Option<**String**> | Full HTTPS listing URL from search results. Supply url or listing_id, not both. |  |
+**listing_id** | Option<**String**> | Listing UUID from search results; requires no SEO slug. |  |
+**market** | Option<**String**> | Inferred from URL, otherwise de. Explicit market must match the URL host. |  |
+
+### Return type
+
+[**models::AutoScout24ListingResponse**](AutoScout24ListingResponse.md)
 
 ### Authorization
 
@@ -99,7 +132,7 @@ Name | Type | Description  | Required | Notes
 > models::AutoScout24SearchResponse autoscout24_search_vehicles(market, make, model, price_min, price_max, mileage_min, mileage_max, year_min, year_max, power_min, power_max, fuel_type, transmission, body_type, seller_type, condition, zip, radius, sort_by, page)
 Search vehicles
 
-Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Listing detail is not included in this API.
+Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Pass a result's url or id to /listing for its full specifications and equipment.
 
 ### Parameters
 

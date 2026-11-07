@@ -17,6 +17,8 @@ docs/AsosApi.md
 docs/AutoScout24Api.md
 docs/AutoScout24FiltersResponse.md
 docs/AutoScout24Listing.md
+docs/AutoScout24ListingDetail.md
+docs/AutoScout24ListingResponse.md
 docs/AutoScout24Market.md
 docs/AutoScout24MarketsResponse.md
 docs/AutoScout24SearchResponse.md
@@ -272,6 +274,8 @@ src/models/agent_trial_info.rs
 src/models/article.rs
 src/models/auto_scout24_filters_response.rs
 src/models/auto_scout24_listing.rs
+src/models/auto_scout24_listing_detail.rs
+src/models/auto_scout24_listing_response.rs
 src/models/auto_scout24_market.rs
 src/models/auto_scout24_markets_response.rs
 src/models/auto_scout24_search_response.rs

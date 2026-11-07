@@ -22,6 +22,14 @@ pub enum Autoscout24CheckAutoscout24HealthError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`autoscout24_get_listing`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum Autoscout24GetListingError {
+    Status422(models::HttpValidationError),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`autoscout24_list_markets`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -76,6 +84,51 @@ pub async fn autoscout24_check_autoscout24_health(configuration: &configuration:
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<Autoscout24CheckAutoscout24HealthError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+/// Full public vehicle specifications, equipment, photos, price and seller data.  Exactly one of url or listing_id is required. Supported markets match /markets. Successful detail costs 10 credits; removed or missing listings return an unbilled 404. Invalid inputs return 422 and source failures 503.
+pub async fn autoscout24_get_listing(configuration: &configuration::Configuration, url: Option<&str>, listing_id: Option<&str>, market: Option<&str>) -> Result<models::AutoScout24ListingResponse, Error<Autoscout24GetListingError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/v1/autoscout24/listing", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_str) = url {
+        local_var_req_builder = local_var_req_builder.query(&[("url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = listing_id {
+        local_var_req_builder = local_var_req_builder.query(&[("listing_id", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = market {
+        local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-Key", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<Autoscout24GetListingError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -159,7 +212,7 @@ pub async fn autoscout24_list_search_filters(configuration: &configuration::Conf
     }
 }
 
-/// Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Listing detail is not included in this API.
+/// Search live vehicle cards, seller/location information and current filter taxonomy.  Browsing is capped at 200 pages (normally 20 cards each). Narrow the query to reach more inventory. Empty results cost zero credits. Pass a result's url or id to /listing for its full specifications and equipment.
 pub async fn autoscout24_search_vehicles(configuration: &configuration::Configuration, market: Option<&str>, make: Option<&str>, model: Option<&str>, price_min: Option<i32>, price_max: Option<i32>, mileage_min: Option<i32>, mileage_max: Option<i32>, year_min: Option<i32>, year_max: Option<i32>, power_min: Option<i32>, power_max: Option<i32>, fuel_type: Option<&str>, transmission: Option<&str>, body_type: Option<&str>, seller_type: Option<&str>, condition: Option<&str>, zip: Option<&str>, radius: Option<i32>, sort_by: Option<&str>, page: Option<i32>) -> Result<models::AutoScout24SearchResponse, Error<Autoscout24SearchVehiclesError>> {
     let local_var_configuration = configuration;
 

@@ -21,8 +21,8 @@ pub struct BraveResult {
     pub url: String,
     #[serde(rename = "snippet", skip_serializing_if = "Option::is_none")]
     pub snippet: Option<Box<models::Snippet>>,
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<Box<models::Description>>,
+    #[serde(rename = "description", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub description: Option<Option<Box<models::Description>>>,
     #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
     pub display_url: Option<Box<models::DisplayUrl>>,
     #[serde(rename = "site_name", skip_serializing_if = "Option::is_none")]
