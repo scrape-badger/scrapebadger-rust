@@ -974,8 +974,8 @@ pub async fn facebook_search_groups(configuration: &configuration::Configuration
     }
 }
 
-/// Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.
-pub async fn facebook_search_marketplace(configuration: &configuration::Configuration, query: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, days_since_listed: Option<i32>, sort_by: Option<&str>, item_condition: Option<&str>, delivery_method: Option<&str>, radius: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchMarketplaceError>> {
+/// Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.  Set strict_filters=true for locally enforced radius (always km) and age. Public price-range continuations are bounded to eight pages; sort the full collected set for newest-first monitoring. Coverage and freshness are partial.
+pub async fn facebook_search_marketplace(configuration: &configuration::Configuration, query: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, days_since_listed: Option<i32>, sort_by: Option<&str>, item_condition: Option<&str>, delivery_method: Option<&str>, radius: Option<i32>, after: Option<&str>, strict_filters: Option<bool>, include_details: Option<bool>) -> Result<serde_json::Value, Error<FacebookSearchMarketplaceError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1010,6 +1010,12 @@ pub async fn facebook_search_marketplace(configuration: &configuration::Configur
     }
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = strict_filters {
+        local_var_req_builder = local_var_req_builder.query(&[("strict_filters", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = include_details {
+        local_var_req_builder = local_var_req_builder.query(&[("include_details", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

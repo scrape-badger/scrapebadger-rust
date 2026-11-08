@@ -621,10 +621,10 @@ Name | Type | Description  | Required | Notes
 
 ## facebook_search_marketplace
 
-> serde_json::Value facebook_search_marketplace(query, location, min_price, max_price, days_since_listed, sort_by, item_condition, delivery_method, radius, after)
+> serde_json::Value facebook_search_marketplace(query, location, min_price, max_price, days_since_listed, sort_by, item_condition, delivery_method, radius, after, strict_filters, include_details)
 Search Marketplace
 
-Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.
+Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.  Set strict_filters=true for locally enforced radius (always km) and age. Public price-range continuations are bounded to eight pages; sort the full collected set for newest-first monitoring. Coverage and freshness are partial.
 
 ### Parameters
 
@@ -641,6 +641,8 @@ Name | Type | Description  | Required | Notes
 **delivery_method** | Option<**String**> |  |  |
 **radius** | Option<**i32**> | Search radius around the location (km, or miles in the US) |  |
 **after** | Option<**String**> |  |  |
+**strict_filters** | Option<**bool**> | Verify radius in km and age locally; use bounded public search continuations with partial-coverage diagnostics |  |[default to false]
+**include_details** | Option<**bool**> | Enrich returned listings with full public descriptions and photos; enables verified search |  |[default to false]
 
 ### Return type
 
