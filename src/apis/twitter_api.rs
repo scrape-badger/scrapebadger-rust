@@ -330,6 +330,7 @@ pub enum TwitterListBillingLogsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TwitterListDeliveryLogsForAFilterRuleError {
+    Status410(serde_json::Value),
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
@@ -354,7 +355,7 @@ pub enum TwitterListStreamMonitorsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TwitterListTweetDeliveryLogsError {
-    Status422(models::HttpValidationError),
+    Status410(serde_json::Value),
     UnknownValue(serde_json::Value),
 }
 
@@ -1933,8 +1934,8 @@ pub async fn twitter_list_billing_logs(configuration: &configuration::Configurat
     }
 }
 
-/// List tweet delivery logs for a specific filter rule.
-pub async fn twitter_list_delivery_logs_for_a_filter_rule(configuration: &configuration::Configuration, rule_id: &str, delivery_status: Option<&str>, author_username: Option<&str>, page: Option<i32>, page_size: Option<i32>, sort: Option<&str>) -> Result<models::FilterRuleDeliveryLogListResponse, Error<TwitterListDeliveryLogsForAFilterRuleError>> {
+/// Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers ``410 Gone`` with ``error: delivery_logs_removed``.
+pub async fn twitter_list_delivery_logs_for_a_filter_rule(configuration: &configuration::Configuration, rule_id: &str) -> Result<(), Error<TwitterListDeliveryLogsForAFilterRuleError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1942,21 +1943,6 @@ pub async fn twitter_list_delivery_logs_for_a_filter_rule(configuration: &config
     let local_var_uri_str = format!("{}/v1/twitter/stream/filter-rules/{rule_id}/logs", local_var_configuration.base_path, rule_id=crate::apis::urlencode(rule_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_str) = delivery_status {
-        local_var_req_builder = local_var_req_builder.query(&[("delivery_status", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = author_username {
-        local_var_req_builder = local_var_req_builder.query(&[("author_username", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = page {
-        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = page_size {
-        local_var_req_builder = local_var_req_builder.query(&[("page_size", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = sort {
-        local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
-    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -1976,7 +1962,7 @@ pub async fn twitter_list_delivery_logs_for_a_filter_rule(configuration: &config
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        Ok(())
     } else {
         let local_var_entity: Option<TwitterListDeliveryLogsForAFilterRuleError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
@@ -2074,8 +2060,8 @@ pub async fn twitter_list_stream_monitors(configuration: &configuration::Configu
     }
 }
 
-/// List tweet delivery logs for the authenticated API key's monitors.
-pub async fn twitter_list_tweet_delivery_logs(configuration: &configuration::Configuration, monitor_id: Option<&str>, author_username: Option<&str>, delivery_status: Option<&str>, page: Option<i32>, page_size: Option<i32>, sort: Option<&str>) -> Result<models::TweetDeliveryLogListResponse, Error<TwitterListTweetDeliveryLogsError>> {
+/// Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers ``410 Gone`` with ``error: delivery_logs_removed``. Each tweet is delivered to your webhook or WebSocket only; keep your own log there.
+pub async fn twitter_list_tweet_delivery_logs(configuration: &configuration::Configuration, ) -> Result<(), Error<TwitterListTweetDeliveryLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2083,24 +2069,6 @@ pub async fn twitter_list_tweet_delivery_logs(configuration: &configuration::Con
     let local_var_uri_str = format!("{}/v1/twitter/stream/logs", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_str) = monitor_id {
-        local_var_req_builder = local_var_req_builder.query(&[("monitor_id", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = author_username {
-        local_var_req_builder = local_var_req_builder.query(&[("author_username", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = delivery_status {
-        local_var_req_builder = local_var_req_builder.query(&[("delivery_status", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = page {
-        local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = page_size {
-        local_var_req_builder = local_var_req_builder.query(&[("page_size", &local_var_str.to_string())]);
-    }
-    if let Some(ref local_var_str) = sort {
-        local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
-    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
@@ -2120,7 +2088,7 @@ pub async fn twitter_list_tweet_delivery_logs(configuration: &configuration::Con
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        Ok(())
     } else {
         let local_var_entity: Option<TwitterListTweetDeliveryLogsError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };

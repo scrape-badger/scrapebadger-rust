@@ -1252,10 +1252,10 @@ Name | Type | Description  | Required | Notes
 
 ## twitter_list_delivery_logs_for_a_filter_rule
 
-> models::FilterRuleDeliveryLogListResponse twitter_list_delivery_logs_for_a_filter_rule(rule_id, delivery_status, author_username, page, page_size, sort)
+> twitter_list_delivery_logs_for_a_filter_rule(rule_id)
 List delivery logs for a filter rule
 
-List tweet delivery logs for a specific filter rule.
+Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers ``410 Gone`` with ``error: delivery_logs_removed``.
 
 ### Parameters
 
@@ -1263,15 +1263,10 @@ List tweet delivery logs for a specific filter rule.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **rule_id** | **String** |  | [required] |
-**delivery_status** | Option<**String**> |  |  |
-**author_username** | Option<**String**> |  |  |
-**page** | Option<**i32**> |  |  |[default to 1]
-**page_size** | Option<**i32**> |  |  |[default to 20]
-**sort** | Option<**String**> |  |  |[default to desc]
 
 ### Return type
 
-[**models::FilterRuleDeliveryLogListResponse**](FilterRuleDeliveryLogListResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -1351,26 +1346,18 @@ Name | Type | Description  | Required | Notes
 
 ## twitter_list_tweet_delivery_logs
 
-> models::TweetDeliveryLogListResponse twitter_list_tweet_delivery_logs(monitor_id, author_username, delivery_status, page, page_size, sort)
+> twitter_list_tweet_delivery_logs()
 List tweet delivery logs
 
-List tweet delivery logs for the authenticated API key's monitors.
+Removed on 2026-11-09 (SCR-396): ScrapeBadger no longer stores delivered tweets.  Always answers ``410 Gone`` with ``error: delivery_logs_removed``. Each tweet is delivered to your webhook or WebSocket only; keep your own log there.
 
 ### Parameters
 
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**monitor_id** | Option<**String**> |  |  |
-**author_username** | Option<**String**> |  |  |
-**delivery_status** | Option<**String**> |  |  |
-**page** | Option<**i32**> |  |  |[default to 1]
-**page_size** | Option<**i32**> |  |  |[default to 20]
-**sort** | Option<**String**> |  |  |[default to desc]
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::TweetDeliveryLogListResponse**](TweetDeliveryLogListResponse.md)
+ (empty response body)
 
 ### Authorization
 
