@@ -15,17 +15,17 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration};
 
 
-/// struct for typed errors of method [`results_re_read_a_result`]
+/// struct for typed errors of method [`results_re_read_a_result_removed`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum ResultsReReadAResultError {
+pub enum ResultsReReadAResultRemovedError {
     Status422(models::HttpValidationError),
     UnknownValue(serde_json::Value),
 }
 
 
-/// Replay a billed result (X-Result-ID) for free for ~15 minutes, optionally trimmed with jq / fields / max_items / summary. Never re-run a paid call just to reshape it.
-pub async fn results_re_read_a_result(configuration: &configuration::Configuration, result_id: &str) -> Result<serde_json::Value, Error<ResultsReReadAResultError>> {
+/// Removed (SCR-396): ScrapeBadger no longer stores results, so there is nothing to re-read. Always 410. Narrow a call with _jq / _fields / _max_items instead.
+pub async fn results_re_read_a_result_removed(configuration: &configuration::Configuration, result_id: &str) -> Result<serde_json::Value, Error<ResultsReReadAResultRemovedError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -54,7 +54,7 @@ pub async fn results_re_read_a_result(configuration: &configuration::Configurati
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<ResultsReReadAResultError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<ResultsReReadAResultRemovedError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

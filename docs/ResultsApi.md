@@ -4,16 +4,16 @@ All URIs are relative to *https://scrapebadger.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**results_re_read_a_result**](ResultsApi.md#results_re_read_a_result) | **GET** /v1/results/{result_id} | Re-read a result
+[**results_re_read_a_result_removed**](ResultsApi.md#results_re_read_a_result_removed) | **GET** /v1/results/{result_id} | Re-read a result (removed)
 
 
 
-## results_re_read_a_result
+## results_re_read_a_result_removed
 
-> serde_json::Value results_re_read_a_result(result_id)
-Re-read a result
+> serde_json::Value results_re_read_a_result_removed(result_id)
+Re-read a result (removed)
 
-Replay a billed result (X-Result-ID) for free for ~15 minutes, optionally trimmed with jq / fields / max_items / summary. Never re-run a paid call just to reshape it.
+Removed (SCR-396): ScrapeBadger no longer stores results, so there is nothing to re-read. Always 410. Narrow a call with _jq / _fields / _max_items instead.
 
 ### Parameters
 
