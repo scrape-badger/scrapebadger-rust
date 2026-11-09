@@ -524,7 +524,7 @@ Name | Type | Description  | Required | Notes
 **color_scheme** | Option<**String**> | Google color scheme. |  |
 **tbm** | Option<**String**> | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results. |  |
 **udm** | Option<**String**> | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html. |  |
-**no_cache** | Option<**bool**> | Bypass result caches and request a fresh Google fetch. |  |[default to false]
+**no_cache** | Option<**bool**> | Ignored: responses are never cached. |  |[default to false]
 **as_dt** | Option<**String**> | Site restriction mode: i includes, e excludes as_sitesearch. |  |
 **as_epq** | Option<**String**> | Exact phrase. |  |
 **as_eq** | Option<**String**> | Words to exclude. |  |
@@ -731,7 +731,7 @@ Name | Type | Description  | Required | Notes
 **color_scheme** | Option<**String**> | Google color scheme. |  |
 **tbm** | Option<**String**> | Google search type. Use output=html for verticals; dedicated APIs provide parsed vertical results. |  |
 **udm** | Option<**String**> | Google result filter: web or 14 for web, 18 for forums. Other verticals require output=html. |  |
-**no_cache** | Option<**bool**> | Bypass result caches and request a fresh Google fetch. |  |[default to false]
+**no_cache** | Option<**bool**> | Ignored: responses are never cached. |  |[default to false]
 **as_dt** | Option<**String**> | Site restriction mode: i includes, e excludes as_sitesearch. |  |
 **as_epq** | Option<**String**> | Exact phrase. |  |
 **as_eq** | Option<**String**> | Words to exclude. |  |
