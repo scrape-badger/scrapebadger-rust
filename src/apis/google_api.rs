@@ -676,8 +676,8 @@ pub async fn google_get_stock_index_quote(configuration: &configuration::Configu
     }
 }
 
-/// Get AI-generated search results from Google AI Mode.  Returns the structured `text_blocks` (paragraphs, headings, comparison `table` blocks and lists), a flat `references` source list, a compact `markdown` rendering of the whole answer and — unless `include_html` is false — the raw `answer_html` body.
-pub async fn google_google_ai_mode_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, include_html: Option<bool>) -> Result<serde_json::Value, Error<GoogleGoogleAiModeSearchError>> {
+/// Get AI-generated search results from Google AI Mode.  Returns the structured `text_blocks` (paragraphs, headings, comparison `table` blocks and lists), a flat `references` source list, a compact `markdown` rendering of the whole answer and — unless `include_html` is false — the raw `answer_html` body.  `location`, `uule` or `lat`/`lon` localise the answer (\"near me\", local results) to that place, down to the city or district, wherever the request exits from. Located answers echo a `location` object.
+pub async fn google_google_ai_mode_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, include_html: Option<bool>, location: Option<&str>, uule: Option<&str>, lat: Option<f64>, lon: Option<f64>) -> Result<serde_json::Value, Error<GoogleGoogleAiModeSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -694,6 +694,18 @@ pub async fn google_google_ai_mode_search(configuration: &configuration::Configu
     }
     if let Some(ref local_var_str) = include_html {
         local_var_req_builder = local_var_req_builder.query(&[("include_html", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = location {
+        local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = uule {
+        local_var_req_builder = local_var_req_builder.query(&[("uule", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lat {
+        local_var_req_builder = local_var_req_builder.query(&[("lat", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = lon {
+        local_var_req_builder = local_var_req_builder.query(&[("lon", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

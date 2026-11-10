@@ -297,10 +297,10 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_ai_mode_search
 
-> serde_json::Value google_google_ai_mode_search(q, gl, hl, include_html)
+> serde_json::Value google_google_ai_mode_search(q, gl, hl, include_html, location, uule, lat, lon)
 Google AI Mode search
 
-Get AI-generated search results from Google AI Mode.  Returns the structured `text_blocks` (paragraphs, headings, comparison `table` blocks and lists), a flat `references` source list, a compact `markdown` rendering of the whole answer and — unless `include_html` is false — the raw `answer_html` body.
+Get AI-generated search results from Google AI Mode.  Returns the structured `text_blocks` (paragraphs, headings, comparison `table` blocks and lists), a flat `references` source list, a compact `markdown` rendering of the whole answer and — unless `include_html` is false — the raw `answer_html` body.  `location`, `uule` or `lat`/`lon` localise the answer (\"near me\", local results) to that place, down to the city or district, wherever the request exits from. Located answers echo a `location` object.
 
 ### Parameters
 
@@ -308,9 +308,13 @@ Get AI-generated search results from Google AI Mode.  Returns the structured `te
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **q** | **String** | Search query for AI-generated response | [required] |
-**gl** | Option<**String**> | Country code |  |[default to us]
+**gl** | Option<**String**> | Google country (market) code. It shapes the answer; it does not pick the exit IP's country. Defaults to the `location`'s country when `location` is set. |  |[default to us]
 **hl** | Option<**String**> | Language code |  |[default to en]
 **include_html** | Option<**bool**> | Include the raw `answer_html` (full answer body HTML) in the response for maximum parity. It can be 100s of KB — set false when you only need the structured `text_blocks` + `markdown`. |  |[default to true]
+**location** | Option<**String**> | Answer as if the user were here: a Google canonical location name (e.g. `Wonju-si,Gangwon-do,South Korea`), a Google criteria ID, or an unambiguous short name within `gl`. Use only one of location, uule, or lat/lon. |  |
+**uule** | Option<**String**> | A Google UULE value in its `w+` (canonical name) or `j+` (coordinates) form. |  |
+**lat** | Option<**f64**> | Latitude of the user's location (with lon). |  |
+**lon** | Option<**f64**> | Longitude of the user's location (with lat). |  |
 
 ### Return type
 
