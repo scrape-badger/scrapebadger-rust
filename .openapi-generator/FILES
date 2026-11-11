@@ -133,6 +133,7 @@ docs/LinkedInApi.md
 docs/Location.md
 docs/LoopNetApi.md
 docs/MarketsResponse.md
+docs/MetaAiApi.md
 docs/MetaUrl.md
 docs/NaverApi.md
 docs/NextOffset.md
@@ -271,6 +272,7 @@ src/apis/instagram_api.rs
 src/apis/leboncoin_api.rs
 src/apis/linked_in_api.rs
 src/apis/loop_net_api.rs
+src/apis/meta_ai_api.rs
 src/apis/mod.rs
 src/apis/naver_api.rs
 src/apis/perplexity_api.rs
