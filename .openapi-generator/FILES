@@ -116,6 +116,7 @@ docs/GitHubStatus.md
 docs/GitHubTextLink.md
 docs/GoogleApi.md
 docs/GooglePlayApi.md
+docs/GrokApi.md
 docs/GumtreeApi.md
 docs/HttpValidationError.md
 docs/IdealistaApi.md
@@ -265,6 +266,7 @@ src/apis/gemini_api.rs
 src/apis/git_hub_api.rs
 src/apis/google_api.rs
 src/apis/google_play_api.rs
+src/apis/grok_api.rs
 src/apis/gumtree_api.rs
 src/apis/idealista_api.rs
 src/apis/immobiliare_api.rs

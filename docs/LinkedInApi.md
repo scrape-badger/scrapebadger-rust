@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**linkedin_get_a_public_article**](LinkedInApi.md#linkedin_get_a_public_article) | **GET** /v1/linkedin/articles/{article_slug} | Get a public article
 [**linkedin_get_a_public_post**](LinkedInApi.md#linkedin_get_a_public_post) | **GET** /v1/linkedin/posts/{post_slug} | Get a public post
 [**linkedin_get_company**](LinkedInApi.md#linkedin_get_company) | **GET** /v1/linkedin/companies/{universal_name} | Get company
+[**linkedin_get_full_profile_through_the_authenticated_projection**](LinkedInApi.md#linkedin_get_full_profile_through_the_authenticated_projection) | **GET** /v1/linkedin/profiles/{public_id}/full | Get full profile through the authenticated projection
 [**linkedin_get_job_detail**](LinkedInApi.md#linkedin_get_job_detail) | **GET** /v1/linkedin/jobs/{job_id} | Get job detail
 [**linkedin_get_public_profile**](LinkedInApi.md#linkedin_get_public_profile) | **GET** /v1/linkedin/profiles/{public_id} | Get public profile
 [**linkedin_get_school**](LinkedInApi.md#linkedin_get_school) | **GET** /v1/linkedin/schools/{universal_name} | Get school
@@ -157,6 +158,37 @@ Public company page — industry, size, HQ, followers, specialties (JSON-LD + SS
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **universal_name** | **String** |  | [required] |
+**country** | Option<**String**> | Residential proxy country |  |[default to us]
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## linkedin_get_full_profile_through_the_authenticated_projection
+
+> serde_json::Value linkedin_get_full_profile_through_the_authenticated_projection(public_id, country)
+Get full profile through the authenticated projection
+
+Full profile using the server-owned authenticated LinkedIn session.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**public_id** | **String** |  | [required] |
 **country** | Option<**String**> | Residential proxy country |  |[default to us]
 
 ### Return type
