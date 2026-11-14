@@ -250,6 +250,8 @@ pub mod recipe;
 pub use self::recipe::Recipe;
 pub mod review;
 pub use self::review::Review;
+pub mod rufus_ask_request;
+pub use self::rufus_ask_request::RufusAskRequest;
 pub mod screenshot_request;
 pub use self::screenshot_request::ScreenshotRequest;
 pub mod searchterm;

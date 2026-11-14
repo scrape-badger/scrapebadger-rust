@@ -172,6 +172,8 @@ docs/RedfinApi.md
 docs/RequestsApi.md
 docs/ResultsApi.md
 docs/Review.md
+docs/RufusApi.md
+docs/RufusAskRequest.md
 docs/ScreenshotRequest.md
 docs/Searchterm.md
 docs/SiteName.md
@@ -284,6 +286,7 @@ src/apis/reddit_api.rs
 src/apis/redfin_api.rs
 src/apis/requests_api.rs
 src/apis/results_api.rs
+src/apis/rufus_api.rs
 src/apis/target_api.rs
 src/apis/tik_tok_api.rs
 src/apis/twitter_api.rs
@@ -425,6 +428,7 @@ src/models/rating.rs
 src/models/ratings.rs
 src/models/recipe.rs
 src/models/review.rs
+src/models/rufus_ask_request.rs
 src/models/screenshot_request.rs
 src/models/searchterm.rs
 src/models/site_name.rs

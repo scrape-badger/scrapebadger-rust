@@ -133,6 +133,7 @@ pub mod reddit_api;
 pub mod redfin_api;
 pub mod requests_api;
 pub mod results_api;
+pub mod rufus_api;
 pub mod target_api;
 pub mod tik_tok_api;
 pub mod twitter_api;
