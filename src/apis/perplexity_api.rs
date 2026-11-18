@@ -61,7 +61,7 @@ pub enum PerplexityPerplexityScraperHealthCheckHeadError {
 
 
 /// Send a prompt to Perplexity and get the answer plus the web sources it cited.
-pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration::Configuration, prompt: &str, country: Option<&str>, strict_country: Option<bool>, location: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<PerplexityAskPerplexityAQuestionError>> {
+pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration::Configuration, prompt: &str, country: Option<&str>, strict_country: Option<bool>, location: Option<&str>, html: Option<bool>, raw: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<PerplexityAskPerplexityAQuestionError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -78,6 +78,12 @@ pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration:
     }
     if let Some(ref local_var_str) = location {
         local_var_req_builder = local_var_req_builder.query(&[("location", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = html {
+        local_var_req_builder = local_var_req_builder.query(&[("html", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = raw {
+        local_var_req_builder = local_var_req_builder.query(&[("raw", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = r#async {
         local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
@@ -127,7 +133,7 @@ pub async fn perplexity_ask_perplexity_a_question(configuration: &configuration:
     }
 }
 
-/// POST form of `/ask`, for prompts too long for a query string.
+/// POST form of `/ask`, for prompts too long for a query string. The JSON body takes the same fields as the query (`prompt`, `country`, `strict_country`, `location`, `html`, `raw`).
 pub async fn perplexity_ask_perplexity_a_question_post(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<PerplexityAskPerplexityAQuestionPostError>> {
     let local_var_configuration = configuration;
 

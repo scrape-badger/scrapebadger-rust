@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## perplexity_ask_perplexity_a_question
 
-> serde_json::Value perplexity_ask_perplexity_a_question(prompt, country, strict_country, location, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
+> serde_json::Value perplexity_ask_perplexity_a_question(prompt, country, strict_country, location, html, raw, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Ask Perplexity a question
 
 Send a prompt to Perplexity and get the answer plus the web sources it cited.
@@ -29,6 +29,8 @@ Name | Type | Description  | Required | Notes
 **country** | Option<**String**> | ISO-3166 alpha-2 egress country, e.g. 'US', 'GB', 'DE'. |  |
 **strict_country** | Option<**bool**> | Answer only from an exit in `country`, never another one; 503 `country_unavailable` (not billed) when none answers. Requires `country`. |  |[default to false]
 **location** | Option<**String**> | Where the asker is: a city (tokyo, osaka, seoul, new-york, london, ...) or 'lat,lng' in decimal degrees. Perplexity answers a local-sounding question for it instead of the exit IP's city. It does not pick the egress: `country` does. |  |
+**html** | Option<**bool**> | Also return `answer_html`: the answer rendered as an HTML fragment, with each `[n]` citation linked to its source (`<a class=\"citation\" data-ref=\"n\">`). Raw HTML and unsafe links in the answer are dropped. Same price. |  |[default to false]
+**raw** | Option<**bool**> | Also return `raw`: Perplexity's own final answer object as it sent it (answer blocks, web results, related queries, model and mode metadata), minus its thread write token. Every other field is parsed from it. Same price. |  |[default to false]
 **prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
 **x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
 **idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
@@ -58,7 +60,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value perplexity_ask_perplexity_a_question_post(prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Ask Perplexity a question (POST)
 
-POST form of `/ask`, for prompts too long for a query string.
+POST form of `/ask`, for prompts too long for a query string. The JSON body takes the same fields as the query (`prompt`, `country`, `strict_country`, `location`, `html`, `raw`).
 
 ### Parameters
 
