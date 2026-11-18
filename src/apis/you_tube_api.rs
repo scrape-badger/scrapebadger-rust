@@ -329,7 +329,7 @@ pub enum YoutubeYoutubeScraperHealthCheckHeadError {
 }
 
 
-pub async fn youtube_batch_video_detail(configuration: &configuration::Configuration, request_body: std::collections::HashMap<String, serde_json::Value>) -> Result<serde_json::Value, Error<YoutubeBatchVideoDetailError>> {
+pub async fn youtube_batch_video_detail(configuration: &configuration::Configuration, request_body: std::collections::HashMap<String, serde_json::Value>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeBatchVideoDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -337,8 +337,29 @@ pub async fn youtube_batch_video_detail(configuration: &configuration::Configura
     let local_var_uri_str = format!("{}/v1/youtube/videos/batch", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -365,7 +386,7 @@ pub async fn youtube_batch_video_detail(configuration: &configuration::Configura
     }
 }
 
-pub async fn youtube_channel_about(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeChannelAboutError>> {
+pub async fn youtube_channel_about(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeChannelAboutError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -373,8 +394,29 @@ pub async fn youtube_channel_about(configuration: &configuration::Configuration,
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/about", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -400,7 +442,7 @@ pub async fn youtube_channel_about(configuration: &configuration::Configuration,
     }
 }
 
-pub async fn youtube_channel_playlists(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeChannelPlaylistsError>> {
+pub async fn youtube_channel_playlists(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeChannelPlaylistsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -408,8 +450,29 @@ pub async fn youtube_channel_playlists(configuration: &configuration::Configurat
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/playlists", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -435,7 +498,7 @@ pub async fn youtube_channel_playlists(configuration: &configuration::Configurat
     }
 }
 
-pub async fn youtube_channel_shorts(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeChannelShortsError>> {
+pub async fn youtube_channel_shorts(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeChannelShortsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -443,8 +506,29 @@ pub async fn youtube_channel_shorts(configuration: &configuration::Configuration
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/shorts", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -470,7 +554,7 @@ pub async fn youtube_channel_shorts(configuration: &configuration::Configuration
     }
 }
 
-pub async fn youtube_channel_streams(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeChannelStreamsError>> {
+pub async fn youtube_channel_streams(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeChannelStreamsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -478,8 +562,29 @@ pub async fn youtube_channel_streams(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/streams", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -505,7 +610,7 @@ pub async fn youtube_channel_streams(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_channel_videos(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeChannelVideosError>> {
+pub async fn youtube_channel_videos(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeChannelVideosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -513,8 +618,29 @@ pub async fn youtube_channel_videos(configuration: &configuration::Configuration
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/videos", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -540,7 +666,7 @@ pub async fn youtube_channel_videos(configuration: &configuration::Configuration
     }
 }
 
-pub async fn youtube_comment_replies(configuration: &configuration::Configuration, video_id: &str, comment_id: &str, continuation: &str) -> Result<serde_json::Value, Error<YoutubeCommentRepliesError>> {
+pub async fn youtube_comment_replies(configuration: &configuration::Configuration, video_id: &str, comment_id: &str, continuation: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeCommentRepliesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -549,8 +675,29 @@ pub async fn youtube_comment_replies(configuration: &configuration::Configuratio
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("continuation", &continuation.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -576,7 +723,7 @@ pub async fn youtube_comment_replies(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_community_post_comments(configuration: &configuration::Configuration, post_id: &str) -> Result<serde_json::Value, Error<YoutubeCommunityPostCommentsError>> {
+pub async fn youtube_community_post_comments(configuration: &configuration::Configuration, post_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeCommunityPostCommentsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -584,8 +731,29 @@ pub async fn youtube_community_post_comments(configuration: &configuration::Conf
     let local_var_uri_str = format!("{}/v1/youtube/posts/{post_id}/comments", local_var_configuration.base_path, post_id=crate::apis::urlencode(post_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -611,7 +779,7 @@ pub async fn youtube_community_post_comments(configuration: &configuration::Conf
     }
 }
 
-pub async fn youtube_community_posts(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeCommunityPostsError>> {
+pub async fn youtube_community_posts(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeCommunityPostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -619,8 +787,29 @@ pub async fn youtube_community_posts(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/community", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -646,7 +835,7 @@ pub async fn youtube_community_posts(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_content_regions(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<YoutubeContentRegionsError>> {
+pub async fn youtube_content_regions(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeContentRegionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -654,8 +843,29 @@ pub async fn youtube_content_regions(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/youtube/regions", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -681,7 +891,7 @@ pub async fn youtube_content_regions(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_get_a_community_post(configuration: &configuration::Configuration, post_id: &str) -> Result<serde_json::Value, Error<YoutubeGetACommunityPostError>> {
+pub async fn youtube_get_a_community_post(configuration: &configuration::Configuration, post_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetACommunityPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -689,8 +899,29 @@ pub async fn youtube_get_a_community_post(configuration: &configuration::Configu
     let local_var_uri_str = format!("{}/v1/youtube/posts/{post_id}", local_var_configuration.base_path, post_id=crate::apis::urlencode(post_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -716,7 +947,7 @@ pub async fn youtube_get_a_community_post(configuration: &configuration::Configu
     }
 }
 
-pub async fn youtube_get_a_mix_radio_queue(configuration: &configuration::Configuration, playlist_id: &str) -> Result<serde_json::Value, Error<YoutubeGetAMixRadioQueueError>> {
+pub async fn youtube_get_a_mix_radio_queue(configuration: &configuration::Configuration, playlist_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetAMixRadioQueueError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -724,8 +955,29 @@ pub async fn youtube_get_a_mix_radio_queue(configuration: &configuration::Config
     let local_var_uri_str = format!("{}/v1/youtube/mixes/{playlist_id}", local_var_configuration.base_path, playlist_id=crate::apis::urlencode(playlist_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -751,7 +1003,7 @@ pub async fn youtube_get_a_mix_radio_queue(configuration: &configuration::Config
     }
 }
 
-pub async fn youtube_get_a_short(configuration: &configuration::Configuration, video_id: &str) -> Result<serde_json::Value, Error<YoutubeGetAShortError>> {
+pub async fn youtube_get_a_short(configuration: &configuration::Configuration, video_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetAShortError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -759,8 +1011,29 @@ pub async fn youtube_get_a_short(configuration: &configuration::Configuration, v
     let local_var_uri_str = format!("{}/v1/youtube/shorts/{video_id}", local_var_configuration.base_path, video_id=crate::apis::urlencode(video_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -787,7 +1060,7 @@ pub async fn youtube_get_a_short(configuration: &configuration::Configuration, v
 }
 
 /// Channel detail (accepts a UC id, @handle, or custom URL).
-pub async fn youtube_get_channel_detail(configuration: &configuration::Configuration, channel_id: &str, gl: Option<&str>, hl: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetChannelDetailError>> {
+pub async fn youtube_get_channel_detail(configuration: &configuration::Configuration, channel_id: &str, gl: Option<&str>, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetChannelDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -801,8 +1074,29 @@ pub async fn youtube_get_channel_detail(configuration: &configuration::Configura
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -828,7 +1122,7 @@ pub async fn youtube_get_channel_detail(configuration: &configuration::Configura
     }
 }
 
-pub async fn youtube_get_playlist_detail(configuration: &configuration::Configuration, playlist_id: &str) -> Result<serde_json::Value, Error<YoutubeGetPlaylistDetailError>> {
+pub async fn youtube_get_playlist_detail(configuration: &configuration::Configuration, playlist_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetPlaylistDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -836,8 +1130,29 @@ pub async fn youtube_get_playlist_detail(configuration: &configuration::Configur
     let local_var_uri_str = format!("{}/v1/youtube/playlists/{playlist_id}", local_var_configuration.base_path, playlist_id=crate::apis::urlencode(playlist_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -864,7 +1179,7 @@ pub async fn youtube_get_playlist_detail(configuration: &configuration::Configur
 }
 
 /// Full video detail — merged player + next (likes, comments, chapters, related).
-pub async fn youtube_get_video_detail(configuration: &configuration::Configuration, video_id: &str, gl: Option<&str>, hl: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetVideoDetailError>> {
+pub async fn youtube_get_video_detail(configuration: &configuration::Configuration, video_id: &str, gl: Option<&str>, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGetVideoDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -878,8 +1193,29 @@ pub async fn youtube_get_video_detail(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -905,7 +1241,7 @@ pub async fn youtube_get_video_detail(configuration: &configuration::Configurati
     }
 }
 
-pub async fn youtube_guest_home_feed(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<YoutubeGuestHomeFeedError>> {
+pub async fn youtube_guest_home_feed(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeGuestHomeFeedError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -913,8 +1249,29 @@ pub async fn youtube_guest_home_feed(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/youtube/home", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -941,7 +1298,7 @@ pub async fn youtube_guest_home_feed(configuration: &configuration::Configuratio
 }
 
 /// Return YouTube keyword autocomplete suggestions.
-pub async fn youtube_keyword_suggestions(configuration: &configuration::Configuration, query: &str, gl: Option<&str>, hl: Option<&str>) -> Result<serde_json::Value, Error<YoutubeKeywordSuggestionsError>> {
+pub async fn youtube_keyword_suggestions(configuration: &configuration::Configuration, query: &str, gl: Option<&str>, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeKeywordSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -956,8 +1313,29 @@ pub async fn youtube_keyword_suggestions(configuration: &configuration::Configur
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -983,7 +1361,7 @@ pub async fn youtube_keyword_suggestions(configuration: &configuration::Configur
     }
 }
 
-pub async fn youtube_list_caption_tracks(configuration: &configuration::Configuration, video_id: &str) -> Result<serde_json::Value, Error<YoutubeListCaptionTracksError>> {
+pub async fn youtube_list_caption_tracks(configuration: &configuration::Configuration, video_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeListCaptionTracksError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -991,8 +1369,29 @@ pub async fn youtube_list_caption_tracks(configuration: &configuration::Configur
     let local_var_uri_str = format!("{}/v1/youtube/videos/{video_id}/captions", local_var_configuration.base_path, video_id=crate::apis::urlencode(video_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1018,7 +1417,7 @@ pub async fn youtube_list_caption_tracks(configuration: &configuration::Configur
     }
 }
 
-pub async fn youtube_live_chat_messages(configuration: &configuration::Configuration, video_id: &str, continuation: Option<&str>, replay: Option<bool>) -> Result<serde_json::Value, Error<YoutubeLiveChatMessagesError>> {
+pub async fn youtube_live_chat_messages(configuration: &configuration::Configuration, video_id: &str, continuation: Option<&str>, replay: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeLiveChatMessagesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1032,8 +1431,29 @@ pub async fn youtube_live_chat_messages(configuration: &configuration::Configura
     if let Some(ref local_var_str) = replay {
         local_var_req_builder = local_var_req_builder.query(&[("replay", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1059,7 +1479,7 @@ pub async fn youtube_live_chat_messages(configuration: &configuration::Configura
     }
 }
 
-pub async fn youtube_oembed_metadata(configuration: &configuration::Configuration, url: &str) -> Result<serde_json::Value, Error<YoutubeOembedMetadataError>> {
+pub async fn youtube_oembed_metadata(configuration: &configuration::Configuration, url: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeOembedMetadataError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1068,8 +1488,29 @@ pub async fn youtube_oembed_metadata(configuration: &configuration::Configuratio
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("url", &url.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1095,7 +1536,7 @@ pub async fn youtube_oembed_metadata(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_playlist_items_page(configuration: &configuration::Configuration, playlist_id: &str) -> Result<serde_json::Value, Error<YoutubePlaylistItemsPageError>> {
+pub async fn youtube_playlist_items_page(configuration: &configuration::Configuration, playlist_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubePlaylistItemsPageError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1103,8 +1544,29 @@ pub async fn youtube_playlist_items_page(configuration: &configuration::Configur
     let local_var_uri_str = format!("{}/v1/youtube/playlists/{playlist_id}/items", local_var_configuration.base_path, playlist_id=crate::apis::urlencode(playlist_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1130,7 +1592,7 @@ pub async fn youtube_playlist_items_page(configuration: &configuration::Configur
     }
 }
 
-pub async fn youtube_related_videos(configuration: &configuration::Configuration, video_id: &str) -> Result<serde_json::Value, Error<YoutubeRelatedVideosError>> {
+pub async fn youtube_related_videos(configuration: &configuration::Configuration, video_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeRelatedVideosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1138,8 +1600,29 @@ pub async fn youtube_related_videos(configuration: &configuration::Configuration
     let local_var_uri_str = format!("{}/v1/youtube/videos/{video_id}/related", local_var_configuration.base_path, video_id=crate::apis::urlencode(video_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1165,7 +1648,7 @@ pub async fn youtube_related_videos(configuration: &configuration::Configuration
     }
 }
 
-pub async fn youtube_resolve_handle_url_to_id(configuration: &configuration::Configuration, handle: Option<&str>, url: Option<&str>) -> Result<serde_json::Value, Error<YoutubeResolveHandleUrlToIdError>> {
+pub async fn youtube_resolve_handle_url_to_id(configuration: &configuration::Configuration, handle: Option<&str>, url: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeResolveHandleUrlToIdError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1179,8 +1662,29 @@ pub async fn youtube_resolve_handle_url_to_id(configuration: &configuration::Con
     if let Some(ref local_var_str) = url {
         local_var_req_builder = local_var_req_builder.query(&[("url", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1206,7 +1710,7 @@ pub async fn youtube_resolve_handle_url_to_id(configuration: &configuration::Con
     }
 }
 
-pub async fn youtube_search_within_a_channel(configuration: &configuration::Configuration, channel_id: &str, query: &str) -> Result<serde_json::Value, Error<YoutubeSearchWithinAChannelError>> {
+pub async fn youtube_search_within_a_channel(configuration: &configuration::Configuration, channel_id: &str, query: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeSearchWithinAChannelError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1215,8 +1719,29 @@ pub async fn youtube_search_within_a_channel(configuration: &configuration::Conf
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("query", &query.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1243,7 +1768,7 @@ pub async fn youtube_search_within_a_channel(configuration: &configuration::Conf
 }
 
 /// Search videos / channels / playlists with the full filter matrix.
-pub async fn youtube_search_youtube(configuration: &configuration::Configuration, query: &str, r#type: Option<&str>, sort_by: Option<&str>, upload_date: Option<&str>, duration: Option<&str>, features: Option<&str>, gl: Option<&str>, hl: Option<&str>, continuation: Option<&str>) -> Result<serde_json::Value, Error<YoutubeSearchYoutubeError>> {
+pub async fn youtube_search_youtube(configuration: &configuration::Configuration, query: &str, r#type: Option<&str>, sort_by: Option<&str>, upload_date: Option<&str>, duration: Option<&str>, features: Option<&str>, gl: Option<&str>, hl: Option<&str>, continuation: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeSearchYoutubeError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1276,8 +1801,29 @@ pub async fn youtube_search_youtube(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = continuation {
         local_var_req_builder = local_var_req_builder.query(&[("continuation", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1303,7 +1849,7 @@ pub async fn youtube_search_youtube(configuration: &configuration::Configuration
     }
 }
 
-pub async fn youtube_search_youtube_music(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<YoutubeSearchYoutubeMusicError>> {
+pub async fn youtube_search_youtube_music(configuration: &configuration::Configuration, query: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeSearchYoutubeMusicError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1312,8 +1858,29 @@ pub async fn youtube_search_youtube_music(configuration: &configuration::Configu
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("query", &query.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1339,7 +1906,7 @@ pub async fn youtube_search_youtube_music(configuration: &configuration::Configu
     }
 }
 
-pub async fn youtube_shorts_by_sound(configuration: &configuration::Configuration, sound_id: &str) -> Result<serde_json::Value, Error<YoutubeShortsBySoundError>> {
+pub async fn youtube_shorts_by_sound(configuration: &configuration::Configuration, sound_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeShortsBySoundError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1347,8 +1914,29 @@ pub async fn youtube_shorts_by_sound(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/youtube/shorts/by_sound/{sound_id}", local_var_configuration.base_path, sound_id=crate::apis::urlencode(sound_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1375,7 +1963,7 @@ pub async fn youtube_shorts_by_sound(configuration: &configuration::Configuratio
 }
 
 /// Stream/format metadata (best-effort; media URLs may be PO-token gated).
-pub async fn youtube_stream_formats(configuration: &configuration::Configuration, video_id: &str, client: Option<&str>) -> Result<serde_json::Value, Error<YoutubeStreamFormatsError>> {
+pub async fn youtube_stream_formats(configuration: &configuration::Configuration, video_id: &str, client: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeStreamFormatsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1386,8 +1974,29 @@ pub async fn youtube_stream_formats(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = client {
         local_var_req_builder = local_var_req_builder.query(&[("client", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1413,7 +2022,7 @@ pub async fn youtube_stream_formats(configuration: &configuration::Configuration
     }
 }
 
-pub async fn youtube_subscriber_count_fast(configuration: &configuration::Configuration, channel_id: &str) -> Result<serde_json::Value, Error<YoutubeSubscriberCountFastError>> {
+pub async fn youtube_subscriber_count_fast(configuration: &configuration::Configuration, channel_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeSubscriberCountFastError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1421,8 +2030,29 @@ pub async fn youtube_subscriber_count_fast(configuration: &configuration::Config
     let local_var_uri_str = format!("{}/v1/youtube/channels/{channel_id}/subscriber_count", local_var_configuration.base_path, channel_id=crate::apis::urlencode(channel_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1448,7 +2078,7 @@ pub async fn youtube_subscriber_count_fast(configuration: &configuration::Config
     }
 }
 
-pub async fn youtube_supported_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<YoutubeSupportedMarketsError>> {
+pub async fn youtube_supported_markets(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeSupportedMarketsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1456,8 +2086,29 @@ pub async fn youtube_supported_markets(configuration: &configuration::Configurat
     let local_var_uri_str = format!("{}/v1/youtube/markets", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1483,7 +2134,7 @@ pub async fn youtube_supported_markets(configuration: &configuration::Configurat
     }
 }
 
-pub async fn youtube_trending_shorts(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<YoutubeTrendingShortsError>> {
+pub async fn youtube_trending_shorts(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeTrendingShortsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1491,8 +2142,29 @@ pub async fn youtube_trending_shorts(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/youtube/trending/shorts", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1518,7 +2190,7 @@ pub async fn youtube_trending_shorts(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_trending_videos(configuration: &configuration::Configuration, gl: Option<&str>, r#type: Option<&str>) -> Result<serde_json::Value, Error<YoutubeTrendingVideosError>> {
+pub async fn youtube_trending_videos(configuration: &configuration::Configuration, gl: Option<&str>, r#type: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeTrendingVideosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1532,8 +2204,29 @@ pub async fn youtube_trending_videos(configuration: &configuration::Configuratio
     if let Some(ref local_var_str) = r#type {
         local_var_req_builder = local_var_req_builder.query(&[("type", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1559,7 +2252,7 @@ pub async fn youtube_trending_videos(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn youtube_ui_languages(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<YoutubeUiLanguagesError>> {
+pub async fn youtube_ui_languages(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeUiLanguagesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1567,8 +2260,29 @@ pub async fn youtube_ui_languages(configuration: &configuration::Configuration, 
     let local_var_uri_str = format!("{}/v1/youtube/languages", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1594,7 +2308,7 @@ pub async fn youtube_ui_languages(configuration: &configuration::Configuration, 
     }
 }
 
-pub async fn youtube_video_categories(configuration: &configuration::Configuration, gl: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideoCategoriesError>> {
+pub async fn youtube_video_categories(configuration: &configuration::Configuration, gl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideoCategoriesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1605,8 +2319,29 @@ pub async fn youtube_video_categories(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = gl {
         local_var_req_builder = local_var_req_builder.query(&[("gl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1632,7 +2367,7 @@ pub async fn youtube_video_categories(configuration: &configuration::Configurati
     }
 }
 
-pub async fn youtube_video_comments(configuration: &configuration::Configuration, video_id: &str, sort_by: Option<&str>, continuation: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideoCommentsError>> {
+pub async fn youtube_video_comments(configuration: &configuration::Configuration, video_id: &str, sort_by: Option<&str>, continuation: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideoCommentsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1646,8 +2381,29 @@ pub async fn youtube_video_comments(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = continuation {
         local_var_req_builder = local_var_req_builder.query(&[("continuation", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1673,7 +2429,7 @@ pub async fn youtube_video_comments(configuration: &configuration::Configuration
     }
 }
 
-pub async fn youtube_video_transcript(configuration: &configuration::Configuration, video_id: &str, language: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideoTranscriptError>> {
+pub async fn youtube_video_transcript(configuration: &configuration::Configuration, video_id: &str, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideoTranscriptError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1684,8 +2440,29 @@ pub async fn youtube_video_transcript(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1711,7 +2488,7 @@ pub async fn youtube_video_transcript(configuration: &configuration::Configurati
     }
 }
 
-pub async fn youtube_videos_under_a_hashtag(configuration: &configuration::Configuration, tag: &str) -> Result<serde_json::Value, Error<YoutubeVideosUnderAHashtagError>> {
+pub async fn youtube_videos_under_a_hashtag(configuration: &configuration::Configuration, tag: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YoutubeVideosUnderAHashtagError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1719,8 +2496,29 @@ pub async fn youtube_videos_under_a_hashtag(configuration: &configuration::Confi
     let local_var_uri_str = format!("{}/v1/youtube/hashtags/{tag}", local_var_configuration.base_path, tag=crate::apis::urlencode(tag));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

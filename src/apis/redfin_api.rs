@@ -78,7 +78,7 @@ pub enum RedfinSearchPropertiesError {
 
 
 /// Get a Redfin real-estate agent's profile and their active listings.
-pub async fn redfin_get_agent_profile_listings(configuration: &configuration::Configuration, url: Option<&str>, agent_id: Option<&str>) -> Result<serde_json::Value, Error<RedfinGetAgentProfileListingsError>> {
+pub async fn redfin_get_agent_profile_listings(configuration: &configuration::Configuration, url: Option<&str>, agent_id: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<RedfinGetAgentProfileListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -92,8 +92,29 @@ pub async fn redfin_get_agent_profile_listings(configuration: &configuration::Co
     if let Some(ref local_var_str) = agent_id {
         local_var_req_builder = local_var_req_builder.query(&[("agent_id", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -120,7 +141,7 @@ pub async fn redfin_get_agent_profile_listings(configuration: &configuration::Co
 }
 
 /// Get a single Redfin property's full detail by its numeric propertyId.
-pub async fn redfin_get_property_detail(configuration: &configuration::Configuration, property_id: &str) -> Result<serde_json::Value, Error<RedfinGetPropertyDetailError>> {
+pub async fn redfin_get_property_detail(configuration: &configuration::Configuration, property_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<RedfinGetPropertyDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -128,8 +149,29 @@ pub async fn redfin_get_property_detail(configuration: &configuration::Configura
     let local_var_uri_str = format!("{}/v1/redfin/property/{property_id}", local_var_configuration.base_path, property_id=crate::apis::urlencode(property_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -156,7 +198,7 @@ pub async fn redfin_get_property_detail(configuration: &configuration::Configura
 }
 
 /// Get a single Redfin property's full detail by its home URL.
-pub async fn redfin_get_property_detail_by_url(configuration: &configuration::Configuration, url: &str) -> Result<serde_json::Value, Error<RedfinGetPropertyDetailByUrlError>> {
+pub async fn redfin_get_property_detail_by_url(configuration: &configuration::Configuration, url: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<RedfinGetPropertyDetailByUrlError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -165,8 +207,29 @@ pub async fn redfin_get_property_detail_by_url(configuration: &configuration::Co
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("url", &url.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -193,7 +256,7 @@ pub async fn redfin_get_property_detail_by_url(configuration: &configuration::Co
 }
 
 /// List Redfin coverage regions (US).
-pub async fn redfin_list_coverage_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<RedfinListCoverageMarketsError>> {
+pub async fn redfin_list_coverage_markets(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<RedfinListCoverageMarketsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -201,8 +264,29 @@ pub async fn redfin_list_coverage_markets(configuration: &configuration::Configu
     let local_var_uri_str = format!("{}/v1/redfin/markets", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -301,7 +385,7 @@ pub async fn redfin_redfin_scraper_health_check_head(configuration: &configurati
 }
 
 /// Resolve a search term to Redfin regions/addresses.
-pub async fn redfin_region_address_suggestions(configuration: &configuration::Configuration, query: &str) -> Result<serde_json::Value, Error<RedfinRegionAddressSuggestionsError>> {
+pub async fn redfin_region_address_suggestions(configuration: &configuration::Configuration, query: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<RedfinRegionAddressSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -310,8 +394,29 @@ pub async fn redfin_region_address_suggestions(configuration: &configuration::Co
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("query", &query.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -338,7 +443,7 @@ pub async fn redfin_region_address_suggestions(configuration: &configuration::Co
 }
 
 /// Search Redfin for for-sale / for-rent / recently-sold properties.
-pub async fn redfin_search_properties(configuration: &configuration::Configuration, location: &str, page: Option<i32>, sort: Option<&str>, price_min: Option<i32>, price_max: Option<i32>, beds_min: Option<i32>, baths_min: Option<f64>, home_type: Option<&str>, sqft_min: Option<i32>, sqft_max: Option<i32>, lot_min: Option<i32>, lot_max: Option<i32>, year_built_min: Option<i32>, year_built_max: Option<i32>, max_days_on_market: Option<i32>, north: Option<f64>, south: Option<f64>, east: Option<f64>, west: Option<f64>) -> Result<serde_json::Value, Error<RedfinSearchPropertiesError>> {
+pub async fn redfin_search_properties(configuration: &configuration::Configuration, location: &str, page: Option<i32>, sort: Option<&str>, price_min: Option<i32>, price_max: Option<i32>, beds_min: Option<i32>, baths_min: Option<f64>, home_type: Option<&str>, sqft_min: Option<i32>, sqft_max: Option<i32>, lot_min: Option<i32>, lot_max: Option<i32>, year_built_min: Option<i32>, year_built_max: Option<i32>, max_days_on_market: Option<i32>, north: Option<f64>, south: Option<f64>, east: Option<f64>, west: Option<f64>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<RedfinSearchPropertiesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -401,8 +506,29 @@ pub async fn redfin_search_properties(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = west {
         local_var_req_builder = local_var_req_builder.query(&[("west", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

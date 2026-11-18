@@ -78,7 +78,7 @@ pub enum YahooYahooScraperHealthCheckHeadError {
 
 
 /// Yahoo Images — thumbnail, full-size and source URL per result.
-pub async fn yahoo_image_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<YahooImageSearchError>> {
+pub async fn yahoo_image_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, count: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YahooImageSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -93,8 +93,29 @@ pub async fn yahoo_image_search(configuration: &configuration::Configuration, qu
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -121,7 +142,7 @@ pub async fn yahoo_image_search(configuration: &configuration::Configuration, qu
 }
 
 /// Supported Yahoo market codes. Free — costs no credits.
-pub async fn yahoo_list_supported_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<YahooListSupportedMarketsError>> {
+pub async fn yahoo_list_supported_markets(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YahooListSupportedMarketsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -129,8 +150,29 @@ pub async fn yahoo_list_supported_markets(configuration: &configuration::Configu
     let local_var_uri_str = format!("{}/v1/yahoo/markets", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -157,7 +199,7 @@ pub async fn yahoo_list_supported_markets(configuration: &configuration::Configu
 }
 
 /// Yahoo News — headline, source, published time and snippet per article.
-pub async fn yahoo_news_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>) -> Result<serde_json::Value, Error<YahooNewsSearchError>> {
+pub async fn yahoo_news_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YahooNewsSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -169,8 +211,29 @@ pub async fn yahoo_news_search(configuration: &configuration::Configuration, que
     if let Some(ref local_var_str) = market {
         local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -197,7 +260,7 @@ pub async fn yahoo_news_search(configuration: &configuration::Configuration, que
 }
 
 /// Yahoo search-box query suggestions.
-pub async fn yahoo_search_suggestions(configuration: &configuration::Configuration, query: &str, market: Option<&str>) -> Result<serde_json::Value, Error<YahooSearchSuggestionsError>> {
+pub async fn yahoo_search_suggestions(configuration: &configuration::Configuration, query: &str, market: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YahooSearchSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -209,8 +272,29 @@ pub async fn yahoo_search_suggestions(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = market {
         local_var_req_builder = local_var_req_builder.query(&[("market", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -237,7 +321,7 @@ pub async fn yahoo_search_suggestions(configuration: &configuration::Configurati
 }
 
 /// Yahoo Videos — title, thumbnail, duration, publisher and source per result.
-pub async fn yahoo_video_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, count: Option<i32>) -> Result<serde_json::Value, Error<YahooVideoSearchError>> {
+pub async fn yahoo_video_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, count: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YahooVideoSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -252,8 +336,29 @@ pub async fn yahoo_video_search(configuration: &configuration::Configuration, qu
     if let Some(ref local_var_str) = count {
         local_var_req_builder = local_var_req_builder.query(&[("count", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -280,7 +385,7 @@ pub async fn yahoo_video_search(configuration: &configuration::Configuration, qu
 }
 
 /// Yahoo web SERP — organic results, ads, related searches and total count.
-pub async fn yahoo_web_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, offset: Option<i32>, safe_search: Option<&str>) -> Result<serde_json::Value, Error<YahooWebSearchError>> {
+pub async fn yahoo_web_search(configuration: &configuration::Configuration, query: &str, market: Option<&str>, offset: Option<i32>, safe_search: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<YahooWebSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -298,8 +403,29 @@ pub async fn yahoo_web_search(configuration: &configuration::Configuration, quer
     if let Some(ref local_var_str) = safe_search {
         local_var_req_builder = local_var_req_builder.query(&[("safe_search", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

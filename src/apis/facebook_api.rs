@@ -215,7 +215,7 @@ pub enum FacebookSearchTheAdLibraryError {
 
 
 /// Browse Marketplace listings in a category (vehicles, electronics, ...).
-pub async fn facebook_browse_a_marketplace_category(configuration: &configuration::Configuration, category: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, sort_by: Option<&str>, radius: Option<i32>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookBrowseAMarketplaceCategoryError>> {
+pub async fn facebook_browse_a_marketplace_category(configuration: &configuration::Configuration, category: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, sort_by: Option<&str>, radius: Option<i32>, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookBrowseAMarketplaceCategoryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -241,8 +241,29 @@ pub async fn facebook_browse_a_marketplace_category(configuration: &configuratio
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -269,7 +290,7 @@ pub async fn facebook_browse_a_marketplace_category(configuration: &configuratio
 }
 
 /// Get full detail for a single Marketplace listing.
-pub async fn facebook_get_a_marketplace_item(configuration: &configuration::Configuration, item_id: &str) -> Result<serde_json::Value, Error<FacebookGetAMarketplaceItemError>> {
+pub async fn facebook_get_a_marketplace_item(configuration: &configuration::Configuration, item_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetAMarketplaceItemError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -277,8 +298,29 @@ pub async fn facebook_get_a_marketplace_item(configuration: &configuration::Conf
     let local_var_uri_str = format!("{}/v1/facebook/marketplace/item/{item_id}", local_var_configuration.base_path, item_id=crate::apis::urlencode(item_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -305,7 +347,7 @@ pub async fn facebook_get_a_marketplace_item(configuration: &configuration::Conf
 }
 
 /// Get advertiser page info: category, followers, page transparency (creation date, name history, managing organization, admin-account locations), related pages, and ad spend (for political/issue advertisers).
-pub async fn facebook_get_advertiser_page_info(configuration: &configuration::Configuration, page_id: &str, country: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetAdvertiserPageInfoError>> {
+pub async fn facebook_get_advertiser_page_info(configuration: &configuration::Configuration, page_id: &str, country: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetAdvertiserPageInfoError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -316,8 +358,29 @@ pub async fn facebook_get_advertiser_page_info(configuration: &configuration::Co
     if let Some(ref local_var_str) = country {
         local_var_req_builder = local_var_req_builder.query(&[("country", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -344,7 +407,7 @@ pub async fn facebook_get_advertiser_page_info(configuration: &configuration::Co
 }
 
 /// Get a single Ad Library ad by its archive id. For EU/UK-targeted ads the response also includes transparency insights (payer/beneficiary, total EU reach, and age/gender/country reach breakdowns).
-pub async fn facebook_get_an_ad(configuration: &configuration::Configuration, ad_archive_id: &str, country: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetAnAdError>> {
+pub async fn facebook_get_an_ad(configuration: &configuration::Configuration, ad_archive_id: &str, country: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetAnAdError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -355,8 +418,29 @@ pub async fn facebook_get_an_ad(configuration: &configuration::Configuration, ad
     if let Some(ref local_var_str) = country {
         local_var_req_builder = local_var_req_builder.query(&[("country", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -383,7 +467,7 @@ pub async fn facebook_get_an_ad(configuration: &configuration::Configuration, ad
 }
 
 /// Get a Facebook group's details.
-pub async fn facebook_get_group_detail(configuration: &configuration::Configuration, group_id: &str) -> Result<serde_json::Value, Error<FacebookGetGroupDetailError>> {
+pub async fn facebook_get_group_detail(configuration: &configuration::Configuration, group_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetGroupDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -391,8 +475,29 @@ pub async fn facebook_get_group_detail(configuration: &configuration::Configurat
     let local_var_uri_str = format!("{}/v1/facebook/groups/{group_id}", local_var_configuration.base_path, group_id=crate::apis::urlencode(group_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -419,7 +524,7 @@ pub async fn facebook_get_group_detail(configuration: &configuration::Configurat
 }
 
 /// Get a public Facebook group's post feed.  ``sort`` is ``newest`` (newest first by post time, the default) or ``relevance`` (Facebook's \"top posts\" ranking, which moves posts with fresh comments up). Facebook serves 3 posts per page to logged-out visitors; follow ``end_cursor`` while ``has_next_page`` for older posts.
-pub async fn facebook_get_group_posts(configuration: &configuration::Configuration, group_id: &str, after: Option<&str>, sort: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetGroupPostsError>> {
+pub async fn facebook_get_group_posts(configuration: &configuration::Configuration, group_id: &str, after: Option<&str>, sort: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetGroupPostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -433,8 +538,29 @@ pub async fn facebook_get_group_posts(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = sort {
         local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -461,7 +587,7 @@ pub async fn facebook_get_group_posts(configuration: &configuration::Configurati
 }
 
 /// Get a Facebook Page's profile (name, category, followers, about).
-pub async fn facebook_get_page_detail(configuration: &configuration::Configuration, identifier: &str) -> Result<serde_json::Value, Error<FacebookGetPageDetailError>> {
+pub async fn facebook_get_page_detail(configuration: &configuration::Configuration, identifier: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPageDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -469,8 +595,29 @@ pub async fn facebook_get_page_detail(configuration: &configuration::Configurati
     let local_var_uri_str = format!("{}/v1/facebook/pages/{identifier}", local_var_configuration.base_path, identifier=crate::apis::urlencode(identifier));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -497,7 +644,7 @@ pub async fn facebook_get_page_detail(configuration: &configuration::Configurati
 }
 
 /// Get a Facebook Page's timeline posts.
-pub async fn facebook_get_page_posts(configuration: &configuration::Configuration, identifier: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPagePostsError>> {
+pub async fn facebook_get_page_posts(configuration: &configuration::Configuration, identifier: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPagePostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -508,8 +655,29 @@ pub async fn facebook_get_page_posts(configuration: &configuration::Configuratio
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -536,7 +704,7 @@ pub async fn facebook_get_page_posts(configuration: &configuration::Configuratio
 }
 
 /// Get a Facebook post's comment thread, 10 per page.  ``sort`` is ``relevance`` (Facebook's ranked order, the default) or ``newest``. Follow ``end_cursor`` while ``has_next_page`` to walk the whole thread; ``total_count`` is how many the post has.
-pub async fn facebook_get_post_comments(configuration: &configuration::Configuration, post_id: &str, url: Option<&str>, after: Option<&str>, sort: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostCommentsError>> {
+pub async fn facebook_get_post_comments(configuration: &configuration::Configuration, post_id: &str, url: Option<&str>, after: Option<&str>, sort: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostCommentsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -553,8 +721,29 @@ pub async fn facebook_get_post_comments(configuration: &configuration::Configura
     if let Some(ref local_var_str) = sort {
         local_var_req_builder = local_var_req_builder.query(&[("sort", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -581,7 +770,7 @@ pub async fn facebook_get_post_comments(configuration: &configuration::Configura
 }
 
 /// Get a Facebook post's detail: text, media, author, date and the reaction / comment / share counts. The comments themselves come from ``/posts/{post_id}/comments``.
-pub async fn facebook_get_post_detail(configuration: &configuration::Configuration, post_id: &str, url: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostDetailError>> {
+pub async fn facebook_get_post_detail(configuration: &configuration::Configuration, post_id: &str, url: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetPostDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -592,8 +781,29 @@ pub async fn facebook_get_post_detail(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = url {
         local_var_req_builder = local_var_req_builder.query(&[("url", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -620,7 +830,7 @@ pub async fn facebook_get_post_detail(configuration: &configuration::Configurati
 }
 
 /// Get a Facebook profile's details.
-pub async fn facebook_get_profile_detail(configuration: &configuration::Configuration, identifier: &str) -> Result<serde_json::Value, Error<FacebookGetProfileDetailError>> {
+pub async fn facebook_get_profile_detail(configuration: &configuration::Configuration, identifier: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetProfileDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -628,8 +838,29 @@ pub async fn facebook_get_profile_detail(configuration: &configuration::Configur
     let local_var_uri_str = format!("{}/v1/facebook/profiles/{identifier}", local_var_configuration.base_path, identifier=crate::apis::urlencode(identifier));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -656,7 +887,7 @@ pub async fn facebook_get_profile_detail(configuration: &configuration::Configur
 }
 
 /// Get a Facebook profile's timeline posts.
-pub async fn facebook_get_profile_posts(configuration: &configuration::Configuration, identifier: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetProfilePostsError>> {
+pub async fn facebook_get_profile_posts(configuration: &configuration::Configuration, identifier: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookGetProfilePostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -667,8 +898,29 @@ pub async fn facebook_get_profile_posts(configuration: &configuration::Configura
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -695,7 +947,7 @@ pub async fn facebook_get_profile_posts(configuration: &configuration::Configura
 }
 
 /// List Marketplace category slugs (free).
-pub async fn facebook_list_categories(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<FacebookListCategoriesError>> {
+pub async fn facebook_list_categories(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookListCategoriesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -703,8 +955,29 @@ pub async fn facebook_list_categories(configuration: &configuration::Configurati
     let local_var_uri_str = format!("{}/v1/facebook/marketplace/categories", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -731,7 +1004,7 @@ pub async fn facebook_list_categories(configuration: &configuration::Configurati
 }
 
 /// List common Marketplace location slugs (free).
-pub async fn facebook_list_locations(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<FacebookListLocationsError>> {
+pub async fn facebook_list_locations(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookListLocationsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -739,8 +1012,29 @@ pub async fn facebook_list_locations(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/v1/facebook/marketplace/locations", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -767,7 +1061,7 @@ pub async fn facebook_list_locations(configuration: &configuration::Configuratio
 }
 
 /// Resolve a town, postcode or coordinates to a Facebook Marketplace place id.  Facebook keys Marketplace by place, not coordinates, and only a place slug or numeric place id works as ``location``. Pass the returned ``place_id`` as ``location`` on Marketplace search/category to centre results anywhere, not just the preset catalogue. Postcodes resolve exactly; a bare town name in an ambiguous country is best paired with ``country`` (e.g. ``gb``).
-pub async fn facebook_resolve_a_town_postcode_to_a_marketplace_location(configuration: &configuration::Configuration, query: Option<&str>, latitude: Option<f64>, longitude: Option<f64>, country: Option<&str>) -> Result<serde_json::Value, Error<FacebookResolveATownPostcodeToAMarketplaceLocationError>> {
+pub async fn facebook_resolve_a_town_postcode_to_a_marketplace_location(configuration: &configuration::Configuration, query: Option<&str>, latitude: Option<f64>, longitude: Option<f64>, country: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookResolveATownPostcodeToAMarketplaceLocationError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -787,8 +1081,29 @@ pub async fn facebook_resolve_a_town_postcode_to_a_marketplace_location(configur
     if let Some(ref local_var_str) = country {
         local_var_req_builder = local_var_req_builder.query(&[("country", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -815,7 +1130,7 @@ pub async fn facebook_resolve_a_town_postcode_to_a_marketplace_location(configur
 }
 
 /// Search advertiser Pages in the Ad Library — returns page ids, categories, likes/followers, verification and Instagram handles.
-pub async fn facebook_search_advertiser_pages(configuration: &configuration::Configuration, query: &str, country: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchAdvertiserPagesError>> {
+pub async fn facebook_search_advertiser_pages(configuration: &configuration::Configuration, query: &str, country: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchAdvertiserPagesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -827,8 +1142,29 @@ pub async fn facebook_search_advertiser_pages(configuration: &configuration::Con
     if let Some(ref local_var_str) = country {
         local_var_req_builder = local_var_req_builder.query(&[("country", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -855,7 +1191,7 @@ pub async fn facebook_search_advertiser_pages(configuration: &configuration::Con
 }
 
 /// Search Facebook events.
-pub async fn facebook_search_events(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchEventsError>> {
+pub async fn facebook_search_events(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchEventsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -867,8 +1203,29 @@ pub async fn facebook_search_events(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -895,7 +1252,7 @@ pub async fn facebook_search_events(configuration: &configuration::Configuration
 }
 
 /// Global Facebook search (top results across pages, people, groups, posts).
-pub async fn facebook_search_everything(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchEverythingError>> {
+pub async fn facebook_search_everything(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchEverythingError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -907,8 +1264,29 @@ pub async fn facebook_search_everything(configuration: &configuration::Configura
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -935,7 +1313,7 @@ pub async fn facebook_search_everything(configuration: &configuration::Configura
 }
 
 /// Search Facebook groups.
-pub async fn facebook_search_groups(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchGroupsError>> {
+pub async fn facebook_search_groups(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchGroupsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -947,8 +1325,29 @@ pub async fn facebook_search_groups(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -975,7 +1374,7 @@ pub async fn facebook_search_groups(configuration: &configuration::Configuration
 }
 
 /// Search Facebook Marketplace listings by keyword and location.  ``location`` must be a Facebook location slug (``london``, ``newcastleupontyne``) or a numeric Facebook place id — the ``city_page_id`` on any listing is one. Human-readable names such as ``Durham, UK`` are rejected with a 400 rather than silently searching Facebook's San Francisco default.  Set strict_filters=true for locally enforced radius (always km) and age. Public price-range continuations are bounded to eight pages; sort the full collected set for newest-first monitoring. Coverage and freshness are partial.
-pub async fn facebook_search_marketplace(configuration: &configuration::Configuration, query: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, days_since_listed: Option<i32>, sort_by: Option<&str>, item_condition: Option<&str>, delivery_method: Option<&str>, radius: Option<i32>, after: Option<&str>, strict_filters: Option<bool>, include_details: Option<bool>) -> Result<serde_json::Value, Error<FacebookSearchMarketplaceError>> {
+pub async fn facebook_search_marketplace(configuration: &configuration::Configuration, query: &str, location: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, days_since_listed: Option<i32>, sort_by: Option<&str>, item_condition: Option<&str>, delivery_method: Option<&str>, radius: Option<i32>, after: Option<&str>, strict_filters: Option<bool>, include_details: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchMarketplaceError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1017,8 +1416,29 @@ pub async fn facebook_search_marketplace(configuration: &configuration::Configur
     if let Some(ref local_var_str) = include_details {
         local_var_req_builder = local_var_req_builder.query(&[("include_details", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1045,7 +1465,7 @@ pub async fn facebook_search_marketplace(configuration: &configuration::Configur
 }
 
 /// Search Facebook Pages.
-pub async fn facebook_search_pages(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPagesError>> {
+pub async fn facebook_search_pages(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPagesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1057,8 +1477,29 @@ pub async fn facebook_search_pages(configuration: &configuration::Configuration,
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1085,7 +1526,7 @@ pub async fn facebook_search_pages(configuration: &configuration::Configuration,
 }
 
 /// Search Facebook profiles.
-pub async fn facebook_search_people(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPeopleError>> {
+pub async fn facebook_search_people(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPeopleError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1097,8 +1538,29 @@ pub async fn facebook_search_people(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1125,7 +1587,7 @@ pub async fn facebook_search_people(configuration: &configuration::Configuration
 }
 
 /// Search Facebook places.
-pub async fn facebook_search_places(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPlacesError>> {
+pub async fn facebook_search_places(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPlacesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1137,8 +1599,29 @@ pub async fn facebook_search_places(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1165,7 +1648,7 @@ pub async fn facebook_search_places(configuration: &configuration::Configuration
 }
 
 /// Search public Facebook posts.
-pub async fn facebook_search_posts(configuration: &configuration::Configuration, q: &str, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPostsError>> {
+pub async fn facebook_search_posts(configuration: &configuration::Configuration, q: &str, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchPostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1177,8 +1660,29 @@ pub async fn facebook_search_posts(configuration: &configuration::Configuration,
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1205,7 +1709,7 @@ pub async fn facebook_search_posts(configuration: &configuration::Configuration,
 }
 
 /// Search the Facebook Ad Library.
-pub async fn facebook_search_the_ad_library(configuration: &configuration::Configuration, query: &str, country: Option<&str>, ad_type: Option<&str>, active_status: Option<&str>, after: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchTheAdLibraryError>> {
+pub async fn facebook_search_the_ad_library(configuration: &configuration::Configuration, query: &str, country: Option<&str>, ad_type: Option<&str>, active_status: Option<&str>, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<FacebookSearchTheAdLibraryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1226,8 +1730,29 @@ pub async fn facebook_search_the_ad_library(configuration: &configuration::Confi
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

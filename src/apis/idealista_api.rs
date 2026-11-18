@@ -94,7 +94,7 @@ pub enum IdealistaSearchListingsError {
 
 
 /// Reverse-lookup the agency behind a contact phone (national number), with its listings.
-pub async fn idealista_agency_by_phone(configuration: &configuration::Configuration, phone: &str, market: Option<&str>, operation: Option<&str>, property_type: Option<&str>, page: Option<i32>, max_items: Option<i32>, include_listings: Option<bool>) -> Result<serde_json::Value, Error<IdealistaAgencyByPhoneError>> {
+pub async fn idealista_agency_by_phone(configuration: &configuration::Configuration, phone: &str, market: Option<&str>, operation: Option<&str>, property_type: Option<&str>, page: Option<i32>, max_items: Option<i32>, include_listings: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaAgencyByPhoneError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -120,8 +120,29 @@ pub async fn idealista_agency_by_phone(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = include_listings {
         local_var_req_builder = local_var_req_builder.query(&[("include_listings", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -148,7 +169,7 @@ pub async fn idealista_agency_by_phone(configuration: &configuration::Configurat
 }
 
 /// An agency's microsite profile plus a page of its listings (by URL-slug shortName).
-pub async fn idealista_agency_profile_listings(configuration: &configuration::Configuration, short_name: &str, market: Option<&str>, operation: Option<&str>, property_type: Option<&str>, page: Option<i32>, max_items: Option<i32>, include_listings: Option<bool>) -> Result<serde_json::Value, Error<IdealistaAgencyProfileListingsError>> {
+pub async fn idealista_agency_profile_listings(configuration: &configuration::Configuration, short_name: &str, market: Option<&str>, operation: Option<&str>, property_type: Option<&str>, page: Option<i32>, max_items: Option<i32>, include_listings: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaAgencyProfileListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -174,8 +195,29 @@ pub async fn idealista_agency_profile_listings(configuration: &configuration::Co
     if let Some(ref local_var_str) = include_listings {
         local_var_req_builder = local_var_req_builder.query(&[("include_listings", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -202,7 +244,7 @@ pub async fn idealista_agency_profile_listings(configuration: &configuration::Co
 }
 
 /// Engagement counters for a listing: views, email contacts, sent-to-friend, favourites.
-pub async fn idealista_get_listing_engagement_stats(configuration: &configuration::Configuration, property_code: &str, market: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<IdealistaGetListingEngagementStatsError>> {
+pub async fn idealista_get_listing_engagement_stats(configuration: &configuration::Configuration, property_code: &str, market: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaGetListingEngagementStatsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -216,8 +258,29 @@ pub async fn idealista_get_listing_engagement_stats(configuration: &configuratio
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -244,7 +307,7 @@ pub async fn idealista_get_listing_engagement_stats(configuration: &configuratio
 }
 
 /// Get a single Idealista listing's full detail (energy cert, characteristics, media).
-pub async fn idealista_get_property_detail(configuration: &configuration::Configuration, property_code: &str, market: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<IdealistaGetPropertyDetailError>> {
+pub async fn idealista_get_property_detail(configuration: &configuration::Configuration, property_code: &str, market: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaGetPropertyDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -258,8 +321,29 @@ pub async fn idealista_get_property_detail(configuration: &configuration::Config
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -358,7 +442,7 @@ pub async fn idealista_idealista_scraper_health_check_head(configuration: &confi
 }
 
 /// List supported Idealista markets (ES, IT, PT).
-pub async fn idealista_list_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<IdealistaListMarketsError>> {
+pub async fn idealista_list_markets(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaListMarketsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -366,8 +450,29 @@ pub async fn idealista_list_markets(configuration: &configuration::Configuration
     let local_var_uri_str = format!("{}/v1/idealista/markets", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -394,7 +499,7 @@ pub async fn idealista_list_markets(configuration: &configuration::Configuration
 }
 
 /// Resolve a free-text query into Idealista location codes for a search.
-pub async fn idealista_resolve_locations(configuration: &configuration::Configuration, query: &str, operation: Option<&str>, property_type: Option<&str>, market: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<IdealistaResolveLocationsError>> {
+pub async fn idealista_resolve_locations(configuration: &configuration::Configuration, query: &str, operation: Option<&str>, property_type: Option<&str>, market: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaResolveLocationsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -415,8 +520,29 @@ pub async fn idealista_resolve_locations(configuration: &configuration::Configur
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -443,7 +569,7 @@ pub async fn idealista_resolve_locations(configuration: &configuration::Configur
 }
 
 /// Full inventory for a location, beating Idealista's ~1800 per-search cap via price-range tiling (deduped). Billed per page fetched.
-pub async fn idealista_search_all_beats_result_cap(configuration: &configuration::Configuration, location: &str, operation: Option<&str>, property_type: Option<&str>, market: Option<&str>, max_results: Option<i32>, min_price: Option<f64>, max_price: Option<f64>, min_size: Option<f64>, max_size: Option<f64>, min_rooms: Option<i32>, max_rooms: Option<i32>, locale: Option<&str>) -> Result<serde_json::Value, Error<IdealistaSearchAllBeatsResultCapError>> {
+pub async fn idealista_search_all_beats_result_cap(configuration: &configuration::Configuration, location: &str, operation: Option<&str>, property_type: Option<&str>, market: Option<&str>, max_results: Option<i32>, min_price: Option<f64>, max_price: Option<f64>, min_size: Option<f64>, max_size: Option<f64>, min_rooms: Option<i32>, max_rooms: Option<i32>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaSearchAllBeatsResultCapError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -485,8 +611,29 @@ pub async fn idealista_search_all_beats_result_cap(configuration: &configuration
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -513,7 +660,7 @@ pub async fn idealista_search_all_beats_result_cap(configuration: &configuration
 }
 
 /// Search Idealista real-estate listings by location code.
-pub async fn idealista_search_listings(configuration: &configuration::Configuration, location: &str, operation: Option<&str>, property_type: Option<&str>, market: Option<&str>, page: Option<i32>, max_items: Option<i32>, sort_by: Option<&str>, sort_order: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, min_size: Option<f64>, max_size: Option<f64>, min_rooms: Option<i32>, max_rooms: Option<i32>, locale: Option<&str>) -> Result<serde_json::Value, Error<IdealistaSearchListingsError>> {
+pub async fn idealista_search_listings(configuration: &configuration::Configuration, location: &str, operation: Option<&str>, property_type: Option<&str>, market: Option<&str>, page: Option<i32>, max_items: Option<i32>, sort_by: Option<&str>, sort_order: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, min_size: Option<f64>, max_size: Option<f64>, min_rooms: Option<i32>, max_rooms: Option<i32>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<IdealistaSearchListingsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -564,8 +711,29 @@ pub async fn idealista_search_listings(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

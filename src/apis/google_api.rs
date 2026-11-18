@@ -335,7 +335,7 @@ pub enum GoogleTrendsTopicAutocompleteError {
 
 
 /// Return the citations-per-year chart for a Google Scholar author.
-pub async fn google_get_author_citations_per_year_chart(configuration: &configuration::Configuration, author_id: &str, hl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetAuthorCitationsPerYearChartError>> {
+pub async fn google_get_author_citations_per_year_chart(configuration: &configuration::Configuration, author_id: &str, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetAuthorCitationsPerYearChartError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -347,8 +347,29 @@ pub async fn google_get_author_citations_per_year_chart(configuration: &configur
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -374,7 +395,7 @@ pub async fn google_get_author_citations_per_year_chart(configuration: &configur
     }
 }
 
-pub async fn google_get_business_posts(configuration: &configuration::Configuration, data_id: &str, next_page_token: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetBusinessPostsError>> {
+pub async fn google_get_business_posts(configuration: &configuration::Configuration, data_id: &str, next_page_token: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetBusinessPostsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -386,8 +407,29 @@ pub async fn google_get_business_posts(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = next_page_token {
         local_var_req_builder = local_var_req_builder.query(&[("next_page_token", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -414,7 +456,7 @@ pub async fn google_get_business_posts(configuration: &configuration::Configurat
 }
 
 /// Return MLA, APA, Chicago, Harvard, and Vancouver citation formats for a paper.
-pub async fn google_get_citation_formats_for_a_scholar_paper(configuration: &configuration::Configuration, q: &str, hl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetCitationFormatsForAScholarPaperError>> {
+pub async fn google_get_citation_formats_for_a_scholar_paper(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetCitationFormatsForAScholarPaperError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -426,8 +468,29 @@ pub async fn google_get_citation_formats_for_a_scholar_paper(configuration: &con
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -453,7 +516,7 @@ pub async fn google_get_citation_formats_for_a_scholar_paper(configuration: &con
     }
 }
 
-pub async fn google_get_place_details(configuration: &configuration::Configuration, place_id: Option<&str>, data_id: Option<&str>, hl: Option<&str>, gl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetPlaceDetailsError>> {
+pub async fn google_get_place_details(configuration: &configuration::Configuration, place_id: Option<&str>, data_id: Option<&str>, hl: Option<&str>, gl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetPlaceDetailsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -473,8 +536,29 @@ pub async fn google_get_place_details(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = gl {
         local_var_req_builder = local_var_req_builder.query(&[("gl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -500,7 +584,7 @@ pub async fn google_get_place_details(configuration: &configuration::Configurati
     }
 }
 
-pub async fn google_get_place_photos(configuration: &configuration::Configuration, data_id: &str, hl: Option<&str>, next_page_token: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetPlacePhotosError>> {
+pub async fn google_get_place_photos(configuration: &configuration::Configuration, data_id: &str, hl: Option<&str>, next_page_token: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetPlacePhotosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -515,8 +599,29 @@ pub async fn google_get_place_photos(configuration: &configuration::Configuratio
     if let Some(ref local_var_str) = next_page_token {
         local_var_req_builder = local_var_req_builder.query(&[("next_page_token", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -542,7 +647,7 @@ pub async fn google_get_place_photos(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn google_get_place_reviews(configuration: &configuration::Configuration, data_id: &str, sort_by: Option<&str>, hl: Option<&str>, next_page_token: Option<&str>, results: Option<i32>) -> Result<serde_json::Value, Error<GoogleGetPlaceReviewsError>> {
+pub async fn google_get_place_reviews(configuration: &configuration::Configuration, data_id: &str, sort_by: Option<&str>, hl: Option<&str>, next_page_token: Option<&str>, results: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetPlaceReviewsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -563,8 +668,29 @@ pub async fn google_get_place_reviews(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = results {
         local_var_req_builder = local_var_req_builder.query(&[("results", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -591,7 +717,7 @@ pub async fn google_get_place_reviews(configuration: &configuration::Configurati
 }
 
 /// Get detailed Google Scholar author profile including articles, stats, co-authors.
-pub async fn google_get_scholar_author_profile(configuration: &configuration::Configuration, author_id: &str, hl: Option<&str>, cstart: Option<i32>, pagesize: Option<i32>) -> Result<serde_json::Value, Error<GoogleGetScholarAuthorProfileError>> {
+pub async fn google_get_scholar_author_profile(configuration: &configuration::Configuration, author_id: &str, hl: Option<&str>, cstart: Option<i32>, pagesize: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetScholarAuthorProfileError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -609,8 +735,29 @@ pub async fn google_get_scholar_author_profile(configuration: &configuration::Co
     if let Some(ref local_var_str) = pagesize {
         local_var_req_builder = local_var_req_builder.query(&[("pagesize", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -637,7 +784,7 @@ pub async fn google_get_scholar_author_profile(configuration: &configuration::Co
 }
 
 /// Get a stock or index quote from Google Finance.
-pub async fn google_get_stock_index_quote(configuration: &configuration::Configuration, q: &str, hl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetStockIndexQuoteError>> {
+pub async fn google_get_stock_index_quote(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGetStockIndexQuoteError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -649,8 +796,29 @@ pub async fn google_get_stock_index_quote(configuration: &configuration::Configu
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -677,7 +845,7 @@ pub async fn google_get_stock_index_quote(configuration: &configuration::Configu
 }
 
 /// Get AI-generated search results from Google AI Mode.  Returns the structured `text_blocks` (paragraphs, headings, comparison `table` blocks and lists), a flat `references` source list, a compact `markdown` rendering of the whole answer and — unless `include_html` is false — the raw `answer_html` body.  `location`, `uule` or `lat`/`lon` localise the answer (\"near me\", local results) to that place, down to the city or district, wherever the request exits from. Located answers echo a `location` object.
-pub async fn google_google_ai_mode_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, include_html: Option<bool>, location: Option<&str>, uule: Option<&str>, lat: Option<f64>, lon: Option<f64>) -> Result<serde_json::Value, Error<GoogleGoogleAiModeSearchError>> {
+pub async fn google_google_ai_mode_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, include_html: Option<bool>, location: Option<&str>, uule: Option<&str>, lat: Option<f64>, lon: Option<f64>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleAiModeSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -707,8 +875,29 @@ pub async fn google_google_ai_mode_search(configuration: &configuration::Configu
     if let Some(ref local_var_str) = lon {
         local_var_req_builder = local_var_req_builder.query(&[("lon", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -735,7 +924,7 @@ pub async fn google_google_ai_mode_search(configuration: &configuration::Configu
 }
 
 /// Get the AI Overview block Google renders inline at the top of a SERP.  Deferred overviews (where Google lazy-loads the block via a follow-up ``page_token``) are chased automatically.
-pub async fn google_google_ai_overview_inline_serp_block(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleAiOverviewInlineSerpBlockError>> {
+pub async fn google_google_ai_overview_inline_serp_block(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleAiOverviewInlineSerpBlockError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -750,8 +939,29 @@ pub async fn google_google_ai_overview_inline_serp_block(configuration: &configu
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -778,7 +988,7 @@ pub async fn google_google_ai_overview_inline_serp_block(configuration: &configu
 }
 
 /// Price a whole range of dates in one call — up to 200 dates per request.  Google Flights' own price graph / date grid: the cheapest fare per departure date instead of one search per date. Prices match `/flights/search` exactly.
-pub async fn google_google_flights_calendar_cheapest_fare_per_date(configuration: &configuration::Configuration, departure_id: &str, arrival_id: &str, outbound_date_from: &str, outbound_date_to: &str, trip_type: Option<&str>, trip_length_days: Option<i32>, return_date_from: Option<&str>, return_date_to: Option<&str>, adults: Option<i32>, children: Option<i32>, infants_in_seat: Option<i32>, infants_on_lap: Option<i32>, travel_class: Option<&str>, currency: Option<&str>, gl: Option<&str>, hl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleFlightsCalendarCheapestFarePerDateError>> {
+pub async fn google_google_flights_calendar_cheapest_fare_per_date(configuration: &configuration::Configuration, departure_id: &str, arrival_id: &str, outbound_date_from: &str, outbound_date_to: &str, trip_type: Option<&str>, trip_length_days: Option<i32>, return_date_from: Option<&str>, return_date_to: Option<&str>, adults: Option<i32>, children: Option<i32>, infants_in_seat: Option<i32>, infants_on_lap: Option<i32>, travel_class: Option<&str>, currency: Option<&str>, gl: Option<&str>, hl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleFlightsCalendarCheapestFarePerDateError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -826,8 +1036,29 @@ pub async fn google_google_flights_calendar_cheapest_fare_per_date(configuration
     if let Some(ref local_var_str) = hl {
         local_var_req_builder = local_var_req_builder.query(&[("hl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -854,7 +1085,7 @@ pub async fn google_google_flights_calendar_cheapest_fare_per_date(configuration
 }
 
 /// Search Google Flights for available itineraries.
-pub async fn google_google_flights_search(configuration: &configuration::Configuration, departure_id: &str, arrival_id: &str, outbound_date: &str, return_date: Option<&str>, trip_type: Option<&str>, adults: Option<i32>, children: Option<i32>, infants_in_seat: Option<i32>, infants_on_lap: Option<i32>, travel_class: Option<&str>, currency: Option<&str>, gl: Option<&str>, hl: Option<&str>, stops: Option<&str>, max_price: Option<i32>, departure_token: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleFlightsSearchError>> {
+pub async fn google_google_flights_search(configuration: &configuration::Configuration, departure_id: &str, arrival_id: &str, outbound_date: &str, return_date: Option<&str>, trip_type: Option<&str>, adults: Option<i32>, children: Option<i32>, infants_in_seat: Option<i32>, infants_on_lap: Option<i32>, travel_class: Option<&str>, currency: Option<&str>, gl: Option<&str>, hl: Option<&str>, stops: Option<&str>, max_price: Option<i32>, departure_token: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleFlightsSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -904,8 +1135,29 @@ pub async fn google_google_flights_search(configuration: &configuration::Configu
     if let Some(ref local_var_str) = departure_token {
         local_var_req_builder = local_var_req_builder.query(&[("departure_token", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -932,7 +1184,7 @@ pub async fn google_google_flights_search(configuration: &configuration::Configu
 }
 
 /// Google Lens visual search.  Response carries ``lens_results`` (Scrapingdog parity alias) with ``title`` / ``source`` / ``source_favicon`` / ``thumbnail`` / ``original_thumbnail`` / ``rating`` / ``reviews`` / ``in_stock``, plus ``price`` (``{value, currency, extracted}``) and the raw ``tag`` chip it is parsed from, on shoppable matches. ``related_searches`` chips come alongside. Legacy ``results`` alias kept for backwards compat.  ``query`` refines the grid with text. ``exact_matches=true`` returns just the pages hosting the image, each flagged ``exact_match: true``, instead of the broad grid — available for most images (8 of 10 in sampling) and falling back to the grid otherwise. ``product=true`` narrows the grid to the tiles Google marked buyable. ``visual_matches=false`` cannot be honoured: visual matches are the only grid served. Anything that could not be applied — including an exact-match lookup that came back empty — is named in the ``warnings`` array rather than silently dropped (SCR-177, SCR-180).  When Google has no matches for an image — it filters explicit images and matches removed under DMCA — the response is ``404`` with ``error: lens_no_visual_matches``. That is Google's final answer for the image: it is not charged, and retrying will not change it (SCR-325).
-pub async fn google_google_lens_visual_search(configuration: &configuration::Configuration, url: &str, query: Option<&str>, country: Option<&str>, language: Option<&str>, gl: Option<&str>, hl: Option<&str>, product: Option<bool>, visual_matches: Option<bool>, exact_matches: Option<bool>) -> Result<serde_json::Value, Error<GoogleGoogleLensVisualSearchError>> {
+pub async fn google_google_lens_visual_search(configuration: &configuration::Configuration, url: &str, query: Option<&str>, country: Option<&str>, language: Option<&str>, gl: Option<&str>, hl: Option<&str>, product: Option<bool>, visual_matches: Option<bool>, exact_matches: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleLensVisualSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -965,8 +1217,29 @@ pub async fn google_google_lens_visual_search(configuration: &configuration::Con
     if let Some(ref local_var_str) = exact_matches {
         local_var_req_builder = local_var_req_builder.query(&[("exact_matches", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -993,7 +1266,7 @@ pub async fn google_google_lens_visual_search(configuration: &configuration::Con
 }
 
 /// Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
-pub async fn google_google_light_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, location: Option<&str>, uule: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, output: Option<&str>, oq: Option<&str>, sourceid: Option<&str>, ie: Option<&str>, google_domain: Option<&str>, lat: Option<f64>, lon: Option<f64>, radius: Option<f64>, color_scheme: Option<&str>, tbm: Option<&str>, udm: Option<&str>, no_cache: Option<bool>, as_dt: Option<&str>, as_epq: Option<&str>, as_eq: Option<&str>, as_lq: Option<&str>, as_nlo: Option<&str>, as_nhi: Option<&str>, as_oq: Option<&str>, as_q: Option<&str>, as_qdr: Option<&str>, as_rq: Option<&str>, as_sitesearch: Option<&str>, device: Option<&str>, user_agent: Option<&str>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleLightWebSearchError>> {
+pub async fn google_google_light_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, location: Option<&str>, uule: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, output: Option<&str>, oq: Option<&str>, sourceid: Option<&str>, ie: Option<&str>, google_domain: Option<&str>, lat: Option<f64>, lon: Option<f64>, radius: Option<f64>, color_scheme: Option<&str>, tbm: Option<&str>, udm: Option<&str>, no_cache: Option<bool>, as_dt: Option<&str>, as_epq: Option<&str>, as_eq: Option<&str>, as_lq: Option<&str>, as_nlo: Option<&str>, as_nhi: Option<&str>, as_oq: Option<&str>, as_q: Option<&str>, as_qdr: Option<&str>, as_rq: Option<&str>, as_sitesearch: Option<&str>, device: Option<&str>, user_agent: Option<&str>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleLightWebSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1134,8 +1407,29 @@ pub async fn google_google_light_web_search(configuration: &configuration::Confi
     if let Some(ref local_var_str) = uds {
         local_var_req_builder = local_var_req_builder.query(&[("uds", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1234,7 +1528,7 @@ pub async fn google_google_scraper_health_check_head(configuration: &configurati
 }
 
 /// Get Google search autocomplete suggestions.
-pub async fn google_google_search_suggestions(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, gl: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleSearchSuggestionsError>> {
+pub async fn google_google_search_suggestions(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, gl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleSearchSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1249,8 +1543,29 @@ pub async fn google_google_search_suggestions(configuration: &configuration::Con
     if let Some(ref local_var_str) = gl {
         local_var_req_builder = local_var_req_builder.query(&[("gl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1277,7 +1592,7 @@ pub async fn google_google_search_suggestions(configuration: &configuration::Con
 }
 
 /// Return short-form video results (YouTube Shorts, TikToks) from Google Shorts mode.
-pub async fn google_google_shorts_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, domain: Option<&str>, num: Option<i32>, start: Option<i32>) -> Result<serde_json::Value, Error<GoogleGoogleShortsSearchError>> {
+pub async fn google_google_shorts_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, domain: Option<&str>, num: Option<i32>, start: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleShortsSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1301,8 +1616,29 @@ pub async fn google_google_shorts_search(configuration: &configuration::Configur
     if let Some(ref local_var_str) = start {
         local_var_req_builder = local_var_req_builder.query(&[("start", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1329,7 +1665,7 @@ pub async fn google_google_shorts_search(configuration: &configuration::Configur
 }
 
 /// Search Google and get structured results (organic, ads, KG, AI overview, PAA).
-pub async fn google_google_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, device: Option<&str>, user_agent: Option<&str>, output: Option<&str>, location: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, uule: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>, ai_overview: Option<bool>, mode: Option<&str>, expand_related_questions: Option<&str>, oq: Option<&str>, sourceid: Option<&str>, ie: Option<&str>, google_domain: Option<&str>, lat: Option<f64>, lon: Option<f64>, radius: Option<f64>, color_scheme: Option<&str>, tbm: Option<&str>, udm: Option<&str>, no_cache: Option<bool>, as_dt: Option<&str>, as_epq: Option<&str>, as_eq: Option<&str>, as_lq: Option<&str>, as_nlo: Option<&str>, as_nhi: Option<&str>, as_oq: Option<&str>, as_q: Option<&str>, as_qdr: Option<&str>, as_rq: Option<&str>, as_sitesearch: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleWebSearchError>> {
+pub async fn google_google_web_search(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, num: Option<i32>, start: Option<i32>, domain: Option<&str>, device: Option<&str>, user_agent: Option<&str>, output: Option<&str>, location: Option<&str>, lr: Option<&str>, tbs: Option<&str>, safe: Option<&str>, uule: Option<&str>, filter: Option<i32>, nfpr: Option<i32>, cr: Option<&str>, ludocid: Option<&str>, lsig: Option<&str>, kgmid: Option<&str>, si: Option<&str>, ibp: Option<&str>, uds: Option<&str>, ai_overview: Option<bool>, mode: Option<&str>, expand_related_questions: Option<&str>, oq: Option<&str>, sourceid: Option<&str>, ie: Option<&str>, google_domain: Option<&str>, lat: Option<f64>, lon: Option<f64>, radius: Option<f64>, color_scheme: Option<&str>, tbm: Option<&str>, udm: Option<&str>, no_cache: Option<bool>, as_dt: Option<&str>, as_epq: Option<&str>, as_eq: Option<&str>, as_lq: Option<&str>, as_nlo: Option<&str>, as_nhi: Option<&str>, as_oq: Option<&str>, as_q: Option<&str>, as_qdr: Option<&str>, as_rq: Option<&str>, as_sitesearch: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleGoogleWebSearchError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1479,8 +1815,29 @@ pub async fn google_google_web_search(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = as_sitesearch {
         local_var_req_builder = local_var_req_builder.query(&[("as_sitesearch", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1506,7 +1863,7 @@ pub async fn google_google_web_search(configuration: &configuration::Configurati
     }
 }
 
-pub async fn google_hotel_details(configuration: &configuration::Configuration, property_token: &str, check_in: &str, check_out: &str) -> Result<serde_json::Value, Error<GoogleHotelDetailsError>> {
+pub async fn google_hotel_details(configuration: &configuration::Configuration, property_token: &str, check_in: &str, check_out: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleHotelDetailsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1517,8 +1874,29 @@ pub async fn google_hotel_details(configuration: &configuration::Configuration, 
     local_var_req_builder = local_var_req_builder.query(&[("property_token", &property_token.to_string())]);
     local_var_req_builder = local_var_req_builder.query(&[("check_in", &check_in.to_string())]);
     local_var_req_builder = local_var_req_builder.query(&[("check_out", &check_out.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1545,7 +1923,7 @@ pub async fn google_hotel_details(configuration: &configuration::Configuration, 
 }
 
 /// Get deep product details from Google's immersive product page.
-pub async fn google_immersive_product_detail(configuration: &configuration::Configuration, product_id: &str, q: &str, gl: Option<&str>, hl: Option<&str>, catalog_id: Option<&str>, image_docid: Option<&str>, headline_offer_docid: Option<&str>, mid: Option<&str>, include_offers: Option<bool>, include_variants: Option<bool>) -> Result<serde_json::Value, Error<GoogleImmersiveProductDetailError>> {
+pub async fn google_immersive_product_detail(configuration: &configuration::Configuration, product_id: &str, q: &str, gl: Option<&str>, hl: Option<&str>, catalog_id: Option<&str>, image_docid: Option<&str>, headline_offer_docid: Option<&str>, mid: Option<&str>, include_offers: Option<bool>, include_variants: Option<bool>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleImmersiveProductDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1579,8 +1957,29 @@ pub async fn google_immersive_product_detail(configuration: &configuration::Conf
     if let Some(ref local_var_str) = include_variants {
         local_var_req_builder = local_var_req_builder.query(&[("include_variants", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1606,7 +2005,7 @@ pub async fn google_immersive_product_detail(configuration: &configuration::Conf
     }
 }
 
-pub async fn google_interest_by_region(configuration: &configuration::Configuration, q: &str, geo: Option<&str>) -> Result<serde_json::Value, Error<GoogleInterestByRegionError>> {
+pub async fn google_interest_by_region(configuration: &configuration::Configuration, q: &str, geo: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleInterestByRegionError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1618,8 +2017,29 @@ pub async fn google_interest_by_region(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = geo {
         local_var_req_builder = local_var_req_builder.query(&[("geo", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1645,7 +2065,7 @@ pub async fn google_interest_by_region(configuration: &configuration::Configurat
     }
 }
 
-pub async fn google_interest_over_time(configuration: &configuration::Configuration, q: &str, geo: Option<&str>, date: Option<&str>) -> Result<serde_json::Value, Error<GoogleInterestOverTimeError>> {
+pub async fn google_interest_over_time(configuration: &configuration::Configuration, q: &str, geo: Option<&str>, date: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleInterestOverTimeError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1660,8 +2080,29 @@ pub async fn google_interest_over_time(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = date {
         local_var_req_builder = local_var_req_builder.query(&[("date", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1688,7 +2129,7 @@ pub async fn google_interest_over_time(configuration: &configuration::Configurat
 }
 
 /// Google Shopping seller offers (source + price + link per merchant) for a product identified either by ``barcode`` (resolved via Google web search) or by its Google Shopping ``catalog_id`` (read straight off Google's product page, all seller pages fetched in parallel).
-pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration::Configuration, barcode: Option<&str>, catalog_id: Option<&str>, gl: Option<&str>, hl: Option<&str>, domain: Option<&str>) -> Result<serde_json::Value, Error<GoogleMultiSellerOffersByBarcodeError>> {
+pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration::Configuration, barcode: Option<&str>, catalog_id: Option<&str>, gl: Option<&str>, hl: Option<&str>, domain: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleMultiSellerOffersByBarcodeError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1711,8 +2152,29 @@ pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration
     if let Some(ref local_var_str) = domain {
         local_var_req_builder = local_var_req_builder.query(&[("domain", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1738,7 +2200,7 @@ pub async fn google_multi_seller_offers_by_barcode(configuration: &configuration
     }
 }
 
-pub async fn google_news_by_topic(configuration: &configuration::Configuration, topic: &str, hl: Option<&str>, gl: Option<&str>, max_results: Option<i32>) -> Result<serde_json::Value, Error<GoogleNewsByTopicError>> {
+pub async fn google_news_by_topic(configuration: &configuration::Configuration, topic: &str, hl: Option<&str>, gl: Option<&str>, max_results: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleNewsByTopicError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1756,8 +2218,29 @@ pub async fn google_news_by_topic(configuration: &configuration::Configuration, 
     if let Some(ref local_var_str) = max_results {
         local_var_req_builder = local_var_req_builder.query(&[("max_results", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1783,7 +2266,7 @@ pub async fn google_news_by_topic(configuration: &configuration::Configuration, 
     }
 }
 
-pub async fn google_patent_details(configuration: &configuration::Configuration, patent_id: &str) -> Result<serde_json::Value, Error<GooglePatentDetailsError>> {
+pub async fn google_patent_details(configuration: &configuration::Configuration, patent_id: &str, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GooglePatentDetailsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1792,8 +2275,29 @@ pub async fn google_patent_details(configuration: &configuration::Configuration,
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     local_var_req_builder = local_var_req_builder.query(&[("patent_id", &patent_id.to_string())]);
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1819,7 +2323,7 @@ pub async fn google_patent_details(configuration: &configuration::Configuration,
     }
 }
 
-pub async fn google_related_topics_queries(configuration: &configuration::Configuration, q: &str, geo: Option<&str>) -> Result<serde_json::Value, Error<GoogleRelatedTopicsQueriesError>> {
+pub async fn google_related_topics_queries(configuration: &configuration::Configuration, q: &str, geo: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleRelatedTopicsQueriesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1831,8 +2335,29 @@ pub async fn google_related_topics_queries(configuration: &configuration::Config
     if let Some(ref local_var_str) = geo {
         local_var_req_builder = local_var_req_builder.query(&[("geo", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1859,7 +2384,7 @@ pub async fn google_related_topics_queries(configuration: &configuration::Config
 }
 
 /// Search Google Images for visual content.
-pub async fn google_search_google_images(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, tbs: Option<&str>, imgsz: Option<&str>, imgcolor: Option<&str>, imgtype: Option<&str>, safe: Option<&str>, page: Option<i32>) -> Result<serde_json::Value, Error<GoogleSearchGoogleImagesError>> {
+pub async fn google_search_google_images(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, tbs: Option<&str>, imgsz: Option<&str>, imgcolor: Option<&str>, imgtype: Option<&str>, safe: Option<&str>, page: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleImagesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1892,8 +2417,29 @@ pub async fn google_search_google_images(configuration: &configuration::Configur
     if let Some(ref local_var_str) = page {
         local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1919,7 +2465,7 @@ pub async fn google_search_google_images(configuration: &configuration::Configur
     }
 }
 
-pub async fn google_search_google_jobs(configuration: &configuration::Configuration, q: &str, location: Option<&str>, gl: Option<&str>, job_type: Option<&str>, date_posted: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleJobsError>> {
+pub async fn google_search_google_jobs(configuration: &configuration::Configuration, q: &str, location: Option<&str>, gl: Option<&str>, job_type: Option<&str>, date_posted: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleJobsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1940,8 +2486,29 @@ pub async fn google_search_google_jobs(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = date_posted {
         local_var_req_builder = local_var_req_builder.query(&[("date_posted", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -1967,7 +2534,7 @@ pub async fn google_search_google_jobs(configuration: &configuration::Configurat
     }
 }
 
-pub async fn google_search_google_maps_places(configuration: &configuration::Configuration, q: &str, ll: Option<&str>, gl: Option<&str>, hl: Option<&str>, start: Option<i32>) -> Result<serde_json::Value, Error<GoogleSearchGoogleMapsPlacesError>> {
+pub async fn google_search_google_maps_places(configuration: &configuration::Configuration, q: &str, ll: Option<&str>, gl: Option<&str>, hl: Option<&str>, start: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleMapsPlacesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -1988,8 +2555,29 @@ pub async fn google_search_google_maps_places(configuration: &configuration::Con
     if let Some(ref local_var_str) = start {
         local_var_req_builder = local_var_req_builder.query(&[("start", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2015,7 +2603,7 @@ pub async fn google_search_google_maps_places(configuration: &configuration::Con
     }
 }
 
-pub async fn google_search_google_news(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, gl: Option<&str>, max_results: Option<i32>) -> Result<serde_json::Value, Error<GoogleSearchGoogleNewsError>> {
+pub async fn google_search_google_news(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, gl: Option<&str>, max_results: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleNewsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2033,8 +2621,29 @@ pub async fn google_search_google_news(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = max_results {
         local_var_req_builder = local_var_req_builder.query(&[("max_results", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2061,7 +2670,7 @@ pub async fn google_search_google_news(configuration: &configuration::Configurat
 }
 
 /// Search Google Scholar for scholarly articles.  Each result ships with its doc ``id``, ``type`` badge ([BOOK]/[PDF]/...), wrapped ``inline_links`` (versions + cited_by + related), PDF ``resources`` list, and structured ``authors`` (with ``author_id`` for profiled authors — pipe straight into ``/scholar/author``). Envelope carries ``scholar_results`` alias (Scrapingdog parity), ``related_searches``, and matched ``profiles`` cards.
-pub async fn google_search_google_scholar(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, as_ylo: Option<i32>, as_yhi: Option<i32>, as_sdt: Option<&str>, page: Option<i32>, num: Option<i32>) -> Result<serde_json::Value, Error<GoogleSearchGoogleScholarError>> {
+pub async fn google_search_google_scholar(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, as_ylo: Option<i32>, as_yhi: Option<i32>, as_sdt: Option<&str>, page: Option<i32>, num: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleScholarError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2088,8 +2697,29 @@ pub async fn google_search_google_scholar(configuration: &configuration::Configu
     if let Some(ref local_var_str) = num {
         local_var_req_builder = local_var_req_builder.query(&[("num", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2116,7 +2746,7 @@ pub async fn google_search_google_scholar(configuration: &configuration::Configu
 }
 
 /// Search Google for video results.
-pub async fn google_search_google_videos(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, tbs: Option<&str>, safe: Option<&str>, page: Option<i32>) -> Result<serde_json::Value, Error<GoogleSearchGoogleVideosError>> {
+pub async fn google_search_google_videos(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, hl: Option<&str>, tbs: Option<&str>, safe: Option<&str>, page: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchGoogleVideosError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2140,8 +2770,29 @@ pub async fn google_search_google_videos(configuration: &configuration::Configur
     if let Some(ref local_var_str) = page {
         local_var_req_builder = local_var_req_builder.query(&[("page", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2167,7 +2818,7 @@ pub async fn google_search_google_videos(configuration: &configuration::Configur
     }
 }
 
-pub async fn google_search_hotels(configuration: &configuration::Configuration, q: &str, check_in: &str, check_out: &str, adults: Option<i32>, currency: Option<&str>, gl: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchHotelsError>> {
+pub async fn google_search_hotels(configuration: &configuration::Configuration, q: &str, check_in: &str, check_out: &str, adults: Option<i32>, currency: Option<&str>, gl: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchHotelsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2187,8 +2838,29 @@ pub async fn google_search_hotels(configuration: &configuration::Configuration, 
     if let Some(ref local_var_str) = gl {
         local_var_req_builder = local_var_req_builder.query(&[("gl", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2214,7 +2886,7 @@ pub async fn google_search_hotels(configuration: &configuration::Configuration, 
     }
 }
 
-pub async fn google_search_patents(configuration: &configuration::Configuration, q: &str, page: Option<i32>, num: Option<i32>, sort: Option<&str>, inventor: Option<&str>, assignee: Option<&str>, country: Option<&str>, language: Option<&str>, status: Option<&str>, patent_type: Option<&str>, before: Option<&str>, after: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchPatentsError>> {
+pub async fn google_search_patents(configuration: &configuration::Configuration, q: &str, page: Option<i32>, num: Option<i32>, sort: Option<&str>, inventor: Option<&str>, assignee: Option<&str>, country: Option<&str>, language: Option<&str>, status: Option<&str>, patent_type: Option<&str>, before: Option<&str>, after: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchPatentsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2256,8 +2928,29 @@ pub async fn google_search_patents(configuration: &configuration::Configuration,
     if let Some(ref local_var_str) = after {
         local_var_req_builder = local_var_req_builder.query(&[("after", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2283,7 +2976,7 @@ pub async fn google_search_patents(configuration: &configuration::Configuration,
     }
 }
 
-pub async fn google_search_products(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, sort_by: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchProductsError>> {
+pub async fn google_search_products(configuration: &configuration::Configuration, q: &str, gl: Option<&str>, min_price: Option<i32>, max_price: Option<i32>, sort_by: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchProductsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2304,8 +2997,29 @@ pub async fn google_search_products(configuration: &configuration::Configuration
     if let Some(ref local_var_str) = sort_by {
         local_var_req_builder = local_var_req_builder.query(&[("sort_by", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2332,7 +3046,7 @@ pub async fn google_search_products(configuration: &configuration::Configuration
 }
 
 /// Search Google Scholar for author profiles by name.
-pub async fn google_search_scholar_author_profiles(configuration: &configuration::Configuration, mauthors: &str, hl: Option<&str>, after_author: Option<&str>, before_author: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchScholarAuthorProfilesError>> {
+pub async fn google_search_scholar_author_profiles(configuration: &configuration::Configuration, mauthors: &str, hl: Option<&str>, after_author: Option<&str>, before_author: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleSearchScholarAuthorProfilesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2350,8 +3064,29 @@ pub async fn google_search_scholar_author_profiles(configuration: &configuration
     if let Some(ref local_var_str) = before_author {
         local_var_req_builder = local_var_req_builder.query(&[("before_author", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2377,7 +3112,7 @@ pub async fn google_search_scholar_author_profiles(configuration: &configuration
     }
 }
 
-pub async fn google_trending_news(configuration: &configuration::Configuration, hl: Option<&str>, gl: Option<&str>, max_results: Option<i32>) -> Result<serde_json::Value, Error<GoogleTrendingNewsError>> {
+pub async fn google_trending_news(configuration: &configuration::Configuration, hl: Option<&str>, gl: Option<&str>, max_results: Option<i32>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleTrendingNewsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2394,8 +3129,29 @@ pub async fn google_trending_news(configuration: &configuration::Configuration, 
     if let Some(ref local_var_str) = max_results {
         local_var_req_builder = local_var_req_builder.query(&[("max_results", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2421,7 +3177,7 @@ pub async fn google_trending_news(configuration: &configuration::Configuration, 
     }
 }
 
-pub async fn google_trending_searches(configuration: &configuration::Configuration, geo: Option<&str>) -> Result<serde_json::Value, Error<GoogleTrendingSearchesError>> {
+pub async fn google_trending_searches(configuration: &configuration::Configuration, geo: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleTrendingSearchesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2432,8 +3188,29 @@ pub async fn google_trending_searches(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = geo {
         local_var_req_builder = local_var_req_builder.query(&[("geo", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -2460,7 +3237,7 @@ pub async fn google_trending_searches(configuration: &configuration::Configurati
 }
 
 /// Return categorized Knowledge Graph topic entities (mid, type) for a query.
-pub async fn google_trends_topic_autocomplete(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, tz: Option<&str>) -> Result<serde_json::Value, Error<GoogleTrendsTopicAutocompleteError>> {
+pub async fn google_trends_topic_autocomplete(configuration: &configuration::Configuration, q: &str, hl: Option<&str>, tz: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<GoogleTrendsTopicAutocompleteError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -2475,8 +3252,29 @@ pub async fn google_trends_topic_autocomplete(configuration: &configuration::Con
     if let Some(ref local_var_str) = tz {
         local_var_req_builder = local_var_req_builder.query(&[("tz", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 *AccountApi* | [**account_get_account_info**](docs/AccountApi.md#account_get_account_info) | **GET** /v1/account/me | Get account info
 *AccountApi* | [**account_get_the_webhook_signing_secret**](docs/AccountApi.md#account_get_the_webhook_signing_secret) | **GET** /v1/account/webhook-secret | Get the webhook signing secret
 *AccountApi* | [**account_rotate_the_webhook_signing_secret**](docs/AccountApi.md#account_rotate_the_webhook_signing_secret) | **POST** /v1/account/webhook-secret/rotate | Rotate the webhook signing secret
+*AccountApi* | [**account_webhook_deliveries**](docs/AccountApi.md#account_webhook_deliveries) | **GET** /v1/account/webhook-deliveries | Webhook deliveries
 *AirbnbApi* | [**airbnb_airbnb_scraper_health_check**](docs/AirbnbApi.md#airbnb_airbnb_scraper_health_check) | **GET** /v1/airbnb/health | Airbnb scraper health check
 *AirbnbApi* | [**airbnb_airbnb_scraper_health_check_head**](docs/AirbnbApi.md#airbnb_airbnb_scraper_health_check_head) | **HEAD** /v1/airbnb/health | Airbnb scraper health check
 *AirbnbApi* | [**airbnb_get_availability_calendar**](docs/AirbnbApi.md#airbnb_get_availability_calendar) | **GET** /v1/airbnb/listings/{room_id}/calendar | Get availability calendar
@@ -475,6 +476,7 @@ Class | Method | HTTP request | Description
 *RedfinApi* | [**redfin_redfin_scraper_health_check_head**](docs/RedfinApi.md#redfin_redfin_scraper_health_check_head) | **HEAD** /v1/redfin/health | Redfin scraper health check
 *RedfinApi* | [**redfin_region_address_suggestions**](docs/RedfinApi.md#redfin_region_address_suggestions) | **GET** /v1/redfin/autocomplete | Region/address suggestions
 *RedfinApi* | [**redfin_search_properties**](docs/RedfinApi.md#redfin_search_properties) | **GET** /v1/redfin/search | Search properties
+*RequestsApi* | [**requests_callback_status**](docs/RequestsApi.md#requests_callback_status) | **GET** /v1/requests/{request_id}/callback | Callback status
 *RequestsApi* | [**requests_poll_an_async_request**](docs/RequestsApi.md#requests_poll_an_async_request) | **GET** /v1/requests/{request_id} | Poll an async request
 *ResultsApi* | [**results_re_read_a_result_removed**](docs/ResultsApi.md#results_re_read_a_result_removed) | **GET** /v1/results/{result_id} | Re-read a result (removed)
 *RufusApi* | [**rufus_amazon_rufus_scraper_health_check**](docs/RufusApi.md#rufus_amazon_rufus_scraper_health_check) | **GET** /v1/rufus/health | Amazon Rufus scraper health check
@@ -701,9 +703,13 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AccountInfo](docs/AccountInfo.md)
+ - [AccountWebhookDeliveries403Response](docs/AccountWebhookDeliveries403Response.md)
  - [Age](docs/Age.md)
  - [AgentTrialInfo](docs/AgentTrialInfo.md)
  - [Article](docs/Article.md)
+ - [AsyncAccepted](docs/AsyncAccepted.md)
+ - [AsyncAcceptedNextAction](docs/AsyncAcceptedNextAction.md)
+ - [AsyncCallbackStatus](docs/AsyncCallbackStatus.md)
  - [AutoScout24FiltersResponse](docs/AutoScout24FiltersResponse.md)
  - [AutoScout24Listing](docs/AutoScout24Listing.md)
  - [AutoScout24ListingDetail](docs/AutoScout24ListingDetail.md)
@@ -865,6 +871,9 @@ Class | Method | HTTP request | Description
  - [VintedUserProfile](docs/VintedUserProfile.md)
  - [VintedUserSummary](docs/VintedUserSummary.md)
  - [WebhookCreate](docs/WebhookCreate.md)
+ - [WebhookDeliveries](docs/WebhookDeliveries.md)
+ - [WebhookDelivery](docs/WebhookDelivery.md)
+ - [WebhookEvent](docs/WebhookEvent.md)
  - [WebhookListItem](docs/WebhookListItem.md)
  - [WebhookListResponse](docs/WebhookListResponse.md)
  - [WebhookResponse](docs/WebhookResponse.md)

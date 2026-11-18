@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 ## idealista_agency_by_phone
 
-> serde_json::Value idealista_agency_by_phone(phone, market, operation, property_type, page, max_items, include_listings)
+> serde_json::Value idealista_agency_by_phone(phone, market, operation, property_type, page, max_items, include_listings, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Agency by phone
 
 Reverse-lookup the agency behind a contact phone (national number), with its listings.
@@ -36,6 +36,13 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> |  |  |[default to 1]
 **max_items** | Option<**i32**> |  |  |[default to 30]
 **include_listings** | Option<**bool**> |  |  |[default to true]
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -55,7 +62,7 @@ Name | Type | Description  | Required | Notes
 
 ## idealista_agency_profile_listings
 
-> serde_json::Value idealista_agency_profile_listings(short_name, market, operation, property_type, page, max_items, include_listings)
+> serde_json::Value idealista_agency_profile_listings(short_name, market, operation, property_type, page, max_items, include_listings, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Agency profile + listings
 
 An agency's microsite profile plus a page of its listings (by URL-slug shortName).
@@ -72,6 +79,13 @@ Name | Type | Description  | Required | Notes
 **page** | Option<**i32**> |  |  |[default to 1]
 **max_items** | Option<**i32**> |  |  |[default to 30]
 **include_listings** | Option<**bool**> |  |  |[default to true]
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -91,7 +105,7 @@ Name | Type | Description  | Required | Notes
 
 ## idealista_get_listing_engagement_stats
 
-> serde_json::Value idealista_get_listing_engagement_stats(property_code, market, locale)
+> serde_json::Value idealista_get_listing_engagement_stats(property_code, market, locale, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Get listing engagement stats
 
 Engagement counters for a listing: views, email contacts, sent-to-friend, favourites.
@@ -104,6 +118,13 @@ Name | Type | Description  | Required | Notes
 **property_code** | **String** |  | [required] |
 **market** | Option<**String**> | es|it|pt |  |[default to es]
 **locale** | Option<**String**> | Language for stat labels |  |[default to en]
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -123,7 +144,7 @@ Name | Type | Description  | Required | Notes
 
 ## idealista_get_property_detail
 
-> serde_json::Value idealista_get_property_detail(property_code, market, locale)
+> serde_json::Value idealista_get_property_detail(property_code, market, locale, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Get property detail
 
 Get a single Idealista listing's full detail (energy cert, characteristics, media).
@@ -136,6 +157,13 @@ Name | Type | Description  | Required | Notes
 **property_code** | **String** |  | [required] |
 **market** | Option<**String**> | es|it|pt |  |[default to es]
 **locale** | Option<**String**> | Response language (en, es, it, pt) |  |[default to en]
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -209,14 +237,23 @@ This endpoint does not need any parameter.
 
 ## idealista_list_markets
 
-> serde_json::Value idealista_list_markets()
+> serde_json::Value idealista_list_markets(prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 List markets
 
 List supported Idealista markets (ES, IT, PT).
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -236,7 +273,7 @@ This endpoint does not need any parameter.
 
 ## idealista_resolve_locations
 
-> serde_json::Value idealista_resolve_locations(query, operation, property_type, market, locale)
+> serde_json::Value idealista_resolve_locations(query, operation, property_type, market, locale, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Resolve locations
 
 Resolve a free-text query into Idealista location codes for a search.
@@ -251,6 +288,13 @@ Name | Type | Description  | Required | Notes
 **property_type** | Option<**String**> | homes|offices|premises|garages|newDevelopments|lands|storageRooms|buildings|bedrooms |  |[default to homes]
 **market** | Option<**String**> | es|it|pt |  |[default to es]
 **locale** | Option<**String**> | Response language (en, es, it, pt) |  |
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -270,7 +314,7 @@ Name | Type | Description  | Required | Notes
 
 ## idealista_search_all_beats_result_cap
 
-> serde_json::Value idealista_search_all_beats_result_cap(location, operation, property_type, market, max_results, min_price, max_price, min_size, max_size, min_rooms, max_rooms, locale)
+> serde_json::Value idealista_search_all_beats_result_cap(location, operation, property_type, market, max_results, min_price, max_price, min_size, max_size, min_rooms, max_rooms, locale, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Search all (beats result cap)
 
 Full inventory for a location, beating Idealista's ~1800 per-search cap via price-range tiling (deduped). Billed per page fetched.
@@ -292,6 +336,13 @@ Name | Type | Description  | Required | Notes
 **min_rooms** | Option<**i32**> |  |  |
 **max_rooms** | Option<**i32**> |  |  |
 **locale** | Option<**String**> | Response language (en, es, it, pt) |  |
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 
@@ -311,7 +362,7 @@ Name | Type | Description  | Required | Notes
 
 ## idealista_search_listings
 
-> serde_json::Value idealista_search_listings(location, operation, property_type, market, page, max_items, sort_by, sort_order, min_price, max_price, min_size, max_size, min_rooms, max_rooms, locale)
+> serde_json::Value idealista_search_listings(location, operation, property_type, market, page, max_items, sort_by, sort_order, min_price, max_price, min_size, max_size, min_rooms, max_rooms, locale, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Search listings
 
 Search Idealista real-estate listings by location code.
@@ -336,6 +387,13 @@ Name | Type | Description  | Required | Notes
 **min_rooms** | Option<**i32**> |  |  |
 **max_rooms** | Option<**i32**> |  |  |
 **locale** | Option<**String**> | Response language (en, es, it, pt) |  |
+**prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
+**x_callback_url** | Option<**String**> | An `https` URL that receives the signed `request.completed` webhook when the call finishes. Implies async: on its own (no `Prefer`, `async` or `async_wait`) the answer is an immediate `202`; with `Prefer: respond-async` or `async=true` the call still waits 25 s unless a wait is given. Wins over `callback_url`. |  |
+**idempotency_key** | Option<**String**> | 1-200 visible ASCII characters, per account, kept as long as the result (about 15 minutes). The same key on the same call returns that call's current state (`Idempotent-Replayed: true`) without running or billing it again; on a different call it is `409 idempotency_key_reused`. Applies to async calls only; on a synchronous call it is ignored. Wins over `idempotency_key`. |  |
+**r#async** | Option<**bool**> | Query form of `Prefer: respond-async`: `true` or `1` (also `yes`, `on`; `false`, `0`, `no`, `off` leave the call synchronous). Waits 25 s unless `async_wait` is given. Not sent to the scraper. |  |
+**async_wait** | Option<**i32**> | Seconds (0-120; values outside are clamped) to wait for the result before answering `202`. Implies async. Not sent to the scraper. |  |
+**callback_url** | Option<**String**> | Query form of `X-Callback-URL` (URL-encode it). Implies async; on its own the answer is an immediate `202` (wait 0). Not sent to the scraper. |  |
+**idempotency_key2** | Option<**String**> | Query form of `Idempotency-Key`. Not sent to the scraper. |  |
 
 ### Return type
 

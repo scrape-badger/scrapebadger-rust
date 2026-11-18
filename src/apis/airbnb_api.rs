@@ -151,7 +151,7 @@ pub async fn airbnb_airbnb_scraper_health_check_head(configuration: &configurati
 }
 
 /// Day-by-day availability for up to 12 months: bookable, check-in/out windows and min/max nights per date.
-pub async fn airbnb_get_availability_calendar(configuration: &configuration::Configuration, room_id: &str, month: Option<i32>, year: Option<i32>, months: Option<i32>, currency: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetAvailabilityCalendarError>> {
+pub async fn airbnb_get_availability_calendar(configuration: &configuration::Configuration, room_id: &str, month: Option<i32>, year: Option<i32>, months: Option<i32>, currency: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetAvailabilityCalendarError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -174,8 +174,29 @@ pub async fn airbnb_get_availability_calendar(configuration: &configuration::Con
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -202,7 +223,7 @@ pub async fn airbnb_get_availability_calendar(configuration: &configuration::Con
 }
 
 /// Full detail for one experience: description, rating, host, location and photos.
-pub async fn airbnb_get_experience_detail(configuration: &configuration::Configuration, experience_id: &str, adults: Option<i32>, children: Option<i32>, infants: Option<i32>, currency: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetExperienceDetailError>> {
+pub async fn airbnb_get_experience_detail(configuration: &configuration::Configuration, experience_id: &str, adults: Option<i32>, children: Option<i32>, infants: Option<i32>, currency: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetExperienceDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -225,8 +246,29 @@ pub async fn airbnb_get_experience_detail(configuration: &configuration::Configu
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -253,7 +295,7 @@ pub async fn airbnb_get_experience_detail(configuration: &configuration::Configu
 }
 
 /// Full detail for one listing: amenities, house rules, host, ratings, coordinates and photos.
-pub async fn airbnb_get_listing_detail(configuration: &configuration::Configuration, room_id: &str, adults: Option<i32>, currency: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetListingDetailError>> {
+pub async fn airbnb_get_listing_detail(configuration: &configuration::Configuration, room_id: &str, adults: Option<i32>, currency: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetListingDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -270,8 +312,29 @@ pub async fn airbnb_get_listing_detail(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -298,7 +361,7 @@ pub async fn airbnb_get_listing_detail(configuration: &configuration::Configurat
 }
 
 /// Paginated guest reviews with reviewer, rating, date, text and host response.
-pub async fn airbnb_get_listing_reviews(configuration: &configuration::Configuration, room_id: &str, limit: Option<i32>, offset: Option<i32>, sort: Option<&str>, currency: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetListingReviewsError>> {
+pub async fn airbnb_get_listing_reviews(configuration: &configuration::Configuration, room_id: &str, limit: Option<i32>, offset: Option<i32>, sort: Option<&str>, currency: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AirbnbGetListingReviewsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -321,8 +384,29 @@ pub async fn airbnb_get_listing_reviews(configuration: &configuration::Configura
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -349,7 +433,7 @@ pub async fn airbnb_get_listing_reviews(configuration: &configuration::Configura
 }
 
 /// Search Airbnb Experiences by location.
-pub async fn airbnb_search_experiences(configuration: &configuration::Configuration, location: &str, cursor: Option<&str>, currency: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<AirbnbSearchExperiencesError>> {
+pub async fn airbnb_search_experiences(configuration: &configuration::Configuration, location: &str, cursor: Option<&str>, currency: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AirbnbSearchExperiencesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -367,8 +451,29 @@ pub async fn airbnb_search_experiences(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -395,7 +500,7 @@ pub async fn airbnb_search_experiences(configuration: &configuration::Configurat
 }
 
 /// Search Airbnb stays by place name and/or map bounding box, with dates, guests, price and property filters. Paginate with the `cursor`.
-pub async fn airbnb_search_stays(configuration: &configuration::Configuration, location: Option<&str>, ne_lat: Option<f64>, ne_lng: Option<f64>, sw_lat: Option<f64>, sw_lng: Option<f64>, check_in: Option<&str>, check_out: Option<&str>, adults: Option<i32>, children: Option<i32>, infants: Option<i32>, pets: Option<i32>, price_min: Option<i32>, price_max: Option<i32>, min_bedrooms: Option<i32>, min_beds: Option<i32>, min_bathrooms: Option<i32>, room_type: Option<&str>, cursor: Option<&str>, limit: Option<i32>, currency: Option<&str>, locale: Option<&str>) -> Result<serde_json::Value, Error<AirbnbSearchStaysError>> {
+pub async fn airbnb_search_stays(configuration: &configuration::Configuration, location: Option<&str>, ne_lat: Option<f64>, ne_lng: Option<f64>, sw_lat: Option<f64>, sw_lng: Option<f64>, check_in: Option<&str>, check_out: Option<&str>, adults: Option<i32>, children: Option<i32>, infants: Option<i32>, pets: Option<i32>, price_min: Option<i32>, price_max: Option<i32>, min_bedrooms: Option<i32>, min_beds: Option<i32>, min_bathrooms: Option<i32>, room_type: Option<&str>, cursor: Option<&str>, limit: Option<i32>, currency: Option<&str>, locale: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AirbnbSearchStaysError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -466,8 +571,29 @@ pub async fn airbnb_search_stays(configuration: &configuration::Configuration, l
     if let Some(ref local_var_str) = locale {
         local_var_req_builder = local_var_req_builder.query(&[("locale", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();

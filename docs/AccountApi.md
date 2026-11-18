@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**account_get_account_info**](AccountApi.md#account_get_account_info) | **GET** /v1/account/me | Get account info
 [**account_get_the_webhook_signing_secret**](AccountApi.md#account_get_the_webhook_signing_secret) | **GET** /v1/account/webhook-secret | Get the webhook signing secret
 [**account_rotate_the_webhook_signing_secret**](AccountApi.md#account_rotate_the_webhook_signing_secret) | **POST** /v1/account/webhook-secret/rotate | Rotate the webhook signing secret
+[**account_webhook_deliveries**](AccountApi.md#account_webhook_deliveries) | **GET** /v1/account/webhook-deliveries | Webhook deliveries
 
 
 
@@ -78,6 +79,36 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**models::WebhookSecret**](WebhookSecret.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## account_webhook_deliveries
+
+> models::WebhookDeliveries account_webhook_deliveries(limit)
+Webhook deliveries
+
+This account's async-request webhook deliveries of the last 24 h, newest first. Free. Needs a full-access API key, like the webhook secret: a trial key gets `403 trial_not_allowed`, a key restricted to some APIs `403 full_access_required`.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**limit** | Option<**i32**> | How many deliveries to return (1-200). |  |[default to 50]
+
+### Return type
+
+[**models::WebhookDeliveries**](WebhookDeliveries.md)
 
 ### Authorization
 

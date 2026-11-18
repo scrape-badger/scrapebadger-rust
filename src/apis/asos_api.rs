@@ -72,7 +72,7 @@ pub enum AsosSearchSuggestionsError {
 
 
 /// Product, live per-size stock and price, images, descriptions, reviews and breadcrumbs.
-pub async fn asos_get_product_detail(configuration: &configuration::Configuration, product_id: i32, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>) -> Result<models::ProductResponse, Error<AsosGetProductDetailError>> {
+pub async fn asos_get_product_detail(configuration: &configuration::Configuration, product_id: i32, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<models::ProductResponse, Error<AsosGetProductDetailError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -95,8 +95,29 @@ pub async fn asos_get_product_detail(configuration: &configuration::Configuratio
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -123,7 +144,7 @@ pub async fn asos_get_product_detail(configuration: &configuration::Configuratio
 }
 
 /// Refresh product and variant stock/prices; reports missing product ids explicitly.
-pub async fn asos_get_stock_and_prices(configuration: &configuration::Configuration, product_ids: &str, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>) -> Result<models::StockResponse, Error<AsosGetStockAndPricesError>> {
+pub async fn asos_get_stock_and_prices(configuration: &configuration::Configuration, product_ids: &str, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<models::StockResponse, Error<AsosGetStockAndPricesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -147,8 +168,29 @@ pub async fn asos_get_stock_and_prices(configuration: &configuration::Configurat
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -175,7 +217,7 @@ pub async fn asos_get_stock_and_prices(configuration: &configuration::Configurat
 }
 
 /// Full nested navigation with category ids, names, images and links.
-pub async fn asos_list_categories(configuration: &configuration::Configuration, gender: Option<&str>, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<AsosListCategoriesError>> {
+pub async fn asos_list_categories(configuration: &configuration::Configuration, gender: Option<&str>, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AsosListCategoriesError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -201,8 +243,29 @@ pub async fn asos_list_categories(configuration: &configuration::Configuration, 
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -228,7 +291,7 @@ pub async fn asos_list_categories(configuration: &configuration::Configuration, 
     }
 }
 
-pub async fn asos_list_markets(configuration: &configuration::Configuration, ) -> Result<serde_json::Value, Error<AsosListMarketsError>> {
+pub async fn asos_list_markets(configuration: &configuration::Configuration, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AsosListMarketsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -236,8 +299,29 @@ pub async fn asos_list_markets(configuration: &configuration::Configuration, ) -
     let local_var_uri_str = format!("{}/v1/asos/markets", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -264,7 +348,7 @@ pub async fn asos_list_markets(configuration: &configuration::Configuration, ) -
 }
 
 /// Facet ids, labels, option counts and selections for a query or category.
-pub async fn asos_list_search_filters(configuration: &configuration::Configuration, query: Option<&str>, category_id: Option<i32>, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<AsosListSearchFiltersError>> {
+pub async fn asos_list_search_filters(configuration: &configuration::Configuration, query: Option<&str>, category_id: Option<i32>, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AsosListSearchFiltersError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -293,8 +377,29 @@ pub async fn asos_list_search_filters(configuration: &configuration::Configurati
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -321,7 +426,7 @@ pub async fn asos_list_search_filters(configuration: &configuration::Configurati
 }
 
 /// Search by query, category_id, or both. Includes price, images and filter facets.
-pub async fn asos_search_products(configuration: &configuration::Configuration, query: Option<&str>, category_id: Option<i32>, offset: Option<i32>, limit: Option<i32>, sort: Option<&str>, brand: Option<&str>, colour: Option<&str>, size: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>) -> Result<models::PortalApiRoutersV1AsosSearchResponse, Error<AsosSearchProductsError>> {
+pub async fn asos_search_products(configuration: &configuration::Configuration, query: Option<&str>, category_id: Option<i32>, offset: Option<i32>, limit: Option<i32>, sort: Option<&str>, brand: Option<&str>, colour: Option<&str>, size: Option<&str>, min_price: Option<f64>, max_price: Option<f64>, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<models::PortalApiRoutersV1AsosSearchResponse, Error<AsosSearchProductsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -374,8 +479,29 @@ pub async fn asos_search_products(configuration: &configuration::Configuration, 
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
@@ -402,7 +528,7 @@ pub async fn asos_search_products(configuration: &configuration::Configuration, 
 }
 
 /// Search suggestions with result counts.
-pub async fn asos_search_suggestions(configuration: &configuration::Configuration, query: &str, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>) -> Result<serde_json::Value, Error<AsosSearchSuggestionsError>> {
+pub async fn asos_search_suggestions(configuration: &configuration::Configuration, query: &str, market: Option<&str>, store: Option<&str>, country: Option<&str>, currency: Option<&str>, language: Option<&str>, prefer: Option<&str>, x_callback_url: Option<&str>, idempotency_key: Option<&str>, r#async: Option<bool>, async_wait: Option<i32>, callback_url: Option<&str>, idempotency_key2: Option<&str>) -> Result<serde_json::Value, Error<AsosSearchSuggestionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -426,8 +552,29 @@ pub async fn asos_search_suggestions(configuration: &configuration::Configuratio
     if let Some(ref local_var_str) = language {
         local_var_req_builder = local_var_req_builder.query(&[("language", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_str) = r#async {
+        local_var_req_builder = local_var_req_builder.query(&[("async", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = async_wait {
+        local_var_req_builder = local_var_req_builder.query(&[("async_wait", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = callback_url {
+        local_var_req_builder = local_var_req_builder.query(&[("callback_url", &local_var_str.to_string())]);
+    }
+    if let Some(ref local_var_str) = idempotency_key2 {
+        local_var_req_builder = local_var_req_builder.query(&[("idempotency_key", &local_var_str.to_string())]);
+    }
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(local_var_param_value) = prefer {
+        local_var_req_builder = local_var_req_builder.header("Prefer", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = x_callback_url {
+        local_var_req_builder = local_var_req_builder.header("X-Callback-URL", local_var_param_value.to_string());
+    }
+    if let Some(local_var_param_value) = idempotency_key {
+        local_var_req_builder = local_var_req_builder.header("Idempotency-Key", local_var_param_value.to_string());
     }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
