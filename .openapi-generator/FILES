@@ -120,6 +120,10 @@ docs/GitHubStatus.md
 docs/GitHubTextLink.md
 docs/GoogleApi.md
 docs/GooglePlayApi.md
+docs/GoogleResolveItem.md
+docs/GoogleResolveRequest.md
+docs/GoogleResolveResponse.md
+docs/GoogleResolveRow.md
 docs/GrokApi.md
 docs/GumtreeApi.md
 docs/HttpValidationError.md
@@ -398,6 +402,10 @@ src/models/git_hub_repository_response.rs
 src/models/git_hub_social_account.rs
 src/models/git_hub_status.rs
 src/models/git_hub_text_link.rs
+src/models/google_resolve_item.rs
+src/models/google_resolve_request.rs
+src/models/google_resolve_response.rs
+src/models/google_resolve_row.rs
 src/models/http_validation_error.rs
 src/models/imageurl.rs
 src/models/is_live.rs
