@@ -216,7 +216,7 @@ Name | Type | Description  | Required | Notes
 > serde_json::Value wallapop_list_categories(market, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 List categories
 
-The full category tree; ids are usable as the search category_id.
+The full category tree; top-level ids are the search category_id, nested subcategory ids go in subcategory_ids.
 
 ### Parameters
 
@@ -250,7 +250,7 @@ Name | Type | Description  | Required | Notes
 
 ## wallapop_list_filter_options
 
-> serde_json::Value wallapop_list_filter_options(filter_id, category_id, query, market, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
+> serde_json::Value wallapop_list_filter_options(filter_id, category_id, subcategory_ids, query, market, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 List filter options
 
 Long option lists (e.g. brand, model) for filters flagged options_endpoint.
@@ -262,6 +262,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **filter_id** | **String** |  | [required] |
 **category_id** | Option<**i32**> | Category to scope options to |  |
+**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids to scope options to |  |
 **query** | Option<**String**> | Search text to scope options to |  |
 **market** | Option<**String**> | Market: es (Spain), it (Italy), pt (Portugal) |  |[default to es]
 **prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
@@ -326,7 +327,7 @@ Name | Type | Description  | Required | Notes
 
 ## wallapop_list_search_filters
 
-> serde_json::Value wallapop_list_search_filters(category_id, query, market, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
+> serde_json::Value wallapop_list_search_filters(category_id, subcategory_ids, query, market, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 List search filters
 
 The filters Wallapop offers for a category or query, with option ids.
@@ -337,6 +338,7 @@ The filters Wallapop offers for a category or query, with option ids.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **category_id** | Option<**i32**> | Category the filters apply to |  |
+**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids the filters apply to |  |
 **query** | Option<**String**> | Search text the filters apply to |  |
 **market** | Option<**String**> | Market: es (Spain), it (Italy), pt (Portugal) |  |[default to es]
 **prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
@@ -365,10 +367,10 @@ Name | Type | Description  | Required | Notes
 
 ## wallapop_search_listings
 
-> serde_json::Value wallapop_search_listings(query, market, latitude, longitude, distance_km, category_id, min_price, max_price, condition, brand, model, color, time_filter, shippable, has_warranty, refurbished, min_year, max_year, min_km, max_km, gearbox, min_horsepower, max_horsepower, order_by, next_page, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
+> serde_json::Value wallapop_search_listings(query, market, latitude, longitude, distance_km, category_id, subcategory_ids, min_price, max_price, condition, brand, model, color, time_filter, shippable, has_warranty, refurbished, min_year, max_year, min_km, max_km, gearbox, min_horsepower, max_horsepower, order_by, next_page, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Search listings
 
-Search Wallapop listings (40 per page). Needs a query, a category_id, or both.
+Search Wallapop listings (40 per page). Needs a query, a category_id, subcategory_ids, or a combination.
 
 ### Parameters
 
@@ -381,6 +383,7 @@ Name | Type | Description  | Required | Notes
 **longitude** | Option<**f64**> | Search centre longitude |  |
 **distance_km** | Option<**i32**> | Search radius |  |
 **category_id** | Option<**i32**> | Category id from /categories |  |
+**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids from /categories (any level of the tree), e.g. 9447 (Smartphones) or 9447,10310 |  |
 **min_price** | Option<**f64**> | Minimum price (EUR) |  |
 **max_price** | Option<**f64**> | Maximum price (EUR) |  |
 **condition** | Option<**String**> | Comma-separated: un_opened, in_box, new, as_good_as_new, good, fair, has_given_it_all |  |
