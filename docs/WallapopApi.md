@@ -262,7 +262,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **filter_id** | **String** |  | [required] |
 **category_id** | Option<**i32**> | Category to scope options to |  |
-**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids to scope options to |  |
+**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids (needs their category_id) |  |
 **query** | Option<**String**> | Search text to scope options to |  |
 **market** | Option<**String**> | Market: es (Spain), it (Italy), pt (Portugal) |  |[default to es]
 **prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
@@ -338,7 +338,7 @@ The filters Wallapop offers for a category or query, with option ids.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **category_id** | Option<**i32**> | Category the filters apply to |  |
-**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids the filters apply to |  |
+**subcategory_ids** | Option<**String**> | Comma-separated subcategory ids (needs their category_id) |  |
 **query** | Option<**String**> | Search text the filters apply to |  |
 **market** | Option<**String**> | Market: es (Spain), it (Italy), pt (Portugal) |  |[default to es]
 **prefer** | Option<**String**> | `respond-async[, wait=N]` (RFC 7240): run the call async. If it has not finished after `wait` seconds (0-120, default 25) the answer is `202` with a `request_id`; poll `GET /v1/requests/{request_id}`. Its `wait=` wins over `async_wait`; without one, `async_wait` sets the wait. |  |
