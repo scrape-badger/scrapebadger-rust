@@ -586,7 +586,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_light_web_search
 
-> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, output, oq, sourceid, ie, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, device, user_agent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
+> serde_json::Value google_google_light_web_search(q, gl, hl, num, start, domain, location, uule, lr, tbs, safe, filter, nfpr, require_resolved_links, output, oq, sourceid, ie, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, device, user_agent, cr, ludocid, lsig, kgmid, si, ibp, uds, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Google Light web search
 
 Organic results and related searches only. Costs 10 credits per successful uncached request, compared with 20 credits for regular Google Search. Light always skips rich SERP blocks; mode and ai_overview cannot enable them.
@@ -609,6 +609,7 @@ Name | Type | Description  | Required | Notes
 **safe** | Option<**String**> | Safe search: off or active |  |[default to off]
 **filter** | Option<**i32**> |  |  |
 **nfpr** | Option<**i32**> | Disable auto-correction |  |[default to 0]
+**require_resolved_links** | Option<**bool**> | Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full). |  |[default to false]
 **output** | Option<**String**> |  |  |[default to json]
 **oq** | Option<**String**> | Original query sent to Google. Defaults to q; an empty string omits it. |  |
 **sourceid** | Option<**String**> | Google source identifier. Defaults to chrome; an empty string omits it. |  |
@@ -802,7 +803,7 @@ Name | Type | Description  | Required | Notes
 
 ## google_google_web_search
 
-> serde_json::Value google_google_web_search(q, gl, hl, num, start, domain, device, user_agent, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, ai_overview, mode, expand_related_questions, oq, sourceid, ie, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
+> serde_json::Value google_google_web_search(q, gl, hl, num, start, domain, device, user_agent, require_resolved_links, output, location, lr, tbs, safe, uule, filter, nfpr, cr, ludocid, lsig, kgmid, si, ibp, uds, ai_overview, mode, expand_related_questions, oq, sourceid, ie, google_domain, lat, lon, radius, color_scheme, tbm, udm, no_cache, as_dt, as_epq, as_eq, as_lq, as_nlo, as_nhi, as_oq, as_q, as_qdr, as_rq, as_sitesearch, prefer, x_callback_url, idempotency_key, r#async, async_wait, callback_url, idempotency_key2)
 Google web search
 
 Search Google and get structured results (organic, ads, KG, AI overview, PAA).
@@ -820,6 +821,7 @@ Name | Type | Description  | Required | Notes
 **domain** | Option<**String**> | Google domain |  |[default to google.com]
 **device** | Option<**String**> | Device target: desktop, mobile, iphone, android, tablet |  |[default to desktop]
 **user_agent** | Option<**String**> | Custom User-Agent (overrides device) |  |
+**require_resolved_links** | Option<**bool**> | Require direct organic result URLs and resolve Google redirects in returned result links. JSON only. The handler returns HTTP 503 on a budget miss (2 s fast, 2.5 s full). |  |[default to false]
 **output** | Option<**String**> | Response format: json (parsed) or html (raw SERP) |  |[default to json]
 **location** | Option<**String**> | City-level geo-targeting |  |
 **lr** | Option<**String**> | Language restrict (e.g. lang_en) |  |
